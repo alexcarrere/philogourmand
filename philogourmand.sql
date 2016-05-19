@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 19 Mai 2016 à 13:41
+-- Généré le :  Jeu 19 Mai 2016 à 14:56
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -37,6 +37,14 @@ CREATE TABLE `contact` (
   `date_add` datetime NOT NULL,
   `message_state` enum('read','unread') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `contact`
+--
+
+INSERT INTO `contact` (`id`, `firstname`, `lastname`, `email`, `content`, `date_add`, `message_state`) VALUES
+(1, 'Alexandre', 'Carrere', 'lorem@ipsum.fr', 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus iaculis aliquet arcu, sed porttitor quam lacinia vitae. Proin cursus tortor in sapien pellentesque, eu accumsan ex euismod. Duis efficitur sem ut lorem accumsan, quis pellentesque felis semper. Etiam felis nulla, fringilla ut vulputate vel, imperdiet eget lectus. Vivamus consectetur, est in congue pulvinar, est dui faucibus ante, vel fringilla erat urna in nunc. Nullam efficitur, ligula et ultricies mollis, odio leo fringilla elit, a tristique ipsum nunc vitae nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed ut vehicula sem, nec fringilla est. ', '2016-05-23 10:33:17', 'unread'),
+(3, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxs\n\n\nalert("toto")', '2016-05-19 14:40:38', 'unread');
 
 -- --------------------------------------------------------
 
@@ -103,6 +111,7 @@ CREATE TABLE `users` (
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `date_reg` datetime NOT NULL,
   `role` enum('admin','editor') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -160,7 +169,7 @@ ALTER TABLE `recipes`
 -- AUTO_INCREMENT pour la table `resto`
 --
 ALTER TABLE `resto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `tokens_password`
 --
