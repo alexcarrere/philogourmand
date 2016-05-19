@@ -1,3 +1,7 @@
-# philogourmand
-WF3 3 days project
- 
+# Projet en équipe
+Projet en équipe Webforce3
+
+## Contributeurs :
+Carine, Hugues, Thibaut, Alexandre, Brice
+
+## Notes :
