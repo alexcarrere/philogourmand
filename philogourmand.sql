@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 19 Mai 2016 à 13:33
+-- Généré le :  Jeu 19 Mai 2016 à 13:41
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -30,7 +30,6 @@ USE `philogourmand`;
 
 CREATE TABLE `contact` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
