@@ -86,7 +86,7 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
                 }
                 else {
                     // Permet d'assigner un link par defaut
-                    $dirlink = "../img/link-default.jpg";
+                    $dirlink = "img/link-default.jpg";
                 }
         } // if (in_array($mimeType, $mimTypeOK))
 
@@ -103,7 +103,7 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
 
 else {
     // Permet d'assigner l'link par defaut si l'recette n'en a aucun
-    $dirlink = "../img/link-default.jpg";
+    $dirlink = "img/link-default.jpg";
 }
 
 
@@ -158,7 +158,18 @@ if(!empty($_POST) && $recipeExist == true) {
 	}
 }
 ?>
+<!DOCTYPE html>
 
+
+<html Lang="fr">
+<head>
+<meta charset="utf-8">
+  <title></title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  
+</head>
+<body>
+<main class="container">
 	
 
 	<div id="page-content-wrapper">
@@ -231,7 +242,8 @@ if(!empty($_POST) && $recipeExist == true) {
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="content">Déscriptif de la recette</label>  
                                         <div class="col-md-10">
-                                            <input id="content" name="content" type="text" class="form-control input-md" required="true" value="<?php echo $editrecipe['content']; ?>">
+                                            <textarea id="content" name="content" rows="15" class="form-control input-md"><?php echo $editrecipe['content']; ?></textarea>
+                                            
                                         </div>
                                     </div><!--.form-group-->
 
@@ -263,3 +275,8 @@ if(!empty($_POST) && $recipeExist == true) {
         </div><!--#page-content-wrapper-->
 
     </div><!--#wrapper // start in sidebar.php -->
+</main>
+
+
+</body>
+</html>
