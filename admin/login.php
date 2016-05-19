@@ -1,7 +1,7 @@
 <?php
 $debutSession = session_start();//permet de demarrer la session
 
-$pdo = new PDO('mysql:host=localhost;dbname=philogourmand;charset=utf8', 'root', '');
+require_once '../inc/connect.php';
 
 $post =array();
 $error = array();
@@ -115,7 +115,7 @@ if(!empty($_POST)){//01
 			</div>
 
 </form>
-<a href="token/recupEmail.php">Mot de passe oublié</a>
+<a href="lost_password.php">Mot de passe oublié</a>
 </main>
 
 
