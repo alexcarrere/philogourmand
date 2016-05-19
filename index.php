@@ -19,25 +19,25 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">PhiloGourmand</a><br>
-          <p class="navbar-brand">66 rue de l'Abbé de l'Epée, 33000 BORDEAUX<br>
-          05.56.52.23.26</p>
-          </div>
-        <div class="contact">
-        <a href="contact.php" title="Nous contacter">Nous contacter</a><!-- penser à renvoyer vers la page de contact contact.php!!!!! -->
-          </div>
-          
-           
+    <nav id="background_navbar" class="navbar navbar-inverse navbar-fixed-top"><!-- dbt nav barre -->
+      <div class="container"> <!-- dbt div container 1 -->
+        
+          <div class="navbar-header"><!-- dbt div navbar header -->
 
+            <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button> -->
+            <a id="logo" class="navbar-brand" href="#">PhiloGourmand</a><br>
+            <p class="navbar-brand">66 rue de l'Abbé de l'Epée, 33000 BORDEAUX<br>
+            05.56.52.23.26</p>
+          </div> <!-- fin div navbar header -->
+
+          <div id="text-align-right" class="contact">
+          <a href="contact.php">Nous contacter</a><!-- renvoie vers la page de contact contact.php!!!!! -->
+          </div>
         
         <!-- ce qu'il y avait a l'origine sur l'exemple :
         <div id="navbar" class="navbar-collapse collapse">
@@ -51,60 +51,50 @@
             <button type="submit" class="btn btn-success">Sign in</button>
           </form> 
         </div><!--/.navbar-collapse -->
-      </div> 
-    </nav>
+
+      </div> <!-- fin div container 1 -->
+    </nav> <!-- fin nav barre -->
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-2 text-center">111</div>
+    <div id="background_1" class="jumbotron">
+      <div class="container"> <!-- dbt div container 2 -->
+        <div class="row"><!-- dbt div row 2-->
+          <div class="col-lg-2 text-center"></div>
           <div class="col-lg-8 text-center"><img class="img-responsive" alt="" src="img/restaurant.jpg"></div>   
-          <div class="col-lg-2 text-center">22222</div> 
+          <div class="col-lg-2 text-center"></div> 
             
-          </div> <!-- fin div row -->
-        </div> <!-- fin div container -->
+          </div> <!-- fin div row 2 -->
+        </div> <!-- fin div container 2 -->
       </div> <!-- fin div jumbotron -->
 
-   Bienvenue à PhiloGourmand:<br>
 
-    
-
-
-
-              <!--<h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>//-->
-      </div>
-    
-
-    <div class="container">
+    <div id="background_2" class="container">
       <!-- Example row of columns -->
       <div class="row">
-          <h2>Les recettes de la Philo</h2>
+          <h1>Les recettes de la Philo</h1>
         <div class="col-md-4">
-          <h2>lire la recette1</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <img class="img-responsive" alt="entree" src="img/entre.jpg">
+          <br>    
+          <p><a  href="#">lire la recette1 </a></p>
         </div>
-        <div id="tmpborder" class="col-md-4">
-         <h2>lire la recette2</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-md-4">
+          <img class="img-responsive" alt="plat" src="img/plat.jpg"> 
+          <br>
+          <p><a href="#">lire la recette2 </a></p>
        </div>
         <div class="col-md-4">
-          <h2>lire la recette3</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <img class="img-responsive" alt="dessert" src="img/dessert.jpg">
+          <br>           
+          <p><a href="#" >lire la recette3 </a></p>
         </div>
       </div>
 
       <hr>
 
+    </div> <!-- /container -->
       <footer>
         <a href="admin/login.php">Admin</p>
       </footer>
-    </div> <!-- /container -->
 
 
     <!-- Bootstrap core JavaScript

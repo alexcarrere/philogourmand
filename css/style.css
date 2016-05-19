@@ -5,3 +5,37 @@
 #tmpborder {
 	background-color: #575745;
 }
+
+#text-align-right {
+	text-align: right;
+	margin-top: 45px;
+	font-size: 1.5em;
+}
+
+#logo {
+	font-size: 2em;
+	font-family: cursive;
+	color: ;
+}
+
+#background_navbar {
+	background-color: #38a5a7;
+}
+
+#background_1 {
+	background-color: #b8bc60;
+}
+
+#background_2 {
+	background-color: #f04b4c;
+}
+
+body{
+	background-color: #fbad51;
+}
+
+h1{
+	font-family: cursive;
+	font-size: 2em;
+	text-align: center;
+}
