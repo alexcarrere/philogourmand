@@ -7,7 +7,7 @@ require_once '../inc/connect.php';
 
 $post = array(); // Contiendra les données du formulaire nettoyées
 $errors = array(); // contiendra nos éventuelles erreurs
-$allowRole = ['user', 'admin'];
+$allowRole = ['editor', 'admin'];
 
 $showErrors = false;
 $success = false; 
