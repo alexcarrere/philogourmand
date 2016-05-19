@@ -18,7 +18,7 @@
         <th>Contenu</th>
         <th>Visuel</th>
         <th>Date de publication</th>
-        <th>Utilisateur</th>
+        <th>Créateur</th>
         <th>Actions</th>
       </tr>
     </thead>
