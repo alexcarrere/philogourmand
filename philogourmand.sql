@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 19 Mai 2016 à 11:53
+-- Généré le :  Jeu 19 Mai 2016 à 13:33
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -33,6 +33,7 @@ CREATE TABLE `contact` (
   `title` varchar(255) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `lastname` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `date_add` datetime NOT NULL,
   `message_state` enum('read','unread') NOT NULL
@@ -75,7 +76,7 @@ CREATE TABLE `resto` (
 --
 
 INSERT INTO `resto` (`id`, `link`, `adress`, `zipcode`, `city`, `email`, `phone`, `title`) VALUES
-(1, '/img/ma_super_image.jpg', '66 Rue Abbé de l''Épée', '33000', 'Bordeaux', 'postmaster@philogourmand.fr', '0011223344', 'Philogourmand');
+(1, 'img/ma_super_image.jpg', '66 Rue Abbé de l''Épée', '33000', 'Bordeaux', 'postmaster@philogourmand.fr', '0011223344', 'Philogourmand');
 
 -- --------------------------------------------------------
 
