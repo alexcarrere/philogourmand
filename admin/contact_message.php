@@ -101,7 +101,9 @@ if (!empty($_GET) && isset($_GET['id_message'])) {
 	 		$del->bindValue(':id',$id_message,PDO::PARAM_INT);
 
 	 		if($del->execute()) {
+	 			$_SESSION['del_message'] = 'ok';
 	 			header('Location: contact_message.php');
+	 			die;
 	 		}
 
 	 	} 
@@ -141,29 +143,31 @@ else { //Sinon on affiche tous les messages
 	}
 }
 
+include_once '../inc/header_admin.php';
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Gestion des messages de contact</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-</head>
-<body>
 
 	
 	<?php if (count($error) > 0) : ?>
 		<div><?=implode('<br>', $error);?></div>
 	<?php endif; ?>
 
+	<?php 
+		//Si un message à été effacé, on affiche la confirmation puis on efface la variable de session correspondante
+		if(isset($_SESSION['del_message']) && $_SESSION['del_message'] == 'ok') {
+			unset($_SESSION['del_message']);
+			echo '<div class="alert alert-success" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					Message correctement effacé
+				</div>';
+		}
+	?>
 
 	<?php if($showAllMessages) : //On affiche la liste des messages seulement si la variable $showAllMessages est à true ?>
 	<h2 class="text-center">Liste des messages</h2>
 
 	<hr>
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered table-condensed">
 	   <thead>
 	     <tr>
 	       <th>id</th>
@@ -173,86 +177,111 @@ else { //Sinon on affiche tous les messages
 	       <th>Email</th>
 	       <th>Date</th>
 	       <th>Etat</th>
+	       <th></th>
+	       <th></th>
+	       <th></th>
 	     </tr>
 	   </thead>
-	<?php
-	   foreach($message_list as $message) :
-	   $date = date('d/m/Y H:i:m', strtotime($message['date_add']));
-	?>
+
 	   <tbody>
-	     <tr>
-	       	<td><?=$message['id']; ?></td>
-	       	<td><?=$message['content']; ?></td>
-	       	<td><?=$message['firstname']; ?></td>
-	       	<td><?=$message['lastname']; ?></td>
-	       	<td><?=$message['email']?></td>
-	       	<td><?=$date; ?></td>
-	       	<?php if ($message['message_state'] == 'read') : ?>
-	       		<td>Lu</td>
-	   		<?php else : ?>
-	   			<td>Non lu</td>
-	   		<?php endif; ?>
+			<?php
+			   foreach($message_list as $message) :
+			   $date = date('d/m/Y H:i:m', strtotime($message['date_add']));
+			?>
+			     <tr>
+			       	<td><?=$message['id']; ?></td>
+			       	<td><?=$message['content']; ?></td>
+			       	<td><?=$message['firstname']; ?></td>
+			       	<td><?=$message['lastname']; ?></td>
+			       	<td><?=$message['email']?></td>
+			       	<td><?=$date; ?></td>
+			       	<?php if ($message['message_state'] == 'read') : ?>
+			       		<td>Lu</td>
+			   		<?php else : ?>
+			   			<td>Non lu</td>
+			   		<?php endif; ?>
 
-	       <td>
-	         <a type="button" class="btn btn-info" href="?id_message=<?=$message['id'];?>">Voir</a>
-	       </td>
-	       <td>
-	         <a type="button" class="btn btn-primary" href="?id_message=<?=$message['id'];?>&action=rep">Répondre</a>
-	       </td>
-	       <td>
-	         <a type="button" class="btn btn-danger" href="?id_message=<?=$message['id'];?>&action=delete">Supprimer</a>
-	       </td>
+			       <td>
+			         <a type="button" class="btn btn-info" href="?id_message=<?=$message['id'];?>">Voir</a>
+			       </td>
+			       <td>
+			         <a type="button" class="btn btn-primary" href="?id_message=<?=$message['id'];?>&action=rep">Répondre</a>
+			       </td>
+			       <td>
+			         <a type="button" class="btn btn-danger" href="?id_message=<?=$message['id'];?>&action=delete">Supprimer</a>
+			       </td>
 
-	     </tr>
+			     </tr>
+			<?php endforeach; ?> <!-- fin foreach -->
+
 	   </tbody>
-	<?php endforeach; ?> <!-- fin foreach -->
 	</table>
 
 	<?php endif; ?> <!-- Fin affichage de tous les messages --> 
 
-	<?php if($showMessage) : //On affiche le message sélectionné ?>
+	<?php if($showMessage) : //On affiche le message sélectionné
+			$date = date('d/m/Y H:i:m', strtotime($message['date_add']));
+	?>
 
-		<h2 class="text-center">Message du client :  <?php echo $message['lastname']. ' ' .$message['firstname'];; ?> </h2>
+		<div class="panel panel-default">
+			<div class="panel-heading"><h3 class="text-center">Message du client :  <?php echo $message['lastname']. ' ' .$message['firstname']; ?></h3></div>
+			<div class="panel-body">
+				<p><strong>Email :</strong> <?=$message['email']; ?></p>
+				<p><strong>Contenu :</strong> <?=$message['content']; ?> </p>
+				<p><strong>Date de réception :</strong> <?=$date; ?></p>
+			</div>
+		</div>
 
-		<p>Email : <?=$message['email']; ?></p>
-		<p>Contenu : <?=$message['content']; ?> </p>
-		<p>Date de réception : <?php echo $message['date_add']; ?></p>
+
 
 		<br>
+
+		<?php if(!$repMessage) : ?>
+			<a href="contact_message.php" class="btn btn-info">Retour à la liste des messages</a>
+		<?php endif; ?>
+
 	<?php endif; ?>
 
 	<?php if($repMessage) : ?>
 
-		<h2 id="titleRep">Réponse : </h2>
-		<form class="form-horizontal well well-sm" id="formMessageContact" method="post">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h3 class="text-center" id="titleRep">Réponse :</h3></div>
+			<div class="panel-body">
 
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="email">Destinataire</label>  
-				<div class="col-md-4">
-					<input id="email" name="email" type="text" placeholder="adresse@email.fr" class="form-control input-md" data-form="input-form">
-				</div>
+				<form class="form-horizontal" id="formMessageContact" method="post">
+
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="email">Destinataire</label>  
+						<div class="col-md-4">
+							<input id="email" name="email" type="email" placeholder="adresse@email.fr" class="form-control input-md" data-form="input-form" value="<?=$message['email']; ?>" readonly>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="content">Contenu</label>
+						<div class="col-md-4">
+							<textarea name="content" id="content" rows="10" cols="50" class="form-control input-md" placeholder="Saisir un texte ici..." data-form="input-form"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-4 col-md-offset-4">
+							<button type="submit" class="btn btn-success">Envoyer</button>
+						</div>
+					</div>
+
+				</form>
+
 			</div>
+		</div>
 
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="content">Contenu</label>
-				<div class="col-md-4">
-					<textarea name="content" id="content" rows="10" cols="50" placeholder="Saisir un texte ici..." data-form="input-form"></textarea>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-md-4 col-md-offset-4">
-					<button type="submit" class="btn btn-success">Envoyer</button>
-				</div>
-			</div>
-
-		</form>
+		<a href="contact_message.php" class="btn btn-info">Retour à la liste des messages</a>
 
 	<?php endif; ?>
 
-	<a href="contact_message.php">Retour à la liste des messages</a>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="../js/script.js"></script>
-</body>
-</html>
+<?php
+
+include_once '../inc/footer_admin.php';
+
+?>

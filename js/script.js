@@ -9,19 +9,7 @@ $(function(){
 
   	//Si le formulaire de contact est bien chargé sur la page
 	if($('form#formMessageContact').length == 1){
-		console.log('formulaire chargé');
-
-		//On vérifie le formulaire dés que l'utilisateur modifie un champ
-		$('[data-form="input-form"]').change(function () {
-			verifFormContact();
-		});
-
-		//On enlève les erreurs et on remet les bordures par défaut si on click sur reset
-		$('input[type="reset"]').click(function () {
-			border_default($('[data-form="input-form"]'));
-			$('.alert').remove();
-		});
-
+		
 		//Si le formulaire est envoyé 
 		$('#formMessageContact').submit(function (e) {
 			e.preventDefault(); //on empèche le comportement de base de l'envoi
@@ -40,7 +28,10 @@ $(function(){
 					dataType: 'text',
 					success: function(data){
 						$('.alert').remove();
-						$('#formMessageContact').before('<div class="alert alert-success" role="alert">'+data+'</div>');
+						$('#formMessageContact').before('<div class="alert alert-success" role="alert">'+
+							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+							data+
+							'</div>');
 						$('[data-form="input-form"]').val('');
 					},
 				}); 
@@ -109,22 +100,20 @@ $(function(){
       		border_error($('#email'));
       		txtError.push('Format de l\'email invalide');
       	} 
-      	else {
-      		border_success($('#email'));
-      	}
 
       	//Vérification si le contenu est vide
       	if($('#content').val() == ''){
       		errorEmpty++;
-      		border_warning($('#formContent'));
-      	} else {
-      		border_success($('#formContent'));
-      	}
+      		border_warning($('#content'));
+      	} 
 
       	//Si un des champs est vide
       	if (errorEmpty > 0) {
       		//on affiche le message d'alerte
-			$('#titleRep').after ('<div class="alert alert-warning" role="alert">Tous les champs sont obligatoires</div>');
+			$('#formMessageContact').before('<div class="alert alert-warning" role="alert">'+
+				'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+				'Tous les champs sont obligatoires'+
+				'</div>');
 			formValid = false; //on passe la valeur formValid à false, ce qui empêchera l'envoi du formulaire
       	}
 
