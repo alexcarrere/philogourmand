@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 19 Mai 2016 à 14:56
+-- Généré le :  Jeu 19 Mai 2016 à 16:33
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -43,8 +43,8 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `firstname`, `lastname`, `email`, `content`, `date_add`, `message_state`) VALUES
-(1, 'Alexandre', 'Carrere', 'lorem@ipsum.fr', 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus iaculis aliquet arcu, sed porttitor quam lacinia vitae. Proin cursus tortor in sapien pellentesque, eu accumsan ex euismod. Duis efficitur sem ut lorem accumsan, quis pellentesque felis semper. Etiam felis nulla, fringilla ut vulputate vel, imperdiet eget lectus. Vivamus consectetur, est in congue pulvinar, est dui faucibus ante, vel fringilla erat urna in nunc. Nullam efficitur, ligula et ultricies mollis, odio leo fringilla elit, a tristique ipsum nunc vitae nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed ut vehicula sem, nec fringilla est. ', '2016-05-23 10:33:17', 'unread'),
-(3, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxs\n\n\nalert("toto")', '2016-05-19 14:40:38', 'unread');
+(8, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:07:59', 'unread'),
+(9, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:43:22', 'unread');
 
 -- --------------------------------------------------------
 
@@ -117,6 +117,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Contenu de la table `users`
+--
+
+INSERT INTO `users` (`id`, `nickname`, `firstname`, `lastname`, `email`, `password`, `date_reg`, `role`) VALUES
+(1, 'The testeur !', 'Carine', 'Testeur', 'lorem@ipsum.fr', '$2y$10$dH5//h7acd7N1PE2RJ8fW.iF8lkUE8qUZA7gkD6SIkYRjYjeX2ofa', '2016-05-26 00:00:00', 'admin');
+
+--
 -- Index pour les tables exportées
 --
 
@@ -179,7 +186,7 @@ ALTER TABLE `tokens_password`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
