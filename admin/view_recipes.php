@@ -1,4 +1,8 @@
-<?php require_once '../inc/connect.php';
+<?php 
+
+session_start();
+
+require_once '../inc/connect.php';
   
     $res = $pdo->prepare('SELECT * FROM recipes ORDER BY id DESC');
     $res->execute();
@@ -46,7 +50,7 @@
         <td><?php echo $user['id_user']; ?></td>
         <td>
           <a type="button" class="btn btn-primary" href="edit_recipe.php?id=<?php echo $user['id'];?>">Modifier</a>
-          <a type="button" class="btn btn-primary" href="delete_recipe.php?id=<?php echo $user['id'];?>">Supprimer</a>
+          <a type="button" class="btn btn-danger" href="delete_recipe.php?id=<?php echo $user['id'];?>">Supprimer</a>
           
         </td> 
       </tr>

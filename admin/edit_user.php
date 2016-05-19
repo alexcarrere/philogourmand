@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 // connection à la base
 require_once '../inc/connect.php';
 
