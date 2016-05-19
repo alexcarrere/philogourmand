@@ -6,12 +6,12 @@
 <body>
 <?php 
 session_start();
-if($_SESSION['role'] == 'admin'){
+if($_SESSION['user']['role'] == 'admin'){
 
 
 
 }
-elseif($_SESSION['role'] == 'editor'){
+elseif($_SESSION['user']['role'] == 'editor'){
 
 
 }
