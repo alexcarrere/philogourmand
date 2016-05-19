@@ -5,12 +5,13 @@
 </head>
 <body>
 <?php 
+session_start();
 if($_SESSION['role'] == 'admin'){
 
 
 
 }
-elseif($_SESSION['role'] == 'editeur'){
+elseif($_SESSION['role'] == 'editor'){
 
 
 }
