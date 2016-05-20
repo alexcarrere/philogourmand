@@ -59,7 +59,7 @@ if (count($error) > 0) : ?>
 include_once '../inc/header_admin.php';
 ?>
 <div class="alert alert-danger" role="alert">
-<p> ATTENTION ! Vous souhaitez surprimé l'utilisateur <?= $utilisateur['nickname'] ?> La sentence sera irrémédiable</p>
+<p> ATTENTION ! Vous souhaitez surprimé l'utilisateur <?= $utilisateur['nickname'] ?> La sentence sera irrémédiable !!!!</p>
 
 
 
