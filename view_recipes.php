@@ -9,7 +9,7 @@ $resultatSearchReplace = '';
 $startRecipes = 0;
 $error = '';
 
-/***************************  AFFICHER SELON MOTEUR DE RECHERCHE ***************************/
+/***************************  AFFICHER SELON ENTREE DANS MOTEUR DE RECHERCHE ***************************/
 if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si recherche on affiche le résultat // on recherche les paramètres
 
 
@@ -21,17 +21,18 @@ if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si r
 	$res->execute();
 
 	$recipes = $res->fetchAll(PDO::FETCH_ASSOC);
-	//var_dump($recip);
+	
 
 	if(empty($recipes)){
 		$error = 'Aucun résultat à votre recherche !';
 	}
 
-	//$resultatSearchReplace = '<span style="background:yellow">'.$resultatSearch.'</span>';
+	$resultatSearchReplace = '<span style="background:yellow">'.$resultatSearch.'</span>';
 
+	$resultatSearchRegex = '/'.$resultatSearch.'/';
 
 } 
-/*******************************     AFFICHER TOUTES LES RECETTES    ***********************/
+/*******************************   AFFICHER TOUTES LES RECETTES    ***********************/
 else { // sinon on liste tous les articles
 
 
@@ -52,22 +53,24 @@ else { // sinon on liste tous les articles
 	<input type="search" class="float_right" name="search" placeholder="Rechercher">
 	
 </form>
-
+<br>
 <?php if(!empty($error)) : ?>
-
-	<div class="recipe well">
+<br>
+<div class="panel panel-danger">
+	<div class="panel-body bg-danger">
 		<p><?=$error;?></p>
 	</div>
+</div>
 
 <?php else : ?>
 
 	<?php foreach($recipes as $recip) : ?>
 	<!-- $recip contient chaque entrée de ma table, les colonnes deviennent les clés du tableau -->
 		<div class="recipe well">
-			<h2><?=$recip['title'];?></h2>
+			<h2><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['title']);?></h2>
 			<p>Publié le <?=date('d/m/Y', strtotime($recip['date_publish']));?></p>
 			<img src="<?=$recip['link'];?>" alt="image" style="width:150px; display:inline-block"> 
-			<p><?=$recip['content'];?></p>
+			<p><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['content']);?></p>
 		</div>
 			
 
