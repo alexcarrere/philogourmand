@@ -28,23 +28,26 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <!-- les 3 balises meta qui doivent être positionnées en premier, tout autre contenu de la partie head doit venir après ces balises -->
+
+    <meta name="description" content="Projet en groupe Resto Philo">
+    <meta name="keyword" content="Restaurant,Philomatique,Philo,Produits naturels"> 
+    <meta name="auteur" content="Brice, Hugues, Carine, Alexandre, Thibaut"> 
 
     <title>PhiloGourmand</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- lien CDN Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
+     <!-- lien Police Google Lobster Bootstrap -->
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-
+    <!-- lien Police Google Satisfy -->
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <!-- lien feuille de style CSS -->
     <link type="text/css" rel="stylesheet" href="css/style.css">
   </head>
 
@@ -55,12 +58,6 @@
         
           <div class="navbar-header"><!-- dbt div navbar header -->
 
-            <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button> -->
             <a id="logo" class="navbar-brand" href="#"><?php echo $title ?></a><br>
             <p class="navbar-brand lead"><?php echo $adress ?>,&nbsp;<?php echo $zipcode; ?>&nbsp;<?php echo $city ?><br>
             <?php echo $phone ?></p>
@@ -69,22 +66,10 @@
           <div id="text-align-right" class="contact">
             <ul id="menu-nav">
               <li><a href="view_recipes.php">Nos recettes</a></li>
-              <li><a href="contact.php">Nous contacter</a></li><!-- renvoie vers la page de contact contact.php!!!!! -->
+              <li><a href="contact.php">Nous contacter</a></li><!-- renvoie vers la page de contact contact.php! -->
             </ul>
           </div>
-        
-        <!-- ce qu'il y avait a l'origine sur l'exemple :
-        <div id="navbar" class="navbar-collapse collapse">
-           <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form> 
-        </div><!--/.navbar-collapse -->
+      
 
       </div> <!-- fin div container 1 -->
     </nav> <!-- fin nav barre -->
@@ -103,37 +88,54 @@
 
 
     <div id="background_2" class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-          <h1>Les recettes de la Philo</h1>
+      <!-- row of columns -->
+      <div class="row"><!-- dbt div row 3-->
+          <h2>Les recettes de la Philo</h2>
         <div class="col-md-4">
           <img class="img-responsive" alt="entree" src="img/entre.jpg">
           <br>    
-          <p><a  href="#" class="link_recipes">lire la recette1 </a></p>
+          <p><a  href="#" class="link_recipes">Lire la recette</a></p>
         </div>
         <div class="col-md-4">
           <img class="img-responsive" alt="plat" src="img/plat.jpg"> 
           <br>
-          <p><a href="#" class="link_recipes">lire la recette2 </a></p>
+          <p><a href="#" class="link_recipes">Lire la recette</a></p>
        </div>
         <div class="col-md-4">
           <img class="img-responsive" alt="dessert" src="img/dessert.jpg">
           <br>           
-          <p><a href="#" class="link_recipes">lire la recette3 </a></p>
+          <p><a href="#" class="link_recipes">Lire la recette</a></p>
         </div>
       </div>
 
-      <hr>
 
-    </div> <!-- /container -->
+    </div><!-- fin div container 3 -->
       <footer>
-        <a href="admin/login.php">Admin</p>
+      
+<div id="footer" class="container"><!-- dbt div container 4-->
+  <div class="row"><!-- dbt div row 4-->
+
+  <div class="col-md-4"><!-- lien vers user admin-->
+ <p><a href="admin/login.php" id="admin">Admin</a></p>
+  </div>
+
+
+  <div class="col-md-4 text-center"></div>
+
+  <div class="col-md-4">
+    <div id="legal"><p>Mentions Légales l © 2016 La Philo</p>
+      </div><!-- fin id legal-->
+    </div><!-- fin col-md-4-->
+  </div><!-- fin div row 4-->
+</div><!-- fin div container 4 -->
+
+      
       </footer>
 
 
-    <!-- Bootstrap core JavaScript
+    <!-- Bootstrap contenant JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- placé à la fin pour chargemement plus rapide -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     

@@ -23,7 +23,7 @@
 
 #logo {
 	font-size: 2em;
-	font-family: 'Lobster', cursive;
+	font-family: 'Lobster',cursive,Verdana,sans-serif;
 	color: black;
 }
 
@@ -43,12 +43,32 @@ body{
 	background-color: #fbad51;
 }
 
-h1{
+h2 {
 	font-family: cursive;
 	font-size: 2em;
 	text-align: center;
 }
 
 .link_recipes{
-	font-family: , cursive;
+	font-family: 'Satisfy',cursive,Verdana,sans-serif;
+}
+
+#adminlogin {
+	clear: none;
+	margin: 0px;	
+}
+
+#rights {
+	clear: none;
+	margin: 0px;
+}
+#footer {
+}
+
+
+#admin {
+}
+
+
+#legal {
 }
