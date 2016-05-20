@@ -25,7 +25,7 @@ $maxSize = 100000000 * 5;
 
 /*"début de condition"*/
 
-if(!empty($_GET['id'])){
+if(!empty($_GET['id']) && $_GET['id'] == 1){
 
 		if(empty($_POST)){
 			
