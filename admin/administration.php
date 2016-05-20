@@ -33,8 +33,9 @@ if($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'editor'
 
   
 	echo '<p>Bienvenue '.$_SESSION['user']['nickname'].' sur le site du restaurant '.$title.'</p>';
-	echo '<p>'.$adress.'&nbsp;'.$zipcode.'&nbsp;'.$city.'</p>';
-	echo '<p>'.$phone.'</p>';
+	echo '<p>'.$adress.'</p>';
+	echo '<p>'.$zipcode.'&nbsp;'.$city.'</p>';
+	echo '<p><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;&nbsp;'.$phone.'</p>';
 	echo '<p>'.$email_restaurant.'</p>';
 
 		}
