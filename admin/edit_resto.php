@@ -1,4 +1,15 @@
 <?php
+session_start;
+if (!empty($_SESSION) && isset($_SESSION['user']['role'])){
+
+	if ($_SESSION['user']['role'] != 'admin') {
+		header('Location: administration.php');
+	}
+	
+} else {
+	header('Location: ../index.php');
+}
+require_once '../inc/header_admin.php';
 require_once '../inc/connect.php';
 $affichageFormulaire = false;
 $formValid = false;
@@ -131,10 +142,7 @@ if(!empty($_GET['id'])){
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-	<title>lecture modification coordonnées et image du restaurant</title>
+
 
 
 	<style>
@@ -144,8 +152,7 @@ if(!empty($_GET['id'])){
 	}
 
 </style>
-</head>
-<body>
+
 
 <?php 
 
@@ -197,16 +204,8 @@ if(!empty($_GET['id'])){
 <input type="submit" id="btnSubmit">
 
 </form>
-<p id="demo"></p>
 
 
-<!-- <input type="file" accept="image/*" onchange="previewImage(event)" name="picture">
-<p id="output"></p> -->
-
-
-<script>
-
-</script>
 
 
 
@@ -219,8 +218,8 @@ if(!empty($_GET['id'])){
 	
 	fauxBouton.addEventListener("click", clicBrowser);
 	fileInput.addEventListener("change", modifNomFichier);
-	/*vraiBouton.addEventListener("click", clicBtn);
-*/
+	/*vraiBouton.addEventListener("click", clicBtn);*/
+
 
 
 	function clicBrowser(){
@@ -235,13 +234,7 @@ if(!empty($_GET['id'])){
 		textInput.value = fileInput.value;
 	}
 
-	/*function clicBtn(){
-
-		vraiBouton.click();
-		vraiBouton.click();
-
-
-	}*/
+	
 
 	 /*var previewImage = function(event) {
 	 	var fakeImage = URL.createObjectURL(event.target.files[0]); 
@@ -255,22 +248,17 @@ if(!empty($_GET['id'])){
  	};*/
 
 </script>
-</body>
-</html>
 <?php
 }
 else {
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>lecture</title>
-</head>
-<body>
+
 <p>il n'y a pas d'identifiant</p> 
-</body>
-</html>
+
 <?php
+
 }
+
+require_once '../inc/footer_admin.php';
 ?>

@@ -1,3 +1,32 @@
+<?php
+
+  require_once 'inc/connect.php';
+
+  // selection des informations du restaurant dans la table resto pour l'id  1
+      $res = $pdo->prepare('SELECT * FROM resto WHERE id = :id');
+      $res->bindValue(':id' ,1  , PDO::PARAM_INT);
+        
+      if($res->execute()){
+
+
+      $restaurant = $res->fetch(PDO::FETCH_ASSOC);
+      $idRestaurant = $restaurant['id'];
+      $title = $restaurant['title'];
+      $adress = $restaurant['adress'];
+      $zipcode = $restaurant['zipcode'];
+      $city = $restaurant['city'];
+      $phone = $restaurant['phone'];
+      $email_restaurant = $restaurant['email'];
+      $picture = $restaurant['link'];
+
+
+      //unset($_GET['id']);
+      }
+      echo $picture;
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,9 +59,9 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button> -->
-            <a id="logo" class="navbar-brand" href="#">PhiloGourmand</a><br>
-            <p class="navbar-brand">66 rue de l'Abbé de l'Epée, 33000 BORDEAUX<br>
-            05.56.52.23.26</p>
+            <a id="logo" class="navbar-brand" href="#"><?php echo $title ?></a><br>
+            <p class="navbar-brand"><?php echo $adress ?>,&nbsp;<?php echo $zipcode; ?>&nbsp;<?php echo $city ?><br>
+            <?php echo $phone ?></p>
           </div> <!-- fin div navbar header -->
 
           <div id="text-align-right" class="contact">
@@ -60,7 +89,7 @@
       <div class="container"> <!-- dbt div container 2 -->
         <div class="row"><!-- dbt div row 2-->
           <div class="col-lg-2 text-center"></div>
-          <div class="col-lg-8 text-center"><img class="img-responsive" alt="" src="img/restaurant.jpg"></div>   
+          <div class="col-lg-8 text-center"><img class="img-responsive" alt="" src="img/<?php echo $picture; ?>"</div>   
           <div class="col-lg-2 text-center"></div> 
             
           </div> <!-- fin div row 2 -->

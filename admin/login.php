@@ -104,7 +104,7 @@ if(!empty($_POST)){//01
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="password">Mot de passe</label>  
 				<div class="col-md-4">
-					<input id="password" name="password" type="text" placeholder="Votre password" class="form-control input-md" required>
+					<input id="password" name="password" type="password" placeholder="Votre password" class="form-control input-md" required>
 				</div>
 			</div>		
 
