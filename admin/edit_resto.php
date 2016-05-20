@@ -269,17 +269,16 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 			<div class="col-md-4">
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
 
-				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>"> 
-				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>" required>
-				
-				<input type="button" id="fakeBrowser" value="Choisir un fichier">
+			
+				<input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux" value="<?php echo $picture; ?>">
 				
 			</div>
+			
 </div>
 
 <div class="form-group">
 	<div class="col-md-4 col-md-offset-4">
-				<button type="submit" id="btnSubmit" class="btn btn-success">Modifier</button>
+				<button type="submit" id="btnSubmit" class="btn btn-primary">Modifier</button>
 	</div>
 </div>
 
@@ -297,51 +296,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 
 
 
- <script>
-	var fileInput = document.getElementById("browse");
-	var textInput = document.getElementById("nomFichier");
-	var fauxBouton =  document.getElementById("fakeBrowser");
-	/*var vraiBouton = document.getElementById("btnSubmit");
-	var tmp = document.getElementById("tmp");*/
-	
-	fauxBouton.addEventListener("click", clicBrowser);
-	fileInput.addEventListener("change", modifNomFichier);
-	/*vraiBouton.addEventListener("click", clicBtn);
-*/
-
-
-	function clicBrowser(){
-
-		fileInput.click();
-	}
-
-	function modifNomFichier(){
-
-		/*document.getElementById('demo').innerHTML = '<img src="' + fileInput.value +'" />';*/
-		document.getElementById('demo').innerHTML = fileInput.value;
-		textInput.value = fileInput.value;
-	}
-
-	/*function clicBtn(){
-
-		vraiBouton.click();
-		vraiBouton.click();
-
-
-	}*/
-
-	 /*var previewImage = function(event) {
-	 	var fakeImage = URL.createObjectURL(event.target.files[0]); 
-
-	 	var fileName = document.getElementById('nomFichier');
-	 	fileName.value = fakeImage;
-
-	 	// Remplit la prévisualisation
-	    var output = document.getElementById('demo');
-   		output.innerHTML = '<img src="' + fakeImage +'" alt="">';
- 	};*/
-
-</script>
+ 
 <?php
 }
 else {
