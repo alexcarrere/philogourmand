@@ -49,7 +49,7 @@
     <link type="text/css" rel="stylesheet" href="css/style.css">
   </head>
 
-  <body>
+  <body class="container">
 
     <nav id="background_navbar" class="navbar navbar-inverse navbar-fixed-top"><!-- dbt nav barre -->
       <div class="container"> <!-- dbt div container 1 -->
@@ -63,7 +63,7 @@
 
           <div id="text-align-right" class="contact">
             <ul id="menu-nav">
-              <li><a href="view_recipes.php">Nos recettes</a></li>
+              <li><a href="list-recipes.php">Nos recettes</a></li>
               <li><a href="contact.php">Nous contacter</a></li><!-- renvoie vers la page de contact contact.php! -->
             </ul>
           </div>
@@ -71,3 +71,6 @@
 
       </div> <!-- fin div container 1 -->
     </nav> <!-- fin nav barre -->
+    <main class="container">
+      
+   
