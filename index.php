@@ -43,6 +43,8 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
     <link type="text/css" rel="stylesheet" href="css/style.css">
   </head>
 
@@ -60,12 +62,15 @@
               <span class="icon-bar"></span>
             </button> -->
             <a id="logo" class="navbar-brand" href="#"><?php echo $title ?></a><br>
-            <p class="navbar-brand"><?php echo $adress ?>,&nbsp;<?php echo $zipcode; ?>&nbsp;<?php echo $city ?><br>
+            <p class="navbar-brand lead"><?php echo $adress ?>,&nbsp;<?php echo $zipcode; ?>&nbsp;<?php echo $city ?><br>
             <?php echo $phone ?></p>
           </div> <!-- fin div navbar header -->
 
           <div id="text-align-right" class="contact">
-          <a href="contact.php">Nous contacter</a><!-- renvoie vers la page de contact contact.php!!!!! -->
+            <ul id="menu-nav">
+              <li><a href="view_recipes.php">Nos recettes</a></li>
+              <li><a href="contact.php">Nous contacter</a></li><!-- renvoie vers la page de contact contact.php!!!!! -->
+            </ul>
           </div>
         
         <!-- ce qu'il y avait a l'origine sur l'exemple :
@@ -104,17 +109,17 @@
         <div class="col-md-4">
           <img class="img-responsive" alt="entree" src="img/entre.jpg">
           <br>    
-          <p><a  href="#">lire la recette1 </a></p>
+          <p><a  href="#" class="link_recipes">lire la recette1 </a></p>
         </div>
         <div class="col-md-4">
           <img class="img-responsive" alt="plat" src="img/plat.jpg"> 
           <br>
-          <p><a href="#">lire la recette2 </a></p>
+          <p><a href="#" class="link_recipes">lire la recette2 </a></p>
        </div>
         <div class="col-md-4">
           <img class="img-responsive" alt="dessert" src="img/dessert.jpg">
           <br>           
-          <p><a href="#" >lire la recette3 </a></p>
+          <p><a href="#" class="link_recipes">lire la recette3 </a></p>
         </div>
       </div>
 
