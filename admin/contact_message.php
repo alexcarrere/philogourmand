@@ -119,6 +119,10 @@ if (!empty($_GET) && isset($_GET['id_message'])) {
 			if (count($error) == 0) {
 				$showMessage = true;
 
+				$upd = $pdo->prepare('UPDATE contact set message_state = "read" WHERE id = :id');
+				$upd->bindValue(':id', $id_message, PDO::PARAM_INT);
+				$upd->execute();
+
 				if (isset($_GET['action']) && $_GET['action'] == 'rep') {
  					$repMessage = true; //On autorise l'affichage du formulaire de réponse
  				}
