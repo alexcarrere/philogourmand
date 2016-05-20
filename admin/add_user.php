@@ -18,11 +18,14 @@ if (!empty($_POST)) {
 	foreach ($_POST as $key => $value) { // Nettoyage des données
 		$post[$key] = trim(strip_tags($value)); // récupération du _POST dans un tableau
 	}
-	if(strlen($post['firstname']) < 2 || strlen($post['firstname']) > 50){ // on défini les propriétés de 'firstname'
-        $errors[] = '<div class="alert alert-danger" role="alert">Votre nom doit comporter entre 2 et 50 caractères</div>';
+	if(strlen($post['nickname']) < 2 || strlen($post['nickname']) > 50){ // on défini les propriétés de 'nickname'
+        $errors[] = '<div class="alert alert-danger" role="alert">Votre pseudo doit comporter entre 2 et 50 caractères</div>';
+    }
+    if(strlen($post['firstname']) < 2 || strlen($post['firstname']) > 50){ // on défini les propriétés de 'firstname'
+        $errors[] = '<div class="alert alert-danger" role="alert">Votre prénom doit comporter entre 2 et 50 caractères</div>';
     }
     if(strlen($post['lastname']) <2 || strlen($post['lastname']) >50 ){
-    	$errors[] = '<div class="alert alert-danger" role="alert">Votre prenom doit comporter entre 2 et 50 caractères</div>';
+    	$errors[] = '<div class="alert alert-danger" role="alert">Votre nom doit comporter entre 2 et 50 caractères</div>';
     }
     if(empty($post['email']) || !filter_var($post['email'], FILTER_VALIDATE_EMAIL)) {
     	$errors[] = '<div class="alert alert-danger" role="alert">Votre email n\'est pas valide</div>';
@@ -46,6 +49,7 @@ if (!empty($_POST)) {
 	if(count($errors) > 0){  // On compte les erreurs, si il y en as (supérieur a 0), on passera la variable $showErrors à true.
         $showErrors = true; // valeur booleen // permettra d'afficher nos erreurs s'il y en a
 
+        $nickname = $post['nickname'];
         $nickname = $post['firstname'];
         $lastname = $post['lastname'];
         $password = $post['password'];
@@ -84,24 +88,10 @@ if($success){ // On affiche la réussite si tout fonctionne
 if($showErrors){
     echo implode('<br>', $errors);
     }
+include_once '../inc/header_admin.php';
 ?>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Authentification</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-
-</head>
-<body>
-<main class="container">
 		<h1 class="text-center">Formulaire d'inscription</h1>
 		<br>
 <div class="container">
@@ -148,6 +138,8 @@ if($showErrors){
 		
 	</div>
 </div>
-</main>
-</body>
-</html>
+<?php
+
+include_once '../inc/footer_admin.php';
+
+?>

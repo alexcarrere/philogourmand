@@ -97,19 +97,9 @@ if(!empty($_POST) && $userExist == true) {
 
     }
 }
+include_once '../inc/header_admin.php';
 ?>
-<!DOCTYPE html>
 
-
-<html Lang="fr">
-<head>
-<meta charset="utf-8">
-  
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  
-</head>
-<body>
-<main class="container">
     
 
     <div id="page-firstname-wrapper">
@@ -232,8 +222,8 @@ if(!empty($_POST) && $userExist == true) {
         </div><!--#page-firstname-wrapper-->
 
     </div><!--#wrapper // start in sidebar.php -->
-</main>
+<?php
 
+include_once '../inc/footer_admin.php';
 
-</body>
-</html>
+?>

@@ -9,19 +9,8 @@ require_once '../inc/connect.php';
 
     $utilisateurs = $res->fetchAll(PDO::FETCH_ASSOC);
 
+include_once '../inc/header_admin.php';
 ?>
-<!DOCTYPE html>
-
-
-<html Lang="fr">
-<head>
-<meta charset="utf-8">
-  <title></title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  
-</head>
-<body>
-<main class="container">
 <h2 class="text-center">Liste des recettes</h2>
 
   <hr>
@@ -57,9 +46,9 @@ require_once '../inc/connect.php';
     </tbody>
 <?php } ?>
 </table>
-</main>
+<?php
 
+include_once '../inc/footer_admin.php';
 
-</body>
-</html>
+?>
 
