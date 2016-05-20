@@ -44,6 +44,7 @@ if(!empty($_POST)){//01
 		$_SESSION['user'] = [
 
 				'id'        => $user['id'],
+				'nickname'  => $user['nickname'],
 				'firstname' => $user['firstname'],
 				'lastname'  => $user['lastname'],
 				'email'     => $user['email'],
@@ -116,7 +117,6 @@ if(!empty($_POST)){//01
 
 </form>
 <a href="lost_password.php">Mot de passe oublié</a><br>
-<a href="btnDeconnexion.php">Se deconnecter</a>
 </main>
 <?php
 require_once '../inc/footer_admin.php';

@@ -2,28 +2,45 @@
 <?php 
 session_start();
 require_once '../inc/header_admin.php';
+require_once '../inc/connect.php';
 if (empty($_SESSION) || !isset($_SESSION['user']['role'])){
 	header('Location: ../index.php');
 	die;
 }
 
-if($_SESSION['user']['role'] == 'admin'){
-	?>
+if($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'editor'){
+	
 
-<a href="view_recipes.php" class="btn btn-default">Les recettes</a><br>
-<a href="add_recipe.php" class="btn btn-default">Créer une recette</a><br>
-<a href="view_users.php" class="btn btn-default">Les utilisateurs</a><br>
-<a href="add_user.php" class="btn btn-default">Créer un utilisateur</a><br>
 
-<?php
+	
 
-}
-elseif($_SESSION['user']['role'] == 'editor'){
-	?>
+  // selection des informations du restaurant dans la table resto pour l'id  1
+      $res = $pdo->prepare('SELECT * FROM resto WHERE id = :id');
+      $res->bindValue(':id' ,1  , PDO::PARAM_INT);
+        
+      if($res->execute()){
 
-<a href="view_recipes.php" class="btn btn-default">Les recettes</a><br>
-<a href="add_recipe.php" class="btn btn-default">Créer une recette</a><br>
-<?php
+
+      $restaurant = $res->fetch(PDO::FETCH_ASSOC);
+      $idRestaurant = $restaurant['id'];
+      $title = $restaurant['title'];
+      $adress = $restaurant['adress'];
+      $zipcode = $restaurant['zipcode'];
+      $city = $restaurant['city'];
+      $phone = $restaurant['phone'];
+      $email_restaurant = $restaurant['email'];
+
+
+  
+	echo '<p>Bienvenue '.$_SESSION['user']['nickname'].' sur le site du restaurant '.$title.'</p>';
+	echo '<p>'.$adress.'&nbsp;'.$zipcode.'&nbsp;'.$city.'</p>';
+	echo '<p>'.$phone.'</p>';
+	echo '<p>'.$email_restaurant.'</p>';
+
+		}
+
+
+
 }
 else {
 

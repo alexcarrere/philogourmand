@@ -1,3 +1,23 @@
+<?php
+if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
+    // Ici je déconnecte mon utilisateur
+
+    # unset($_SESSION); // A ne jamais faire, empèche la réutilisation de $_SESSION. On peut touitefois supprimer un index particulier
+
+    unset($_SESSION['user']);//permet de supprimer l'index 'user' de ma session
+
+
+    session_destroy();// Détruit toutes les entrées dans $_SESSION
+
+}
+
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,6 +60,7 @@
                                     <li><a href="view_users.php">Afficher la liste des utilisateurs</a></li>
                                     <li><a href="contact_message.php">Afficher la liste des messages</a></li>
     								<li><a href="view_recipes.php">Afficher la liste des recettes</a></li>
+
     							</ul>
     						</li>
 
@@ -53,6 +74,21 @@
 
                             <li>
                                 <a href="edit_resto.php?id=1">Modifier les infos du site</a>
+                            </li>
+                            <li>
+                                <?php
+                                    // on affiche les données seulement si la session existe
+                                        if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
+
+                                            
+                                            echo '<a href="?logout=yes"><div class="col-md-4 col-md-offset-4">Déconnexion</div></a>';
+                                        }
+                                        else {
+
+                                            echo '<p>Vous n\'êtes pas connecté...</p>';
+                                        }
+                                ?>
+
                             </li>
                         <?php endif; ?>
 
