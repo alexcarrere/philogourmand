@@ -55,19 +55,10 @@ if(!empty($_POST)){ // vérifie que $_POST est définie et non vide :
 
 
 
+include_once 'inc/header.php';
 
 ?>
 
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Formulaire</title>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-</head>
-<body>
-
-	<main class="container">
 		<h1 class="text-center">Formulaire</h1>
 		<br>
 		<!-- Message suite traitement formulaire -->
@@ -84,7 +75,7 @@ if(!empty($_POST)){ // vérifie que $_POST est définie et non vide :
             <p style="color:green">Ok, le formulaire est valide.</p>
         <?php endif; ?>
 
-		<form class="form-horizontal well well-sm" method="post" action="">
+		<form class="form-horizontal" method="post" action="">
 
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="lastname">Nom</label>  
@@ -121,8 +112,7 @@ if(!empty($_POST)){ // vérifie que $_POST est définie et non vide :
 			</div>
 
 	</form>
-	</main>
 
+<?php
 
-</body>
-</html>
+include_once 'inc/header.php';

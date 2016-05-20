@@ -2,7 +2,6 @@
 require_once 'inc/connect.php';
 
 
-include_once 'inc/header_admin.php';
 
 $resultatSearch = '';
 $resultatSearchReplace = '';
@@ -32,8 +31,8 @@ if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si r
 	$resultatSearchRegex = '/'.$resultatSearch.'/';
 
 } 
-/*******************************   AFFICHER TOUTES LES RECETTES    ***********************/
-else { // sinon on liste tous les articles
+/*******************************   AFFICHER TOUTES LES RECETTES AVEC AUTEUR   ***********************/
+else { // sinon on liste toutes les recettes
 
 	$res = $pdo->prepare('SELECT firstname, lastname, title, content, link, date_publish FROM users INNER JOIN recipes ON users.id = recipes.id_user ORDER BY date_publish ASC');
 	$res->execute();
@@ -44,13 +43,12 @@ else { // sinon on liste tous les articles
 }
 
 
+include_once 'inc/header.php';
 ?>
 
 <form role="search" method="GET">
 	
-<!-- <button type="submit" class="float_right">Rechercher</button>
-<input type="search" class="float_right" name="search" placeholder="Rechercher">
- -->
+
 	<div class="row">
 		<div class="col-md-offset-3 col-md-6 col-md-offset-3">
 			<div class="input-group">
@@ -60,23 +58,26 @@ else { // sinon on liste tous les articles
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				</button>
 				</span>
-			</div><!-- /input-group -->
+			</div>
 		</div>
-	</div><!-- /.row -->
+	</div>
 	
 </form>
 <br>
+
 <?php if(!empty($error)) : ?>
+
 <br>
+
 <div class="panel panel-danger">
 	<div class="panel-body bg-danger">
-		<p><?=$error;?></p>
+		<p class="text-danger"><?=$error;?></p>
 	</div>
 </div>
 
 <?php else : ?>
 
-	<?php foreach($recipes as $recip) : ?>
+	<?php foreach($recipes as $recip) : ?> <!-- Dbt de ma boucle -->
 	<!-- $recip contient chaque entrée de ma table, les colonnes deviennent les clés du tableau -->
 		<div class="recipe well">
 			<h2><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['title']);?></h2>
@@ -94,11 +95,9 @@ else { // sinon on liste tous les articles
 		</div>
 			
 
-	<?php endforeach; ?>
+	<?php endforeach; ?> <!-- Fin de ma boucle -->
 
 <?php
 	endif;
-	include_once 'inc/footer_admin.php';
+	include_once 'inc/footer.php';
 ?>
-
-
