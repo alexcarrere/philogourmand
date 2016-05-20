@@ -37,7 +37,7 @@ if(!empty($_POST)){//01
 																
 
 		// on vérifie le mot de passe saisi et le mot de passe hashé
-		if(password_verify( $post['password'], $user['password'])){
+		if(password_verify($post['password'], $user['password'])){
 		//ici le mot de passe est valide
 		$mdpValide = true;
 
