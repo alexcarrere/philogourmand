@@ -246,7 +246,6 @@ include_once '../inc/header_admin.php';
                                         <div class="col-md-10">
                                             <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
                                             <input id="picture" name="picture" type="file">
-                                              
                                         </div>
                                     </div><!--.form-group-->
 

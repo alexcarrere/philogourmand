@@ -11,6 +11,59 @@ $errors = array(); // contiendra nos éventuelles erreurs
 $showErrors = false;
 $success = false; 
 
+$folder = 'img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
+$maxSize = 1000000 * 5; // 5Mo
+
+if(!empty($_FILES) && isset($_FILES['picture'])) {
+
+    if ($_FILES['picture']['error'] == UPLOAD_ERR_OK AND $_FILES['picture']['size'] <= $maxSize) {
+
+        $nomFichier = $_FILES['picture']['name']; // récupère le nom de mon fichier au sein de la superglobale $_FILES (tableau multi-dimentionnel)
+        $tmpFichier = $_FILES['picture']['tmp_name']; // Stockage temporaire du fichier au sein de la superglobale $_FILES (tableau multi-dimentionnel)
+        
+        $file = new finfo(); // Classe FileInfo
+        $mimeType = $file->file($_FILES['picture']['tmp_name'], FILEINFO_MIME_TYPE); // Retourne le VRAI mimeType
+
+        $mimTypeOK = array('image/jpeg', 'image/jpg', 'image/png', 'image/gif');
+
+        if (in_array($mimeType, $mimTypeOK)) { // in_array() permet de tester si la valeur de $mimeType est contenue dans le tableau $mimTypeOK
+                    
+
+            $newFileName = explode('.', $nomFichier);
+            $fileExtension = end($newFileName); // Récupère la dernière entrée du tableau (créé avec explode) soit l'extension du fichier
+
+            // nom du fichier link au format : recipe-id-timestamp.jpg
+            $finalFileName = 'recette-'.$idlink.'-'.time().'.'.$fileExtension; // Le nom du fichier sera donc recipe-id-timestamp.jpg (time() retourne un timsestamp à la seconde)
+
+
+                if(move_uploaded_file($tmpFichier, $folder.$finalFileName)) { // move_uploaded_file()  retourne un booleen (true si le fichier a été envoyé et false si il y a une erreur)
+                    // Ici je suis sur que mon image est au bon endroit
+                    $dirlink = $folder.$finalFileName;
+                    
+                    $success = 'Votre fichier a été uplaodé avec succés !';
+                    $showSuccess = true;
+                }
+                else {
+                    // Permet d'assigner un link par defaut
+                    $dirlink = "img/link-default.jpg";
+                }
+        } // if (in_array($mimeType, $mimTypeOK))
+
+        else {
+            $error[] = 'Le type de fichier est interdit mime type incorrect !';
+        } 
+
+
+    } // end if ($_FILES['picture']['error'] == UPLOAD_ERR_OK AND $_FILES['picture']['size'] <= $maxSize)
+    else {
+        $error[] = 'Merci de chosir un fichier image (uniquement au format jpg) à uploader et ne dépassant pas 5Mo !';
+    }
+} // end if (!empty($_FILES) AND isset($_FILES['picture'])
+
+else {
+    // Permet d'assigner l'link par defaut si l'recette n'en a aucun
+    $dirlink = "img/link-default.jpg";
+}
 
 if (!empty($_POST)) {
 	
@@ -42,10 +95,11 @@ if (!empty($_POST)) {
     }
     else { 
     	// Insertion dans la pdo 
-    	$res = $pdo->prepare('INSERT INTO recipes (title, content, date_publish ) VALUES(:title, :content, NOW())');
+    	$res = $pdo->prepare('INSERT INTO recipes (title, content, date_publish, link ) VALUES(:title, :content, NOW(), :linkrecipe )');
 
-        $res->bindValue(':title', $post['title'], PDO::PARAM_STR);
-        $res->bindValue(':content', $post['content'], PDO::PARAM_STR);
+        $res->bindValue(':title',		 $post['title'], 	PDO::PARAM_STR);
+        $res->bindValue(':content', 	 $post['content'],	PDO::PARAM_STR);
+        $res->bindValue(':linkrecipe',   $dirlink,   	    PDO::PARAM_STR);
         
         
     
@@ -83,6 +137,13 @@ include_once '../inc/header_admin.php';
 				  <span class="input-group-addon" id="basic-addon1">Ingrédient</span>
 				  <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Déscriptif complet de la recette pour le client"></textarea>
 				</div><br>
+				 <div class="form-group">
+                    <label class="col-md-2 control-label" for="picture">Changer l'image de la recette</label> 
+                    <div class="col-md-10">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+                        <input id="picture" name="picture" type="file">
+                    </div>
+                </div><!--.form-group-->
 			<input type="submit" class="btn btn-primary" value="Ajouter la recette">
 			</form>
 		

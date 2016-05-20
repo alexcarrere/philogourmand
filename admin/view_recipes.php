@@ -34,7 +34,7 @@ include_once '../inc/header_admin.php';
         <td><?php echo $user['id']; ?></td>
         <td><?php echo $user['title']; ?></td>
         <td><?php echo $user['content']; ?></td>
-        <td><?php echo '<img src="'.$user['link'].'" alt="avatar membre" width="50">'?></td>
+        <td><?php echo '<img src="'.$user['link'].'" alt="Photo recette" width="50">'?></td>
         <td><?php echo $user['date_publish']; ?></td>
         <td><?php echo $user['id_user']; ?></td>
         <td>
