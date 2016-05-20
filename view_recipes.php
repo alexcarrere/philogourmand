@@ -16,7 +16,7 @@ if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si r
 	$resultatSearch = trim(strip_tags($_GET['search']));
 	//var_dump($resultatSearch);
 
-	$res = $pdo->prepare('SELECT * FROM recipes WHERE (title LIKE :maRecherche) OR (content LIKE :maRecherche)');
+	$res = $pdo->prepare('SELECT firstname, lastname, title, content, link, date_publish FROM users INNER JOIN recipes ON users.id = recipes.id_user WHERE (title LIKE :maRecherche) OR (content LIKE :maRecherche) ORDER BY date_publish ASC');
 	$res->bindValue(':maRecherche', '%'.$resultatSearch.'%');
 	$res->execute();
 
@@ -35,8 +35,7 @@ if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si r
 /*******************************   AFFICHER TOUTES LES RECETTES    ***********************/
 else { // sinon on liste tous les articles
 
-
-	$res = $pdo->prepare('SELECT * FROM recipes ORDER BY date_publish ASC');
+	$res = $pdo->prepare('SELECT firstname, lastname, title, content, link, date_publish FROM users INNER JOIN recipes ON users.id = recipes.id_user ORDER BY date_publish ASC');
 	$res->execute();
 
 	// Retourne toutes les entrées de la table "recipe" sous forme de array()
@@ -81,9 +80,17 @@ else { // sinon on liste tous les articles
 	<!-- $recip contient chaque entrée de ma table, les colonnes deviennent les clés du tableau -->
 		<div class="recipe well">
 			<h2><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['title']);?></h2>
-			<p>Publié le <?=date('d/m/Y', strtotime($recip['date_publish']));?></p>
-			<img src="<?=$recip['link'];?>" alt="image" style="width:150px; display:inline-block"> 
-			<p><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['content']);?></p>
+			<br>
+			<div class="row">
+				<div class="col-md-2">
+					<img src="<?=$recip['link'];?>" alt="image" style="width:150px; display:inline-block"> 
+				</div>
+				<div class="col-md-10">
+					<p><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['content']);?></p>
+					<p><strong>Auteur : </strong><?=$recip['firstname'].' '.$recip['lastname'];?></p>
+				<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recip['date_publish']));?></p>
+				</div>
+			</div>
 		</div>
 			
 
