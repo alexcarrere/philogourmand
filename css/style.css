@@ -1,6 +1,11 @@
+main {
+    padding-top: 120px;
+}
+
 .jumbotron {
     padding-bottom: 48px;
-    padding-top: 160px;
+    margin: 0; 
+    border-radius: none;
 }
 #tmpborder {
 	background-color: #575745;

@@ -12,7 +12,8 @@
           <div class="col-lg-8 text-center"><img class="img-responsive" alt="" src="img/<?php echo $picture; ?>"</div>   
           <div class="col-lg-2 text-center"></div> 
             
-          </div> <!-- fin div row 2 -->
+          </div> 
+        </div> <!-- fin div row 2 -->
       </div> <!-- fin div jumbotron -->
 
 

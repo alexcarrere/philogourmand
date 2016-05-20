@@ -20,7 +20,6 @@
 
       //unset($_GET['id']);
       }
-      echo $picture;
 
 
 ?>
