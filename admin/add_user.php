@@ -92,7 +92,7 @@ include_once '../inc/header_admin.php';
 ?>
 
 
-		<h1 class="text-center">Formulaire d'inscription</h1>
+		<h1 class="text-center">Ajouter un utilisateur</h1>
 		<br>
 <div class="container">
 	<div class="panel panel-default">

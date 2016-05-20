@@ -13,7 +13,7 @@ include_once '../inc/header_admin.php';
 ?>
 <h2 class="text-center">Liste des recettes</h2>
 
-  <hr>
+
 <table class="table table-striped">
     <thead>
       <tr>

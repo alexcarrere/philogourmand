@@ -153,7 +153,7 @@ include_once '../inc/header_admin.php';
                 <?php if($userExist == true): ?>
                 <div class="row">
                     <div class="col-md-12">
-                    <h1>Edition de la utilisateur : <strong><?php echo $edituser['nickname']; ?></strong></h1>
+                    <h1>Edition de l'utilisateur : <strong><?php echo $edituser['nickname']; ?></strong></h1>
 
                         <form class="form-horizontal" method="POST" enctype="multipart/form-data">
                             <fieldset>
