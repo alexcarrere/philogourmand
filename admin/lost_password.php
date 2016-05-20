@@ -3,6 +3,7 @@
 session_start(); 
 // On se connecte à la base de données
 require_once '../inc/connect.php';
+require_once '../vendor/autoload.php';
 
 $error = [];
 $post = [];
@@ -130,6 +131,67 @@ if(!empty($_POST)){
 		<?php if(isset($showFormEmail) && $showFormEmail == true): // On affiche le premier formulaire ?>
 
 			<?php if(isset($linkChangePassword)): // Si l'adresse email est ok et que le token est inséré ?>
+
+
+
+
+
+
+				<?php
+
+					$mail = new PHPMailer;
+
+											//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+											$mail->isSMTP();                                      // Set mailer to use SMTP
+											/*$mail->Host = 'smtp1.example.com;smtp2.example.com';*/  // Specify main and backup SMTP servers
+											$mail->Host = '';
+											$mail->SMTPAuth = true;                               // Enable SMTP authentication
+											/*$mail->Username = 'user@example.com'; */                // SMTP username
+											$mail->Username = ''; 
+											/*$mail->Password = 'secret'; */
+											$mail->Password = '';                           // SMTP password
+											$mail->SMTPSecure = '';                            // Enable TLS encryption, `ssl` also accepted
+											$mail->Port = 587;                                    // TCP port to connect to
+
+											$mail->setFrom('monsite', 'amoi');
+											$mail->addAddress('@', '');     // Add a recipient
+											/*$mail->addAddress('ellen@example.com');*/               // Name is optional deuxieme adresse 
+											//$mail->addReplyTo('info@example.com', 'Information');
+											/*$mail->addCC('cc@example.com');
+											$mail->addBCC('bcc@example.com');*/
+
+											/*$mail->addAttachment('/var/tmp/file.tar.gz');  */       // Add attachments
+											/*$mail->addAttachment('/tmp/image.jpg', 'new.jpg'); */   // Optional name
+											$mail->isHTML(true);                                  // Set email format to HTML
+
+											$mail->Subject = 'Here is the subject';
+											$mail->Body    = '<p>Vous pouvez réinitialiser votre mot de passe en cliquant sur le lien suivant :<br>
+											<a href="'.$linkChangePassword.'">Modifier mon mot de passe</a>	</p><br>				
+											<code>'.$linkChangePassword.'</code>';
+
+											$mail->AltBody = 'Vous pouvez réinitialiser votre mot de passe en cliquant sur le lien suivant :'.$linkChangePassword;
+
+										
+
+
+											if(!$mail->send()) {
+											    echo 'Message could not be sent.';
+											    echo 'Mailer Error: ' . $mail->ErrorInfo;
+											} else {
+											    echo 'Message has been sent';
+											}
+
+
+
+
+
+
+
+
+
+
+				?>
 				<p>Vous pouvez réinitialiser votre mot de passe en cliquant sur le lien suivant :
 				<br>
 				<a href="<?=$linkChangePassword; ?>">Modifier mon mot de passe</a>
@@ -140,6 +202,23 @@ if(!empty($_POST)){
 					Rappel : le token ou le lien de changement de mot de passe ne doit jamais apparaitre en clair sur la page. Celui-ci sera obligatoirement envoyé par email
 				-->
 				<code><?=$linkChangePassword; ?></code>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			<?php else: // Sinon on affiche le formulaire ?>
 

@@ -1,6 +1,6 @@
 <?php
 $debutSession = session_start();//permet de demarrer la session
-
+require_once '../inc/header_admin.php';
 require_once '../inc/connect.php';
 
 $post =array();
@@ -32,7 +32,7 @@ if(!empty($_POST)){//01
 		if($select->execute()){//03
 
 				$user = $select->fetch();//contient notre utilisateur relatif à l'adresse email
-			var_dump($user);
+			//var_dump($user);
 		if(!empty($user)){//04
 																
 
@@ -47,7 +47,6 @@ if(!empty($_POST)){//01
 				'firstname' => $user['firstname'],
 				'lastname'  => $user['lastname'],
 				'email'     => $user['email'],
-				'gender'    => $user['gender'],
 				'role'      => $user['role']
 								];
 		//je redirige vers la page "infos_users.php"
@@ -116,12 +115,12 @@ if(!empty($_POST)){//01
 			</div>
 
 </form>
-<a href="lost_password.php">Mot de passe oublié</a>
+<a href="lost_password.php">Mot de passe oublié</a><br>
+<a href="btnDeconnexion.php">Se deconnecter</a>
 </main>
-
-
-</body>
-</html>
+<?php
+require_once '../inc/footer_admin.php';
+?>
 
 
 
