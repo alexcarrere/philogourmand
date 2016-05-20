@@ -48,13 +48,55 @@ if(!empty($_GET['id'])){
 		}
 
 
-		if(!empty($_POST)){
+if(!empty($_POST)){//01
 
 			foreach ($_POST as $key => $value) {
 			$post[$key] = trim(strip_tags($value));
 			}
 
-			if(!empty($_FILES) && isset($_FILES['pictureDeux'])){
+
+			
+		
+			$city = $post['city'];
+			
+		
+
+			if(strlen($post['title']) < 3 || strlen($post['title']) > 15){
+			$error[] = 'Le titre doit comporter entre 3 et 15 caractères';
+			}
+
+			if(strlen($post['adress']) < 3 || strlen($post['adress']) > 15){
+				$error[] = 'Le prénom doit comporter entre 3 et 15 caractères';
+			}
+
+			if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
+				$error[] = 'le contenu ne correspond pas à une adresse email';
+			}
+
+			if(empty($post['phone']) && strlen($post['phone']) < 10  && !filter_var($post['phone'], FILTER_VALIDATE_INT)){
+				$error[] = 'le numero de telephone n\'est pas valide';
+			}
+			if(strlen($post['city']) < 3 || strlen($post['adress']) > 15){
+				$error[] = 'Le ville doit comporter entre 3 et 15 caractères';
+			}
+			if(strlen($post['zipcode']) != 5){
+			$error[] = 'Le code postal doit comporter 5 caractères';
+			}
+
+			if(strlen($post['adress']) < 3 || strlen($post['adress']) > 15){
+				$error[] = 'Le prénom doit comporter entre 3 et 15 caractères';
+			}
+			
+
+			if(count($error) > 0){
+				$displayErr = true;
+			}
+			else {//erreur else si pas d'erreur
+
+
+
+
+					if(!empty($_FILES) && isset($_FILES['pictureDeux'])){//02
 				
 					$nomFichier = $_FILES['pictureDeux']['name'];
 					
@@ -72,28 +114,26 @@ if(!empty($_GET['id'])){
 					Pour placer le fichier dans le dossier image... un peu de concatenation :-)"*/
 
 					$newFichier = $folder.$finalFileName;
-					if(  $_FILES['pictureDeux']['size'] <= $maxSize){
+					if(  $_FILES['pictureDeux']['size'] <= $maxSize){//03
 
 
 
 
 
-		if(move_uploaded_file( $tmpFichier , $newFichier  )){
+									if(move_uploaded_file( $tmpFichier , $newFichier  )){
 
-		$success = "Fichier envoyé !!\o/";
-		/*$picture = $finalFileName;*/
-		/*retourne un boolean true si le fichier a bien été déplacé/envoye
-		false si il y a une erreur*/
+									$success = "Fichier envoyé !!\o/";
+									
 
-		}
+									}
 
-		else {
+									else {
 
-		$error = 'Erreur lors de l\'envoi de fichier';
-		}
+									$errorUpdate = 'Erreur lors de l\'envoi de fichier';
+									}
 	
-	}	
-}
+					}	//fin 03
+				} //fin 02
 
 			
 
@@ -126,8 +166,8 @@ if(!empty($_GET['id'])){
 			$picture = $finalFileName;
 			}
 
-
-		}
+			}// fin erreur else 
+		}//fin 01
 
 
 
@@ -158,16 +198,29 @@ if(!empty($_GET['id'])){
 
 
 		if(isset($success)){
-			echo $success; // Affiche le message de réussite
+			echo $success; // Affiche le message de réussite de l'envoi du fichier image
 		}
-		if(isset($error)){
-			echo $error; // Affiche le message d'erreur
+		if(isset($errorUpdate)){
+			echo $errorUpdate; // Affiche le message d'erreur de l'envoi du fichier image
 		}
-		if($formValid){
+		if($formValid){//Affiche le message de réussite de la mise à jour
 
 
 			echo 'le resto est modifié';
 		}
+
+		if($displayErr){ // Si on a des erreurs, on les affiche
+		echo '<div class="errorContent">';
+		echo implode('<br>', $error); // Permet de convertir le tableau $error en chaine de caractère
+		echo '</div>';
+		/*
+		echo '<ul>';
+		foreach ($error as $key => $err) {
+			echo '<li>'.$err.'</li>';
+		}
+		echo '</ul>';
+		*/
+	}
 ?>
 
 
