@@ -30,7 +30,7 @@ USE `philogourmand`;
 
 CREATE TABLE `authorization` (
   `id` int(11) NOT NULL,
-  `role_auth` enum('admin','editor') NOT NULL,
+  `role` enum('admin','editor') NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -38,7 +38,7 @@ CREATE TABLE `authorization` (
 -- Contenu de la table `authorization`
 --
 
-INSERT INTO `authorization` (`id`, `role_auth`, `id_user`) VALUES
+INSERT INTO `authorization` (`id`, `role`, `id_user`) VALUES
 (1, 'admin', 1);
 
 -- --------------------------------------------------------
