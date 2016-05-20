@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>menu pour administration</title>
-</head>
-<body>
+
 <?php 
+require_once '../inc/header_admin.php';
 session_start();
 if($_SESSION['user']['role'] == 'admin'){
 	?>
@@ -28,7 +24,6 @@ else {
 
 	echo 'vous n\'êtes pas autorisé à aporter des modifications';
 }
+require_once '../inc/footer_admin.php';
 ?> 
 
-</body>
-</html>
