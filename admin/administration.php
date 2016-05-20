@@ -1,7 +1,7 @@
 
 <?php 
-require_once '../inc/header_admin.php';
 session_start();
+require_once '../inc/header_admin.php';
 if (!empty($_SESSION) && isset($_SESSION['user']['role'])){
 
 	if ($_SESSION['user']['role'] != 'admin') {
