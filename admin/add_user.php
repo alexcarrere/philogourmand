@@ -62,26 +62,63 @@ if (!empty($_POST)) {
     	$password = password_hash($post['password'], PASSWORD_DEFAULT);
 
 		// Insertion dans la pdo 
-    	$res = $pdo->prepare('INSERT INTO users (nickname, firstname, lastname, email, password, role, date_reg ) VALUES(:nickname, :firstname, :lastname, :email, :password, :role, NOW())');
+    	$res = $pdo->prepare('INSERT INTO users (nickname, firstname, lastname, email, password, date_reg ) VALUES(:nickname, :firstname, :lastname, :email, :password, NOW())');
 
         $res->bindValue(':nickname', $post['nickname'], PDO::PARAM_STR);
         $res->bindValue(':firstname', $post['firstname'], PDO::PARAM_STR);
         $res->bindValue(':lastname', $post['lastname'], PDO::PARAM_STR);
         $res->bindValue(':email', $post['email'], PDO::PARAM_STR);
         $res->bindValue(':password', $password);
-        $res->bindValue(':role', $post['role'], PDO::PARAM_STR);
         
-    
-	    if($res->execute()){
+        
+
+         if($res->execute()){
 	        $success = true; // Pour afficher le message de réussite si tout est bon
 	    }
 	    else {
 	        die(var_dump($res->errorInfo()));
 	    }
+
+
+
+
+
+
+        $resRecupId = $pdo->prepare('SELECT * FROM users WHERE email = :email');
+        $resRecupId->bindValue(':email', $post['email'], PDO::PARAM_STR);
+
+
+		if($resRecupId->execute()){
+
+	// $article contient mon article extrait de la bdd
+			$idRecupIdTableau = $resRecupId->fetch(PDO::FETCH_ASSOC);
+			$idRecupId = $idRecupIdTableau['id'];
+
+		}
+		else {
+
+			die(var_dump($resRecupId->errorInfo()));
+
+		}	
+
+
+   
+
+	    $resAuthorisation = $pdo->prepare('INSERT INTO authorization (role, id_user ) VALUES( :role, :id_last) ');
+
+	    $resAuthorisation->bindValue(':role', $post['role'], PDO::PARAM_STR);
+	    $resAuthorisation->bindValue(':id_last', $idRecupId, PDO::PARAM_INT );
+	    if($resAuthorisation->execute()){
+	        $successAuthorisation = true; // Pour afficher le message de réussite si tout est bon
+	    }
+	    else {
+	        die(var_dump($res->errorInfo()));
+	    }
+
     }
 }
 
-if($success){ // On affiche la réussite si tout fonctionne
+if($success == 'true' && $successAuthorisation == 'true'){ // On affiche la réussite si tout fonctionne
     echo '<div class="alert alert-success" role="alert"> L\'utilisateur est bien créer ! </div>';
 }
 
