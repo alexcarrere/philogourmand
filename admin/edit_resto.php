@@ -12,6 +12,7 @@ if (!empty($_SESSION) && isset($_SESSION['user']['role'])){
 require_once '../inc/header_admin.php';
 require_once '../inc/connect.php';
 $affichageFormulaire = false;
+$displayErr = false;
 $formValid = false;
 /*
 S'il y a un slash (/) initial, cherchera le dossier à la racine du site web (localhost), sinon, cherchera dans le dossier courant

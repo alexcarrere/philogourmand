@@ -52,7 +52,7 @@
                             </li>
 
                             <li>
-                                <a href="edit_resto.php">Modifier les infos du site</a>
+                                <a href="edit_resto.php?id=1">Modifier les infos du site</a>
                             </li>
                         <?php endif; ?>
 
