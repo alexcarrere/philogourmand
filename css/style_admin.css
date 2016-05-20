@@ -13,3 +13,7 @@ table > thead {
 .table-striped > tbody > tr:nth-of-type(2n){
 	background: #F4B350;
 }
+
+table > thead > tr > th {
+	text-align: center;
+}

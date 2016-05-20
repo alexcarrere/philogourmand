@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 19 Mai 2016 à 16:33
+-- Généré le :  Ven 20 Mai 2016 à 10:55
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -25,6 +25,18 @@ USE `philogourmand`;
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `authorization`
+--
+
+CREATE TABLE `authorization` (
+  `id` int(11) NOT NULL,
+  `role` enum('admin','editor') NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `contact`
 --
 
@@ -35,7 +47,7 @@ CREATE TABLE `contact` (
   `email` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `date_add` datetime NOT NULL,
-  `message_state` enum('read','unread') NOT NULL
+  `message_state` enum('read','unread') NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -43,8 +55,9 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `firstname`, `lastname`, `email`, `content`, `date_add`, `message_state`) VALUES
-(8, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:07:59', 'unread'),
-(9, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:43:22', 'unread');
+(1, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:07:59', 'read'),
+(2, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxssxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:43:22', 'read'),
+(3, 'John', 'Smith', 'lorem@ipsum.net', 'zdgftrhjuklomp^ùpopiujy', '2016-05-20 10:39:01', 'unread');
 
 -- --------------------------------------------------------
 
@@ -83,7 +96,7 @@ CREATE TABLE `resto` (
 --
 
 INSERT INTO `resto` (`id`, `link`, `adress`, `zipcode`, `city`, `email`, `phone`, `title`) VALUES
-(1, 'img/ma_super_image.jpg', '66 Rue Abbé de l''Épée', '33000', 'Bordeaux', 'postmaster@philogourmand.fr', '0011223344', 'Philogourmand');
+(1, 'default.jpg', '66 Rue Abbé de l''Épée', '33130', 'Bordeaux', 'postmaster@philogourmand.fr', '0011223344', 'Philogourmand');
 
 -- --------------------------------------------------------
 
@@ -128,6 +141,12 @@ INSERT INTO `users` (`id`, `nickname`, `firstname`, `lastname`, `email`, `passwo
 --
 
 --
+-- Index pour la table `authorization`
+--
+ALTER TABLE `authorization`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `contact`
 --
 ALTER TABLE `contact`
@@ -163,10 +182,15 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT pour la table `authorization`
+--
+ALTER TABLE `authorization`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `recipes`
 --
@@ -176,7 +200,7 @@ ALTER TABLE `recipes`
 -- AUTO_INCREMENT pour la table `resto`
 --
 ALTER TABLE `resto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `tokens_password`
 --

@@ -36,7 +36,7 @@ if(!empty($_POST)){ // vérifie que $_POST est définie et non vide :
 	}
 	else { //sinon, s'il n'y a pas d'erreur au vu du if précédent "if(count($error))"" :			
 		
-        $requete = $pdo->prepare('INSERT INTO contact (firstname, lastname, email, content, date_add, message_state) VALUES (:firstnameInser, :lastnameInser, :emailInser, :contentInser, NOW(), "unread")');
+        $requete = $pdo->prepare('INSERT INTO contact (firstname, lastname, email, content, date_add) VALUES (:firstnameInser, :lastnameInser, :emailInser, :contentInser, NOW())');
 
         $requete->bindValue(':firstnameInser',   $post['firstname']);
         $requete->bindValue(':lastnameInser',   $post['lastname']);

@@ -194,7 +194,7 @@ include_once '../inc/header_admin.php';
 			?>
 			     <tr>
 			       	<td><?=$message['id']; ?></td>
-			       	<td><?=$message['content']; ?></td>
+			       	<td><?=substr($message['content'], 0, 50); ?></td>
 			       	<td><?=$message['firstname']; ?></td>
 			       	<td><?=$message['lastname']; ?></td>
 			       	<td><?=$message['email']?></td>
