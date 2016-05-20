@@ -8,7 +8,7 @@ $resultatSearch = '';
 $resultatSearchReplace = '';
 $startRecipes = 0;
 $error = '';
-
+$resultatSearchRegex = '//';
 /***************************  AFFICHER SELON ENTREE DANS MOTEUR DE RECHERCHE ***************************/
 if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si recherche on affiche le résultat // on recherche les paramètres
 
@@ -49,8 +49,21 @@ else { // sinon on liste tous les articles
 
 <form role="search" method="GET">
 	
-	<button type="submit" class="float_right">Rechercher</button>
-	<input type="search" class="float_right" name="search" placeholder="Rechercher">
+<!-- <button type="submit" class="float_right">Rechercher</button>
+<input type="search" class="float_right" name="search" placeholder="Rechercher">
+ -->
+	<div class="row">
+		<div class="col-md-offset-3 col-md-6 col-md-offset-3">
+			<div class="input-group">
+				<input type="search" class="form-control" name="search" placeholder="Tapez votre recherche ici...">
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				</button>
+				</span>
+			</div><!-- /input-group -->
+		</div>
+	</div><!-- /.row -->
 	
 </form>
 <br>
