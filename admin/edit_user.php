@@ -205,7 +205,7 @@ include_once '../inc/header_admin.php';
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label" for="singlebutton"></label>
+                                        <label class="col-md-12 control-label" for="singlebutton"></label>
                                         <div class="col-md-10">
                                             <input type="hidden" name="id" value="<?php echo $edituser['id']; ?>">
                                             <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Modifier</button> <a href="view_users.php" class="btn btn-default">Ne rien changer et retourner à la liste des utilisateurs</a>

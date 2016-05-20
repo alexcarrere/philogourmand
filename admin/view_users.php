@@ -4,10 +4,11 @@ session_start();
 
 require_once '../inc/connect.php';
   
-    $res = $pdo->prepare('SELECT * FROM users ORDER BY id DESC');
+    $res = $pdo->prepare('SELECT * FROM users INNER JOIN authorization ON users.id = authorization.id_user');
     $res->execute();
 
     $utilisateurs = $res->fetchAll(PDO::FETCH_ASSOC);
+
 
 include_once '../inc/header_admin.php';
 ?>

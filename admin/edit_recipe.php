@@ -222,30 +222,20 @@ include_once '../inc/header_admin.php';
                             <fieldset>
                                 <legend>Merci de renseigner les champs obligatoires ;-) </legend>
 
-                                	<div class="form-group">
-                                        <label class="col-md-2 control-label" for="title">Nom de la recette</label>  
-                                        <div class="col-md-10">
-                                            <input id="title" name="title" type="text" class="form-control input-md" required="true" value="<?php echo $editrecipe['title']; ?>">
-                                             
-
-                                        </div>
-                                    </div><!--.form-group-->
-
-                                
+                                	<div class="form-group input-group">
+                                      <span class="input-group-addon" id="basic-addon1">Titre</span>
+                                      <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1">
+                                    </div><br>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon" id="basic-addon1">Ingrédient</span>
+                                        <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Déscriptif complet de la recette pour le client"></textarea>
+                                    </div><br>
+     
                                     <div class="form-group">
-                                        <label class="col-md-2 control-label" for="content">Déscriptif de la recette</label>  
+                                        <label class="col-md-2 control-label" for="picture"></label> 
                                         <div class="col-md-10">
-                                            <textarea id="content" name="content" rows="15" class="form-control input-md"><?php echo $editrecipe['content']; ?></textarea>
-                                            
-                                        </div>
-                                    </div><!--.form-group-->
-
-                                    
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="picture">Changer l'image de la recette</label> 
-                                        <div class="col-md-10">
-                                            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
-                                            <input id="picture" name="picture" type="file">
+                                        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+                                        <input type="file" class="filestyle" data-buttonName="btn-primary">
                                         </div>
                                     </div><!--.form-group-->
 
