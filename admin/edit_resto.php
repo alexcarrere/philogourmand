@@ -14,6 +14,7 @@ require_once '../inc/connect.php';
 $affichageFormulaire = false;
 $displayErr = false;
 $formValid = false;
+$error = array();
 /*
 S'il y a un slash (/) initial, cherchera le dossier à la racine du site web (localhost), sinon, cherchera dans le dossier courant
 
@@ -36,6 +37,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 
 
 			$restaurant = $res->fetch(PDO::FETCH_ASSOC);
+
 			$idRestaurant = $restaurant['id'];
 			$title = $restaurant['title'];
 			$adress = $restaurant['adress'];
@@ -49,55 +51,43 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		}
 
 
-if(!empty($_POST)){//01
+		if(!empty($_POST)){
 
 			foreach ($_POST as $key => $value) {
 			$post[$key] = trim(strip_tags($value));
 			}
-
-
 			
-		
-			$city = $post['city'];
-			
-		
 
 			if(strlen($post['title']) < 3 || strlen($post['title']) > 15){
 			$error[] = 'Le titre doit comporter entre 3 et 15 caractères';
 			}
 
-			if(strlen($post['adress']) < 3 || strlen($post['adress']) > 15){
-				$error[] = 'Le prénom doit comporter entre 3 et 15 caractères';
+			if(strlen($post['adress']) < 3 || strlen($post['adress']) > 50){
+				$error[] = 'L \'adresse doit comporter entre 3 et 50 caractères';
 			}
 
 			if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
 				$error[] = 'le contenu ne correspond pas à une adresse email';
 			}
 
-			if(empty($post['phone']) && strlen($post['phone']) < 10  && !filter_var($post['phone'], FILTER_VALIDATE_INT)){
+			if(empty($post['phone']) && strlen($post['phone']) == 10  && !filter_var($post['phone'], FILTER_VALIDATE_INT)){
 				$error[] = 'le numero de telephone n\'est pas valide';
 			}
-			if(strlen($post['city']) < 3 || strlen($post['adress']) > 15){
-				$error[] = 'Le ville doit comporter entre 3 et 15 caractères';
+			if(strlen($post['city']) < 3 || strlen($post['city']) > 50){
+				$error[] = 'Le ville doit comporter entre 3 et 50 caractères';
 			}
 			if(strlen($post['zipcode']) != 5){
 			$error[] = 'Le code postal doit comporter 5 caractères';
 			}
 
-			if(strlen($post['adress']) < 3 || strlen($post['adress']) > 15){
-				$error[] = 'Le prénom doit comporter entre 3 et 15 caractères';
-			}
 			
-
 			if(count($error) > 0){
 				$displayErr = true;
 			}
 			else {//erreur else si pas d'erreur
 
 
-
-
-					if(!empty($_FILES) && isset($_FILES['pictureDeux'])){//02
+			if(!empty($_FILES) && isset($_FILES['pictureDeux'])){
 				
 					$nomFichier = $_FILES['pictureDeux']['name'];
 					
@@ -115,26 +105,28 @@ if(!empty($_POST)){//01
 					Pour placer le fichier dans le dossier image... un peu de concatenation :-)"*/
 
 					$newFichier = $folder.$finalFileName;
-					if(  $_FILES['pictureDeux']['size'] <= $maxSize){//03
+					if(  $_FILES['pictureDeux']['size'] <= $maxSize){
 
 
 
 
 
-									if(move_uploaded_file( $tmpFichier , $newFichier  )){
+								if(move_uploaded_file( $tmpFichier , $newFichier  )){
 
-									$success = "Fichier envoyé !!\o/";
-									
+								$success = "Fichier envoyé !!\o/";
+								/*$picture = $finalFileName;*/
+								/*retourne un boolean true si le fichier a bien été déplacé/envoye
+								false si il y a une erreur*/
 
-									}
+								}
 
-									else {
+								else {
 
-									$errorUpdate = 'Erreur lors de l\'envoi de fichier';
-									}
+								$errorUpdate = 'Erreur lors de l\'envoi de fichier';
+								}
 	
-					}	//fin 03
-				} //fin 02
+	}	
+}
 
 			
 
@@ -147,7 +139,7 @@ if(!empty($_POST)){//01
 		$resUpdate->bindValue(':city', $post['city'], PDO::PARAM_STR);
 		$resUpdate->bindValue(':phone', $post['phone'], PDO::PARAM_STR);
 		$resUpdate->bindValue(':email', $post['email'], PDO::PARAM_STR);
-		$resUpdate->bindValue(':link', $finalFileName, PDO::PARAM_STR);
+		$resUpdate->bindValue(':link', $finalFileName, PDO::PARAM_STR);//$finalFileName
 
 
 
@@ -167,9 +159,8 @@ if(!empty($_POST)){//01
 			$picture = $finalFileName;
 			}
 
-			}// fin erreur else 
-		}//fin 01
-
+			}//fin erreur else
+		}
 
 
 
@@ -226,40 +217,83 @@ if(!empty($_POST)){//01
 
 
 
-<form method="POST" enctype="multipart/form-data">
+
+<form class="form-horizontal well well-sm" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="idRestaurant" value="<?php echo $idRestaurant ?>">
 <input type="hidden" name="veryFinalFileName" value="<?php echo $finalFileName ?>">
-<label>Titre : </label>
-<input type="text" name="title" value="<?php echo $title ?>">
-<br>
-<label>Adresse : </label>
-<input type="text" name="adress" value="<?php echo $adress ?>">
-<br>
-<label>Code postal : </label>
-<input type="text" name="zipcode" value="<?php echo $zipcode ?>">
-<br>
-<label>Ville : </label>
-<input type="text" name="city" value="<?php echo $city ?>">
-<br>
-<label>Telephone : </label>
-<input type="text" name="phone" value="<?php echo $phone ?>">
-<br>
-<label>Email : </label>
-<input type="email" name="email" value="<?php echo $email_restaurant ?>">
-<br>
 
-<label>Image : </label>
-<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+<div class="form-group">
+			<label class="col-md-4 control-label" for="title">Titre : </label>
+			<div class="col-md-4">
+				<input type="text" name="title" value="<?php echo $title ?>" required>
+			</div>
+</div>
 
-<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>"> 
-<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>">
-<input type="button" id="fakeBrowser" value="choisir un fichier">
-<br>
-<input type="submit" id="btnSubmit">
+<div class="form-group">
+			<label class="col-md-4 control-label" for="adress">Adresse : </label>
+			<div class="col-md-4">
+				<input type="text" name="adress" value="<?php echo $adress ?>" required>
+			</div>
+</div>
+
+<div class="form-group">
+			<label class="col-md-4 control-label" for="zipcode">Code postal : </label>
+			<div class="col-md-4">
+				<input type="text" name="zipcode" value="<?php echo $zipcode ?>" required>
+			</div>
+</div>
+
+<div class="form-group">
+			<label class="col-md-4 control-label" for="city">Ville : </label>
+			<div class="col-md-4">
+				<input type="text" name="city" value="<?php echo $city ?>" required>
+			</div>
+</div>
+
+<div class="form-group">
+			<label class="col-md-4 control-label" for="phone">Telephone : </label>
+			<div class="col-md-4">
+				<input type="text" name="phone" value="<?php echo $phone ?>" required>
+			</div>
+</div>
+
+<div class="form-group">
+			<label class="col-md-4 control-label" for="email">Email : </label>
+			<div class="col-md-4">
+				<input type="email" name="email" value="<?php echo $email_restaurant ?>" required>
+			</div>
+</div>
+
+<div class="form-group">
+			<label class="col-md-4 control-label" for="image">Image : </label>
+			<div class="col-md-4">
+				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+
+				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>"> 
+				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>" required>
+				
+				<input type="button" id="fakeBrowser" value="Choisir un fichier">
+				
+			</div>
+</div>
+
+<div class="form-group">
+	<div class="col-md-4 col-md-offset-4">
+				<button type="submit" id="btnSubmit" class="btn btn-success">Modifier</button>
+	</div>
+</div>
 
 </form>
+<p id="demo"></p>
 
 
+<!-- <input type="file" accept="image/*" onchange="previewImage(event)" name="picture">
+<p id="output"></p> -->
+
+
+<script>
+
+</script>
 
 
 
@@ -272,8 +306,8 @@ if(!empty($_POST)){//01
 	
 	fauxBouton.addEventListener("click", clicBrowser);
 	fileInput.addEventListener("change", modifNomFichier);
-	/*vraiBouton.addEventListener("click", clicBtn);*/
-
+	/*vraiBouton.addEventListener("click", clicBtn);
+*/
 
 
 	function clicBrowser(){
@@ -288,7 +322,13 @@ if(!empty($_POST)){//01
 		textInput.value = fileInput.value;
 	}
 
-	
+	/*function clicBtn(){
+
+		vraiBouton.click();
+		vraiBouton.click();
+
+
+	}*/
 
 	 /*var previewImage = function(event) {
 	 	var fakeImage = URL.createObjectURL(event.target.files[0]); 

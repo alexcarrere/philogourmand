@@ -26,14 +26,15 @@ if(!empty($_POST)){//01
 	}
 
 			if(count($error) == 0){//02
-			$select = $pdo->prepare('SELECT * FROM users WHERE email = :checkEmail');
+			$select = $pdo->prepare('SELECT * FROM users INNER JOIN authorization ON users.id = authorization.id_user WHERE email = :checkEmail');//
+
 			$select->bindValue(':checkEmail', $post['email']);
 		if($select->execute()){//03
 
 				$user = $select->fetch();//contient notre utilisateur relatif à l'adresse email
+			var_dump($user);
 		if(!empty($user)){//04
 																
-
 
 		// on vérifie le mot de passe saisi et le mot de passe hashé
 		if(password_verify( $post['password'], $user['password'])){
