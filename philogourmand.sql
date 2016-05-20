@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 20 Mai 2016 à 10:55
+-- Généré le :  Ven 20 Mai 2016 à 12:30
 -- Version du serveur :  10.1.9-MariaDB
 -- Version de PHP :  5.6.15
 
@@ -30,9 +30,16 @@ USE `philogourmand`;
 
 CREATE TABLE `authorization` (
   `id` int(11) NOT NULL,
-  `role` enum('admin','editor') NOT NULL,
+  `role_auth` enum('admin','editor') NOT NULL,
   `id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `authorization`
+--
+
+INSERT INTO `authorization` (`id`, `role_auth`, `id_user`) VALUES
+(1, 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -55,8 +62,8 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `firstname`, `lastname`, `email`, `content`, `date_add`, `message_state`) VALUES
-(1, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:07:59', 'read'),
-(2, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxsxsxsxsxsxsxsxssxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:43:22', 'read'),
+(1, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:07:59', 'read'),
+(2, 'Alexandre', 'Theobald', 'lorem@ipsum.fr', 'qzeswxdcftvgyhujikol,j^ghf%g!swqxsxsxsxsxsxsxsxsxs\r\n\r\n\r\nalert("toto")', '2016-05-19 15:43:22', 'read'),
 (3, 'John', 'Smith', 'lorem@ipsum.net', 'zdgftrhjuklomp^ùpopiujy', '2016-05-20 10:39:01', 'unread');
 
 -- --------------------------------------------------------
@@ -125,16 +132,15 @@ CREATE TABLE `users` (
   `lastname` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `date_reg` datetime NOT NULL,
-  `role` enum('admin','editor') NOT NULL
+  `date_reg` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `nickname`, `firstname`, `lastname`, `email`, `password`, `date_reg`, `role`) VALUES
-(1, 'The testeur !', 'Carine', 'Testeur', 'lorem@ipsum.fr', '$2y$10$dH5//h7acd7N1PE2RJ8fW.iF8lkUE8qUZA7gkD6SIkYRjYjeX2ofa', '2016-05-26 00:00:00', 'admin');
+INSERT INTO `users` (`id`, `nickname`, `firstname`, `lastname`, `email`, `password`, `date_reg`) VALUES
+(1, 'The testeur !', 'Carine', 'Testeur', 'lorem@ipsum.fr', '$2y$10$dH5//h7acd7N1PE2RJ8fW.iF8lkUE8qUZA7gkD6SIkYRjYjeX2ofa', '2016-05-26 00:00:00');
 
 --
 -- Index pour les tables exportées
@@ -185,7 +191,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `authorization`
 --
 ALTER TABLE `authorization`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `contact`
 --
