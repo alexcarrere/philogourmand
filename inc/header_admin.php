@@ -1,23 +1,3 @@
-<?php
-if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
-    // Ici je déconnecte mon utilisateur
-
-    # unset($_SESSION); // A ne jamais faire, empèche la réutilisation de $_SESSION. On peut touitefois supprimer un index particulier
-
-    unset($_SESSION['user']);//permet de supprimer l'index 'user' de ma session
-
-
-    session_destroy();// Détruit toutes les entrées dans $_SESSION
-
-}
-
-
-
-
-
-?>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +5,13 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Administration</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- lien Police Google Lobster Bootstrap -->
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <!-- lien Police Google Satisfy -->
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <!-- lien CDN Font Awesome -->
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+
 	<link rel="stylesheet" type="text/css" href="../css/style_admin.css">
 </head>
 <body>
@@ -39,7 +26,7 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll">Philogourmand</a>
+                    <a id="logo" class="navbar-brand page-scroll" href="../index.php">Philogourmand</a>
                 </div>
                 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -48,13 +35,14 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
                         <li>
                             <a href="../index.php">Retour site</a>
                         </li>
-                        <li>
-                            <a href="administration.php">Administration</a>
-                        </li>
 
                         <!-- Si l'utilisateur est un admin, on affiche toutes les options possibles -->
                         <?php if (!empty($_SESSION) && isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') :?>
-    						<li class="dropdown">
+                            <li>
+                                <a href="administration.php">Administration</a>
+                            </li>
+
+                            <li class="dropdown">
     							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Affichage des données<span class="caret"></span></a>
     							<ul class="dropdown-menu">
                                     <li><a href="view_users.php">Afficher la liste des utilisateurs</a></li>
@@ -75,21 +63,13 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
                             <li>
                                 <a href="edit_resto.php?id=1">Modifier les infos du site</a>
                             </li>
+
+                            <?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) : ?>
                             <li>
-                                <?php
-                                    // on affiche les données seulement si la session existe
-                                        if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
-
-                                            
-                                            echo '<a href="?logout=yes"><div class="col-md-4 col-md-offset-4">Déconnexion</div></a>';
-                                        }
-                                        else {
-
-                                            echo '<p>Vous n\'êtes pas connecté...</p>';
-                                        }
-                                ?>
-
+                                <a href="deconnexion.php">Déconnexion</a>
                             </li>
+                            <?php endif; ?>
+
                         <?php endif; ?>
 
                         <!-- Si l'utilisateur est un editeur, on affiche seulement les liens en rapport avec les recettes -->

@@ -1,5 +1,5 @@
 main {
-    padding-top: 120px;
+    padding-top: 50px;
 }
 
 .jumbotron {
@@ -21,12 +21,26 @@ main {
 	list-style-type: none;
 }
 
-#menu-nav > li {
-	display: inline-block;
-	padding: 0 5px;
+.navbar-text, .navbar-link {
+	color: black !important;
+}
+
+.navbar-inverse .navbar-nav > li  {
+	padding: 0 3px;
+	border-left: 1px solid black;
 } 
 
+.navbar-inverse .navbar-nav > li:last-child  {
+	border-right: 1px solid black;
+} 
+
+.navbar-inverse .navbar-nav > li > a{
+	color: black;
+}
+
+
 #logo {
+	padding-left: 1em; 
 	font-size: 2em;
 	font-family: 'Lobster',cursive,Verdana,sans-serif;
 	color: black;
@@ -52,6 +66,15 @@ h2 {
 	font-family: cursive;
 	font-size: 2em;
 	text-align: center;
+}
+
+main.container {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.recipes {
+	padding: 1em;
 }
 
 .link_recipes{

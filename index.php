@@ -6,7 +6,7 @@
  ?> 
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div id="background_1" class="jumbotron container">
+<div id="background_1" class="jumbotron">
     <div class="row"><!-- dbt div row -->
         <div class="col-lg-offset-2 col-lg-8">
             <img class="img-responsive" alt="photo_couverture" src="img/<?php echo $picture; ?>">
@@ -15,7 +15,7 @@
 </div> <!-- fin div jumbotron -->
 
 
-<div id="background_2" class="container">
+<div id="background_2" class="recipes">
 
     <!-- row of columns -->
     <div class="row"><!-- dbt div row 3-->

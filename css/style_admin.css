@@ -6,6 +6,13 @@ table > thead {
 	background: white;
 }
 
+#logo {
+	padding-left: 1em; 
+	font-size: 2em;
+	font-family: 'Lobster',cursive,Verdana,sans-serif;
+	color: black;
+}
+
 .table-striped > tbody > tr:nth-of-type(2n+1){
 	background: #E26A6A;
 }

@@ -45,12 +45,11 @@ else { // sinon on liste toutes les recettes
 
 include_once 'inc/header.php';
 ?>
-
+<br>
 <form role="search" method="GET">
-	
 
 	<div class="row">
-		<div class="col-md-offset-3 col-md-6 col-md-offset-3">
+		<div class="col-md-offset-3 col-md-6">
 			<div class="input-group">
 				<input type="search" class="form-control" name="search" placeholder="Tapez votre recherche ici...">
 				<span class="input-group-btn">

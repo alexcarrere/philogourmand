@@ -2,6 +2,7 @@
 session_start();
 require_once '../inc/connect.php';
 require_once '../inc/fonctions.php';
+//require_once '../vendor/autoload.php';
 
 $post = []; //Variable qui contiendra les données de la variable $_POST
 $error = []; //Tableau qui contiendra les messages d'erreurs 
@@ -60,7 +61,7 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUE
 			    echo 'Message could not be sent.';
 			    echo 'Mailer Error: ' . $mail->ErrorInfo;
 			} else {
-				$mailSuccess = true;
+				echo 'Votre message à bien été envoyé !';
 			}*/
 
 			echo 'Votre message à bien été envoyé !';
@@ -152,131 +153,133 @@ include_once '../inc/header_admin.php';
 ?>
 
 
-	
-	<?php if (count($error) > 0) : ?>
-		<div><?=implode('<br>', $error);?></div>
-	<?php endif; ?>
+<?php if (count($error) > 0) : ?>
+	<div class="alert alert-danger" role="alert"><?=implode('<br>', $error);?></div>
+<?php endif; ?>
 
-	<?php 
-		//Si un message à été effacé, on affiche la confirmation puis on efface la variable de session correspondante
-		if(isset($_SESSION['del_message']) && $_SESSION['del_message'] == 'ok') {
-			unset($_SESSION['del_message']);
-			echo '<div class="alert alert-success" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					Message correctement effacé
-				</div>';
-		}
-	?>
-
-	<?php if($showAllMessages) : //On affiche la liste des messages seulement si la variable $showAllMessages est à true ?>
-	<h2 class="text-center">Liste des messages</h2>
-	<hr>
-	
-	<table class="table table-striped table-bordered table-condensed">
-	   <thead>
-	     <tr>
-	       <th>id</th>
-	       <th>Contenu</th>
-	       <th>Prénom</th>
-	       <th>Nom</th>
-	       <th>Email</th>
-	       <th>Date</th>
-	       <th>Etat</th>
-	       <th>Actions</th>
-	     </tr>
-	   </thead>
-
-	   <tbody>
-			<?php
-			   foreach($message_list as $message) :
-			?>
-			<tr>
-				<td class="text-center"><?=$message['id']; ?></td>
-				<td class="text-center"><?=substr($message['content'], 0, 50); ?></td>
-				<td class="text-center"><?=$message['firstname']; ?></td>
-				<td class="text-center"><?=$message['lastname']; ?></td>
-				<td class="text-center"><?=$message['email']?></td>
-				<td class="text-center"><?=date('d/m/Y H:i:m', strtotime($message['date_add'])); ?></td>
-
-				<?php if ($message['message_state'] == 'read') : ?>
-					<td class="text-center">Lu</td>
-				<?php else : ?>
-					<td class="text-center">Non lu</td>
-				<?php endif; ?>
-
-				<td class="text-center">
-					<a type="button" class="btn btn-info" href="?id_message=<?=$message['id'];?>">Voir</a>
-					<a type="button" class="btn btn-primary" href="?id_message=<?=$message['id'];?>&action=rep">Répondre</a>
-					<a type="button" class="btn btn-danger" href="?id_message=<?=$message['id'];?>&action=delete">Supprimer</a>
-				</td>
-
-			</tr>
-			<?php endforeach; ?> <!-- fin foreach -->
-
-	   </tbody>
-	</table>
-
-	<?php endif; ?> <!-- Fin affichage de tous les messages --> 
-
-	<?php if($showMessage) : //On affiche le message sélectionné
-			$date = date('d/m/Y H:i:m', strtotime($message['date_add']));
-	?>
-
-		<div class="panel panel-default">
-			<div class="panel-heading"><h3 class="text-center">Message du client :  <?php echo $message['lastname']. ' ' .$message['firstname']; ?></h3></div>
-			<div class="panel-body">
-				<p><strong>Email :</strong> <?=$message['email']; ?></p>
-				<p><strong>Contenu :</strong> <?=$message['content']; ?> </p>
-				<p><strong>Date de réception :</strong> <?=$date; ?></p>
-			</div>
+<?php 
+	//Si un message à été effacé, on affiche la confirmation puis on efface la variable de session correspondante
+	if(isset($_SESSION['del_message']) && $_SESSION['del_message'] == 'ok') :
+		unset($_SESSION['del_message']);
+?>
+		<div class="alert alert-success" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			Message correctement effacé
 		</div>
 
+<?php endif; ?>
 
+<?php if($showAllMessages) : //On affiche la liste des messages seulement si la variable $showAllMessages est à true ?>
+<h2 class="text-center">Liste des messages</h2>
+<hr>
 
-		<br>
+<table class="table table-striped table-bordered table-condensed">
+   <thead>
+     <tr>
+       <th>id</th>
+       <th>Contenu</th>
+       <th>Prénom</th>
+       <th>Nom</th>
+       <th>Email</th>
+       <th>Date</th>
+       <th>Etat</th>
+       <th>Actions</th>
+     </tr>
+   </thead>
 
-		<?php if(!$repMessage) : ?>
-			<a href="contact_message.php" class="btn btn-info">Retour à la liste des messages</a>
-		<?php endif; ?>
+   <tbody>
+		<?php
+		   foreach($message_list as $message) :
+		?>
+		<tr>
+			<td class="text-center"><?=$message['id']; ?></td>
+			<td class="text-center"><?=substr($message['content'], 0, 50); ?></td>
+			<td class="text-center"><?=$message['firstname']; ?></td>
+			<td class="text-center"><?=$message['lastname']; ?></td>
+			<td class="text-center"><?=$message['email']?></td>
+			<td class="text-center"><?=date('d/m/Y H:i:m', strtotime($message['date_add'])); ?></td>
 
-	<?php endif; ?>
+			<?php if ($message['message_state'] == 'read') : ?>
+				<td class="text-center">Lu</td>
+			<?php else : ?>
+				<td class="text-center">Non lu</td>
+			<?php endif; ?>
 
-	<?php if($repMessage) : ?>
+			<td class="text-center">
+				<a type="button" class="btn btn-info" href="?id_message=<?=$message['id'];?>">Voir</a>
+				<a type="button" class="btn btn-primary" href="?id_message=<?=$message['id'];?>&action=rep">Répondre</a>
+				<a type="button" class="btn btn-danger" href="?id_message=<?=$message['id'];?>&action=delete">Supprimer</a>
+			</td>
 
-		<div class="panel panel-default">
-			<div class="panel-heading"><h3 class="text-center" id="titleRep">Réponse :</h3></div>
-			<div class="panel-body">
+		</tr>
+		<?php endforeach; ?> <!-- fin foreach -->
 
-				<form class="form-horizontal" id="formMessageContact" method="post">
+   </tbody>
+</table>
 
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="email">Destinataire</label>  
-						<div class="col-md-4">
-							<input id="email" name="email" type="email" placeholder="adresse@email.fr" class="form-control input-md" data-form="input-form" value="<?=$message['email']; ?>" readonly>
-						</div>
-					</div>
+<?php endif; ?> <!-- Fin affichage de tous les messages --> 
 
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="content">Contenu</label>
-						<div class="col-md-4">
-							<textarea name="content" id="content" rows="10" cols="50" class="form-control input-md" placeholder="Saisir un texte ici..." data-form="input-form"></textarea>
-						</div>
-					</div>
+<?php if($showMessage) : //On affiche le message sélectionné
+		$date = date('d/m/Y H:i:m', strtotime($message['date_add']));
+?>
 
-					<div class="form-group">
-						<div class="col-md-4 col-md-offset-4">
-							<button type="submit" class="btn btn-success">Envoyer</button>
-						</div>
-					</div>
-
-				</form>
-
-			</div>
+	<div class="panel panel-default">
+		<div class="panel-heading"><h3 class="text-center">Message du client :  <?php echo $message['lastname']. ' ' .$message['firstname']; ?></h3></div>
+		<div class="panel-body">
+			<p><strong>Email :</strong> <?=$message['email']; ?></p>
+			<p><strong>Contenu :</strong> <?=$message['content']; ?> </p>
+			<p><strong>Date de réception :</strong> <?=$date; ?></p>
 		</div>
+	</div>
 
+
+
+	<br>
+
+	<?php if(!$repMessage) : ?>
 		<a href="contact_message.php" class="btn btn-info">Retour à la liste des messages</a>
-
 	<?php endif; ?>
+
+<?php endif; ?>
+
+<?php if($repMessage) : ?>
+
+	<div class="panel panel-default">
+		<div class="panel-heading"><h3 class="text-center" id="titleRep">Réponse :</h3></div>
+		<div class="panel-body">
+
+			<form class="form-horizontal" id="formMessageContact" method="post">
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="email">Destinataire</label>  
+					<div class="col-md-4">
+						<input id="email" name="email" type="email" placeholder="adresse@email.fr" class="form-control input-md" data-form="input-form" value="<?=$message['email']; ?>" readonly>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="content">Contenu</label>
+					<div class="col-md-4">
+						<textarea name="content" id="content" rows="10" cols="50" class="form-control input-md" placeholder="Saisir un texte ici..." data-form="input-form"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-4 col-md-offset-4">
+						<button type="submit" class="btn btn-success">Envoyer</button>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+
+	<a href="contact_message.php" class="btn btn-info">Retour à la liste des messages</a>
+
+<?php endif; ?>
 
 
 <?php
