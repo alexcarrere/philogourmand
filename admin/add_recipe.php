@@ -128,7 +128,7 @@ include_once '../inc/header_admin.php';
 <div class="container">
 	<div class="panel panel-default">
 		<div class="alert alert-info" role="alert"> Merci de remplire tout les champs correctement</div>	
-			<form method="post" class="pure-form pure-form-aligned">
+			<form method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
 				<div class="form-group input-group">
 				  <span class="input-group-addon" id="basic-addon1">Titre</span>
 				  <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1">
@@ -148,7 +148,6 @@ include_once '../inc/header_admin.php';
 			                    </div>
 		        		</div>
 		                </div><!--.form-group-->
-			<input type="submit" class="btn btn-primary" value="Ajouter la recette">
 			</form>
 		
 	</div>
