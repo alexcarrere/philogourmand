@@ -4,6 +4,9 @@ session_start();
 
 require_once '../inc/connect.php'; 
 
+if (empty($_SESSION) || !isset($_SESSION['user']['role'])){
+    header('Location: ../index.php');
+}
 
 $post = array(); // Contiendra les données du formulaire nettoyées
 $errors = array(); // contiendra nos éventuelles erreurs
@@ -95,7 +98,7 @@ if (!empty($_POST)) {
     }
     else { 
     	// Insertion dans la pdo 
-    	$res = $pdo->prepare('INSERT INTO recipes (title, content, date_publish, link ) VALUES(:title, :content, NOW(), :linkrecipe )');
+    	$res = $pdo->prepare('INSERT INTO recipes (title, content, date_publish, link) VALUES(:title, :content, NOW(), :linkrecipe )');
 
         $res->bindValue(':title',		 $post['title'], 	PDO::PARAM_STR);
         $res->bindValue(':content', 	 $post['content'],	PDO::PARAM_STR);
@@ -123,34 +126,42 @@ include_once '../inc/header_admin.php';
 ?>
 
 
-		<h1 class="text-center">Ajouter une recette</h1>
-		<br>
+<h1 class="text-center">Ajouter une recette</h1>
+<br>
+
 <div class="container">
-	<div class="panel panel-default">
-		<div class="alert alert-info" role="alert"> Merci de remplire tout les champs correctement</div>	
-			<form method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">Titre</span>
-				  <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1">
-				</div><br>
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">Ingrédient</span>
-				  <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Déscriptif complet de la recette pour le client"></textarea>
-				</div><br>
-				 <div class="form-group">
-		                 	<div class="row">
-			                    <div class="col-md-10">
-			                        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
-			                        <input type="file" class="filestyle" name="picture" data-buttonName="btn-primary">
-			                    </div>
-			                    <div class="col-md-2">
-						<input type="submit" class="btn btn-primary" value="Ajouter la recette">
-			                    </div>
-		        		</div>
-		                </div><!--.form-group-->
-			</form>
-		
-	</div>
+
+	<div class="alert alert-info" role="alert">Merci de remplir tout les champs correctement</div>	
+
+	<form method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
+
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Titre</span>
+            <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1">
+        </div>
+        <br>
+
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Descriptif de la recette</span>
+            <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Descriptif complet de la recette pour le client"></textarea>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-10">
+                    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+                    <input type="file" class="filestyle" name="picture" data-buttonName="btn-primary">
+                </div>
+
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-success" value="Ajouter la recette">
+                </div>
+            </div>
+        </div><!--.form-group-->
+
+	</form>
+
 </div>
 <?php
 

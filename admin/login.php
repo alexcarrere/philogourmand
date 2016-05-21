@@ -3,6 +3,10 @@ $debutSession = session_start();//permet de demarrer la session
 require_once '../inc/header_admin.php';
 require_once '../inc/connect.php';
 
+if (isset($_SESSION['user']['role'])){
+    header('Location: administration.php');
+}
+
 $post =array();
 $error = array();
 $mdpValide = false;
@@ -76,48 +80,37 @@ if(!empty($_POST)){//01
 
 
 ?>
-<!DOCTYPE html>
 
-
-<html Lang="fr">
-<head>
-<meta charset="utf-8">
-	<title></title>
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<h1 class="text-center">Login</h1>
+<br>
 	
-</head>
-<body>
+<form class="form-horizontal" method="post">
 
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="email">email</label>  
+		<div class="col-md-4">
+			<input id="email" name="email" type="email" placeholder="Votre email" class="form-control input-md" required>
+		</div>
+	</div>
 
-<main class="container">
-		<h1 class="text-center">Login</h1>
-		<br>
+	<div class="form-group">
+		<label class="col-md-4 control-label" for="password">Mot de passe</label>  
+		<div class="col-md-4">
+			<input id="password" name="password" type="password" placeholder="Votre password" class="form-control input-md" required>
+		</div>
+	</div>		
 
-<form class="form-horizontal well well-sm" method="post">
-
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="email">email</label>  
-				<div class="col-md-4">
-					<input id="email" name="email" type="email" placeholder="Votre email" class="form-control input-md" required>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="password">Mot de passe</label>  
-				<div class="col-md-4">
-					<input id="password" name="password" type="password" placeholder="Votre password" class="form-control input-md" required>
-				</div>
-			</div>		
-
-			<div class="form-group">
-				<div class="col-md-4 col-md-offset-4">
-					<button type="submit" class="btn btn-primary">Je me connecte</button>
-				</div>
-			</div>
+	<div class="form-group">
+		<div class="col-md-4 col-md-offset-4">
+			<button type="submit" class="btn btn-primary">Je me connecte</button>
+			<a class="btn btn-warning" href="lost_password.php">Mot de passe oublié ?</a><br>
+		</div>
+	</div>
 
 </form>
-<a href="lost_password.php">Mot de passe oublié</a><br>
-</main>
+
+
+
 <?php
 require_once '../inc/footer_admin.php';
 ?>

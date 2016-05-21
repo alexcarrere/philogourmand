@@ -4,6 +4,15 @@ session_start();
 
 require_once '../inc/connect.php'; 
 
+if (!empty($_SESSION) && isset($_SESSION['user']['role'])){
+
+	if ($_SESSION['user']['role'] != 'admin') {
+		header('Location: administration.php');
+	}
+	
+} else {
+	header('Location: ../index.php');
+}
 
 $post = array(); // Contiendra les données du formulaire nettoyées
 $errors = array(); // contiendra nos éventuelles erreurs
@@ -129,51 +138,69 @@ include_once '../inc/header_admin.php';
 ?>
 
 
-		<h1 class="text-center">Ajouter un utilisateur</h1>
-		<br>
+<h1 class="text-center">Ajouter un utilisateur</h1>
+<br>
+
 <div class="container">
-	<div class="panel panel-default">
-		<div class="alert alert-info" role="alert"> Merci de remplire tout les champs correctement</div>	
-			<form method="post" class="pure-form pure-form-aligned">
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">Pseudal</span>
-				  <input type="text" class="form-control" name="nickname" placeholder="Votre prénom" aria-describedby="basic-addon1">
-				</div><br>
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">Prenom</span>
-				  <input type="text" class="form-control" name="firstname" placeholder="Votre prénom" aria-describedby="basic-addon1">
-				</div><br>
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">Nom</span>
-				  <input type="text" class="form-control" name="lastname" placeholder="Votre nom" aria-describedby="basic-addon1">
-				</div><br>
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">Password</span>
-				  <input type="password" class="form-control" name="password" placeholder="Votre mot de passe" aria-describedby="basic-addon1">
-				</div><br>
-				<div class="form-group input-group">
-				  <span class="input-group-addon" id="basic-addon1">@</span>
-				  <input type="text" class="form-control" name="email" placeholder="Votre email" aria-describedby="basic-addon1">
-				</div><br>
-				<div class="form-inline">
-					<label class="col-md-4 control-label" for="role">Rôle</label>
-				<div class="col-md-4">
-					<div class="radio">
-						<label for="role-0">
-							<input type="radio" name="role" id="role-0" value="editor"> Editeur
-						</label>
-					</div>
-					<div class="radio">
-						<label for="role-1">
-							<input type="radio" name="role" id="role-1" value="admin"> Administrateur
-						</label>
-					</div>
-				</div>
-				</div>
-			<input type="submit" class="btn btn-primary" value="S'inscrire">
-			</form>
+
+		<div class="alert alert-info" role="alert"> Merci de remplir tout les champs correctement</div>
+
+		<form method="post" class="pure-form pure-form-aligned">
+
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">Pseudal</span>
+			  <input type="text" class="form-control" name="nickname" placeholder="Votre pseudo" aria-describedby="basic-addon1">
+			</div>
+			<br>
+
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">Prenom</span>
+			  <input type="text" class="form-control" name="firstname" placeholder="Votre prénom" aria-describedby="basic-addon1">
+			</div>
+			<br>
+
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">Nom</span>
+			  <input type="text" class="form-control" name="lastname" placeholder="Votre nom" aria-describedby="basic-addon1">
+			</div>
+			<br>
+
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">@</span>
+			  <input type="text" class="form-control" name="email" placeholder="Votre email" aria-describedby="basic-addon1">
+			</div>
+			<br>
+
+			<div class="input-group">
+			  <span class="input-group-addon" id="basic-addon1">Password</span>
+			  <input type="password" class="form-control" name="password" placeholder="Votre mot de passe" aria-describedby="basic-addon1">
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<input type="radio" aria-label="radio_editor" value="editor" name="role" checked>
+						</span>
+						<input type="text" class="form-control" aria-label="role_editor" placeholder="Rôle : Editeur" disabled="disabled">
+					</div><!-- /input-group -->
+				</div><!-- /.col-lg-6 -->
+
+				<div class="col-lg-6">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<input type="radio" aria-label="radio_admin" value="admin" name="role">
+						</span>
+						<input type="text" class="form-control" aria-label="role_admin" placeholder="Rôle : Administrateur" disabled="disabled">
+					</div><!-- /input-group -->
+				</div><!-- /.col-lg-6 -->
+			</div><!-- /.row -->
+
+		<br>
+		<input type="submit" class="btn btn-success" value="S'inscrire">
+		</form>
 		
-	</div>
 </div>
 <?php
 

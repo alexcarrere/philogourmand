@@ -181,41 +181,35 @@ include_once '../inc/header_admin.php';
 	       <th>Email</th>
 	       <th>Date</th>
 	       <th>Etat</th>
-	       <th></th>
-	       <th></th>
-	       <th></th>
+	       <th>Actions</th>
 	     </tr>
 	   </thead>
 
 	   <tbody>
 			<?php
 			   foreach($message_list as $message) :
-			   $date = date('d/m/Y H:i:m', strtotime($message['date_add']));
 			?>
-			     <tr>
-			       	<td><?=$message['id']; ?></td>
-			       	<td><?=substr($message['content'], 0, 50); ?></td>
-			       	<td><?=$message['firstname']; ?></td>
-			       	<td><?=$message['lastname']; ?></td>
-			       	<td><?=$message['email']?></td>
-			       	<td><?=$date; ?></td>
-			       	<?php if ($message['message_state'] == 'read') : ?>
-			       		<td>Lu</td>
-			   		<?php else : ?>
-			   			<td>Non lu</td>
-			   		<?php endif; ?>
+			<tr>
+				<td class="text-center"><?=$message['id']; ?></td>
+				<td class="text-center"><?=substr($message['content'], 0, 50); ?></td>
+				<td class="text-center"><?=$message['firstname']; ?></td>
+				<td class="text-center"><?=$message['lastname']; ?></td>
+				<td class="text-center"><?=$message['email']?></td>
+				<td class="text-center"><?=date('d/m/Y H:i:m', strtotime($message['date_add'])); ?></td>
 
-			       <td>
-			         <a type="button" class="btn btn-info" href="?id_message=<?=$message['id'];?>">Voir</a>
-			       </td>
-			       <td>
-			         <a type="button" class="btn btn-primary" href="?id_message=<?=$message['id'];?>&action=rep">Répondre</a>
-			       </td>
-			       <td>
-			         <a type="button" class="btn btn-danger" href="?id_message=<?=$message['id'];?>&action=delete">Supprimer</a>
-			       </td>
+				<?php if ($message['message_state'] == 'read') : ?>
+					<td class="text-center">Lu</td>
+				<?php else : ?>
+					<td class="text-center">Non lu</td>
+				<?php endif; ?>
 
-			     </tr>
+				<td class="text-center">
+					<a type="button" class="btn btn-info" href="?id_message=<?=$message['id'];?>">Voir</a>
+					<a type="button" class="btn btn-primary" href="?id_message=<?=$message['id'];?>&action=rep">Répondre</a>
+					<a type="button" class="btn btn-danger" href="?id_message=<?=$message['id'];?>&action=delete">Supprimer</a>
+				</td>
+
+			</tr>
 			<?php endforeach; ?> <!-- fin foreach -->
 
 	   </tbody>
