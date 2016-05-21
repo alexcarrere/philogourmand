@@ -58,8 +58,9 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		}
 		
 
-		if(strlen($post['title']) < 3 || strlen($post['title']) > 15){
-		$error[] = 'Le titre doit comporter entre 3 et 15 caractères';
+		if(strlen($post['title']) < 5 || strlen($post['title']) > 140){
+			/*if(!preg_match ( " \^[a-zA-Z0-9]{5,140}$\ " , $post['title'] )){*/
+			$error[] = 'Le titre doit comporter entre 5 et 140 caractères';
 		}
 
 		if(strlen($post['adress']) < 3 || strlen($post['adress']) > 50){
@@ -83,12 +84,22 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		
 		if(count($error) > 0){
 			$displayErr = true;
+
+			$idRestaurant = $post['idRestaurant'];
+			$title = $post['title'];
+			$adress = $post['adress'];
+			$zipcode = $post['zipcode'];
+			$city = $post['city'];
+			$phone = $post['phone'];
+			$email_restaurant = $post['email'];
+			$picture = $post['pictureDeux'];
 		}
 		else {//erreur else si pas d'erreur
 
 
 			if(!empty($_FILES) && isset($_FILES['pictureDeux'])){
 				
+				if(!empty($_FILES['pictureDeux']['tmp_name'])){//si le chemain vers l'image est créé suite à un chargement
 					$nomFichier = $_FILES['pictureDeux']['name'];
 					
 					$newFileName = explode('.', $nomFichier);
@@ -123,7 +134,12 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 
 				}	
 			}
+						else {//si l'image n'est pas modifier
 
+									$picture = $post['pictureDeux'];
+									$finalFileName = $picture;
+								}
+						}
 			
 
 			$resUpdate = $pdo->prepare('UPDATE resto SET title = :title, adress = :adress, zipcode = :zipcode, city = :city, phone= :phone, email = :email, link = :link WHERE id= :idRestaurant' );
@@ -158,7 +174,13 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		}//fin erreur else
 	}
 ?>
+<style>
+	#browse {
 
+		display: none;
+	}
+
+</style>
 <?php
 	if(isset($success)){
 		echo '<div class="alert alert-success">';
@@ -233,12 +255,22 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 	</div>
 
 	<div class="form-group">
-		<label class="col-md-4 control-label" for="image">Image : </label>
-		<div class="col-md-4">
-			<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
-			<input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux" value="<?php echo $picture; ?>">
-		</div>	
-	</div>
+			<label class="col-md-4 control-label" for="image">Image : </label>
+			<div class="col-md-4">
+				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+
+			
+				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux" value="<?php //echo $picture; ?>"> -->
+
+
+				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>"> 
+				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>">
+				<input type="button" id="fakeBrowser" value="choisir un fichier">
+				<br>
+				
+			</div>
+			
+</div>
 
 	<div class="form-group">
 		<div class="col-md-4 col-md-offset-4">
@@ -248,7 +280,32 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 
 </form>
 
- 
+<script>
+	var fileInput = document.getElementById("browse");
+	var textInput = document.getElementById("nomFichier");
+	var fauxBouton =  document.getElementById("fakeBrowser");
+	
+	
+	fauxBouton.addEventListener("click", clicBrowser);
+	fileInput.addEventListener("change", modifNomFichier);
+
+
+
+	function clicBrowser(){
+
+		fileInput.click();
+	}
+
+	function modifNomFichier(){
+
+		
+		document.getElementById('demo').innerHTML = fileInput.value;
+		textInput.value = fileInput.value;
+	}
+
+	
+</script>
+
 <?php
 }
 else {

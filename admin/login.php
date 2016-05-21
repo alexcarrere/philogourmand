@@ -21,12 +21,18 @@ if(!empty($_POST)){//01
 
 
 // On vérifie que l'adresse email est au bon format
-	if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
+	/*if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){*/
+	if(preg_match ( " /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ " , $post['email'] ) == false){
 		$error[] = 'L\'adresse email est invalide';
 	}	
-	if(empty($post['password'])){
+	/*if(empty($post['password'])){
 
 		$error[] = 'vous devez saisir un mot de passe';
+	}*/
+
+	if(preg_match ( " \^[a-zA-Z0-9]{8,20}$\ " , $post['password'] )){
+
+		$error[] = 'vous devez saisir un mot de passe valide entre 8 et 20 caractéres';
 	}
 
 			if(count($error) == 0){//02
@@ -78,6 +84,17 @@ if(!empty($_POST)){//01
 }//fin 01
 
 
+
+
+
+	if(count($error)!=0){
+
+		foreach ($error as $key => $value) {
+
+			echo $value.'<br>';
+			# code...
+		}
+	}
 
 ?>
 
