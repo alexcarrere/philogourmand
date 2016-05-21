@@ -16,7 +16,7 @@ include_once '../inc/header_admin.php';
 <h2 class="text-center">Liste des Utilisateurs</h2>
 
 
-<table class="table table-striped">
+<table class="table table-striped table-bordered table-condensed">
     <thead>
       <tr>
         <th>id</th>
@@ -29,19 +29,19 @@ include_once '../inc/header_admin.php';
         <th>Actions</th>
       </tr>
     </thead>
+    <tbody>
 <?php         
     foreach($utilisateurs as $user){
 ?>
-    <tbody>
       <tr>
-        <td><?php echo $user['id']; ?></td>
-        <td><?php echo $user['nickname']; ?></td>
-        <td><?php echo $user['firstname']; ?></td>
-        <td><?php echo $user['lastname']; ?></td>
-        <td><?php echo $user['email']; ?></td>
-        <td><?php echo $user['date_reg']; ?></td>
-        <td><?php echo $user['role']?></td>
-        <td>
+        <td class="text-center"><?php echo $user['id']; ?></td>
+        <td class="text-center"><?php echo $user['nickname']; ?></td>
+        <td class="text-center"><?php echo $user['firstname']; ?></td>
+        <td class="text-center"><?php echo $user['lastname']; ?></td>
+        <td class="text-center"><?php echo $user['email']; ?></td>
+        <td class="text-center"><?php echo date('d/m/Y H:i:m', strtotime($user['date_reg'])); ?></td>
+        <td class="text-center"><?php echo $user['role']?></td>
+        <td class="text-center">
             <a type="button" class="btn btn-primary" href="edit_user.php?id=<?php echo $user['id'];?>">Modifier</a>
 
             <!-- On empèche l'utilisateur courant de pouvoir supprimer son compte -->
@@ -53,9 +53,9 @@ include_once '../inc/header_admin.php';
           
         </td> 
       </tr>
-    </tbody>
 
 <?php } ?>
+    </tbody>
 </table>
 <?php
 
