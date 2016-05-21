@@ -33,7 +33,7 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
             $fileExtension = end($newFileName); // Récupère la dernière entrée du tableau (créé avec explode) soit l'extension du fichier
 
             // nom du fichier link au format : recipe-id-timestamp.jpg
-            $finalFileName = 'recette-'.$idlink.'-'.time().'.'.$fileExtension; // Le nom du fichier sera donc recipe-id-timestamp.jpg (time() retourne un timsestamp à la seconde)
+            $finalFileName = 'recette-'.time().'.'.$fileExtension; // Le nom du fichier sera donc recipe-id-timestamp.jpg (time() retourne un timsestamp à la seconde)
 
 
                 if(move_uploaded_file($tmpFichier, $folder.$finalFileName)) { // move_uploaded_file()  retourne un booleen (true si le fichier a été envoyé et false si il y a une erreur)
