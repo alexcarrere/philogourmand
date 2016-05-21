@@ -235,7 +235,7 @@ include_once '../inc/header_admin.php';
                                         <label class="col-md-2 control-label" for="picture"></label> 
                                         <div class="col-md-10">
                                         <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
-                                        <input type="file" class="filestyle" data-buttonName="btn-primary">
+                                        <input type="file" class="filestyle" name="picture" data-buttonName="btn-primary">
                                         </div>
                                     </div><!--.form-group-->
 
