@@ -26,6 +26,10 @@ if (!empty($_GET) && isset($_GET['id'])) {
 		$error[] = 'le utilisateur recherché n\'existe pas';
 	}
 
+	if($_SESSION['user']['id'] == $id_user) {
+		$error[] = 'Impossible d\'effacer le compte sur lequel vous êtes connecté !';
+	}
+
 	if (count($error) == 0) {
 
 		if(isset($_GET['confirm']) && $_GET['confirm'] == 'ok') {
@@ -47,23 +51,28 @@ if (!empty($_GET) && isset($_GET['id'])) {
 		}
 	}
 }
-if (count($error) > 0) : ?>
-	<div><?=implode('<br>', $error);?></div>
-<?php endif; ?>
 
-<?php //Si un message à été effacé, on affiche la confirmation puis on efface la variable de session correspondante
+ //Si un message à été effacé, on affiche la confirmation puis on efface la variable de session correspondante
 	if(isset($_SESSION['del_user']) && $_SESSION['del_user'] == 'ok') {
 		unset($_SESSION['del_user']);
 	}
 
 include_once '../inc/header_admin.php';
 ?>
-<div class="alert alert-danger" role="alert">
-<p> ATTENTION ! Vous souhaitez surprimé l'utilisateur <?= $utilisateur['nickname'] ?> La sentence sera irrémédiable !!!!</p>
 
+<!-- Si il y a des erreurs, on affiche les erreurs -->
+<?php if (count($error) > 0) : ?>
 
+	<div class="alert alert-danger" role="alert"><?=implode('<br>', $error);?></div>
 
-</div>
-<a type="button" class="btn btn-danger" href="delete_user.php?id=<?php echo $id_user;?>&confirm=ok">Cliquez ici si vous souhaitez vraiment supprimer l'utilisateur</a>
+<?php else : ?> <!-- Sinon on affiche le message de confirmation et le bouton -->
+
+	<div class="alert alert-danger" role="alert">
+		<p> ATTENTION ! Vous souhaitez surprimé l'utilisateur <?= $utilisateur['nickname'] ?> La sentence sera irrémédiable !!!!</p>
+	</div>
+
+	<a type="button" class="btn btn-danger" href="delete_user.php?id=<?php echo $id_user;?>&confirm=ok">Cliquez ici si vous souhaitez vraiment supprimer l'utilisateur</a>
+
+<?php endif; ?>
 
 <?php include_once '../inc/footer_admin.php'; ?>
