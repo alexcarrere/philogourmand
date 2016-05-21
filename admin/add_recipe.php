@@ -138,12 +138,16 @@ include_once '../inc/header_admin.php';
 				  <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Déscriptif complet de la recette pour le client"></textarea>
 				</div><br>
 				 <div class="form-group">
-                    <label class="col-md-2 control-label" for="picture">Changer l'image de la recette</label> 
-                    <div class="col-md-10">
-                        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
-                        <input id="picture" name="picture" type="file">
-                    </div>
-                </div><!--.form-group-->
+		                 	<div class="row">
+			                    <div class="col-md-10">
+			                        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+			                        <input type="file" class="filestyle" name="picture" data-buttonName="btn-primary">
+			                    </div>
+			                    <div class="col-md-2">
+						<input type="submit" class="btn btn-primary" value="Ajouter la recette">
+			                    </div>
+		        		</div>
+		                </div><!--.form-group-->
 			<input type="submit" class="btn btn-primary" value="Ajouter la recette">
 			</form>
 		
