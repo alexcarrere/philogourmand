@@ -12,6 +12,7 @@ $errorUpdate  = false; // erreur lors de la mise à jour de la table
 $displayErr   = false; 
 $formValid    = false;
 $userExist    = false;
+
 $allowRole = ['editor', 'admin']; // Liste des genres autorisés
 
 $folder = 'img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
@@ -24,7 +25,7 @@ if(isset($_GET['id']) AND !empty($_GET['id']) AND is_numeric($_GET['id'])) {
     $idUser = intval($_GET['id']);
 
     // Prépare et execute la requète SQL pour récuperer notre user de manière dynamique
-    $req = $pdo->prepare('SELECT * FROM users WHERE id = :idUser');
+    $req = $pdo->prepare('SELECT * FROM users INNER JOIN authorization ON users.id = authorization.id_user WHERE users.id = :idUser');
     $req->bindParam(':idUser', $idUser, PDO::PARAM_INT);
     if($req->execute()) {
         // $edituser contient mon utilisateur extrait de la pdo
@@ -32,6 +33,10 @@ if(isset($_GET['id']) AND !empty($_GET['id']) AND is_numeric($_GET['id'])) {
         if(!empty($edituser) && is_array($edituser)){ // Ici l'utilisateur existe donc on fait le traitement nécessaire
             $userExist = true; // Mon user existe.. donc bon paramètre GET et requête SQL ok
         }
+    }
+    else {
+
+    	 die(var_dump($req->errorInfo()));
     }
 }
 
@@ -64,9 +69,10 @@ if(!empty($_POST) && $userExist == true) {
     else {
 
         //var_dump($post);
-
+    	    /*update t1 inner join t2 on t1.c0 = t2.c0
+set t1.c1 = 10, t2.c1 = 10;*/
         // insertion de la news dans la table "news"
-        $upd = $pdo->prepare('UPDATE users SET nickname = :titreUser, firstname = :firstnameuser, lastname = :lastnameuser, email = :emailuser, role = :roleuser WHERE id = :idUser');
+        $upd = $pdo->prepare('UPDATE users INNER JOIN authorization ON users.id = authorization.id_user SET nickname = :titreUser, firstname = :firstnameuser, lastname = :lastnameuser, email = :emailuser, role = :roleuser WHERE users.id = :idUser');
 
         // On assigne les valeurs associées au champs de la table (au dessus) aux valeurs du formulaire
         // On passe l'id de l'article pour ne mettre à jour que l'article en cours d'édition (clause WHERE).
@@ -84,16 +90,25 @@ if(!empty($_POST) && $userExist == true) {
             $formValid    = true;
             // On refait le SELECT pour afficher les infos à jour dans le formulaire
             // Puisque le premier SELECT est avant l'UPDATE
-            $req = $pdo->prepare('SELECT * FROM users WHERE id = :idUser');
-            $req->bindParam(':idUser', $idUser, PDO::PARAM_INT);
-            if($req->execute()) {
+            $reqDeux = $pdo->prepare('SELECT * FROM users INNER JOIN authorization ON users.id = authorization.id_user WHERE users.id = :idUser');
+            $reqDeux->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+            if($reqDeux->execute()) {
             // $edituser contient ma utilisateur extrait de la pdo
-                $edituser = $req->fetch(PDO::FETCH_ASSOC);
+                $edituser = $reqDeux->fetch(PDO::FETCH_ASSOC);
+            }
+            else {
+
+            	 die(var_dump($reqDeux->errorInfo()));
             }
         }
         else {
             $errorUpdate  = true; // Permettre d'afficher l'erreur
         }
+
+
+        
+
+
 
     }
 }
@@ -117,7 +132,7 @@ include_once '../inc/header_admin.php';
                 </div>
                 <?php endif; ?>
                 
-                <?php if($errorUpdate): ?>
+                <?php if($errorUpdate == true): ?>
                 <div clas="col-md-12">   
                 <!-- message d'erreur si problème url -->
                     <div class="alert alert-danger" role="alert">
