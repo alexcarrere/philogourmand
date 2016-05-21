@@ -62,7 +62,7 @@
 
           <div id="text-align-right" class="contact">
             <ul id="menu-nav">
-              <li><a href="list-recipes.php">Nos recettes</a></li>
+              <li><a href="list_recipes.php">Nos recettes</a></li>
               <li><a href="contact.php">Nous contacter</a></li><!-- renvoie vers la page de contact contact.php! -->
             </ul>
           </div>
