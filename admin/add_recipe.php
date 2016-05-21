@@ -14,6 +14,9 @@ $errors = array(); // contiendra nos éventuelles erreurs
 $showErrors = false;
 $success = false; 
 
+$title = '';
+$content = '';
+
 $folder = '../img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
 $maxSize = 1000000 * 5; // 5Mo
 
@@ -93,17 +96,16 @@ if (!empty($_POST)) {
         $showErrors = true; // valeur booleen // permettra d'afficher nos erreurs s'il y en a
 
         $title = $post['title'];
-        $title = $post['content'];
-        $title = $post['date_publish'];
+        $content = $post['content'];
     }
     else { 
     	// Insertion dans la pdo 
-    	$res = $pdo->prepare('INSERT INTO recipes (title, content, date_publish, link) VALUES(:title, :content, NOW(), :linkrecipe )');
+    	$res = $pdo->prepare('INSERT INTO recipes (title, content, date_publish, link, id_user) VALUES(:title, :content, NOW(), :linkrecipe, :id_user )');
 
         $res->bindValue(':title',		 $post['title'], 	PDO::PARAM_STR);
         $res->bindValue(':content', 	 $post['content'],	PDO::PARAM_STR);
-        $res->bindValue(':linkrecipe',   $dirlink,   	    PDO::PARAM_STR);
-        
+        $res->bindValue(':linkrecipe',   $dirlink,          PDO::PARAM_STR);
+        $res->bindValue(':id_user',   $_SESSION['user']['id'],   	    PDO::PARAM_INT);
         
     
 	    if($res->execute()){
@@ -137,13 +139,13 @@ include_once '../inc/header_admin.php';
 
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Titre</span>
-            <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1" value="<?=$title;?>">
         </div>
         <br>
 
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Descriptif de la recette</span>
-            <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Descriptif complet de la recette pour le client"></textarea>
+            <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Descriptif complet de la recette pour le client" value="<?=$content;?>"></textarea>
         </div>
         <br>
 
