@@ -85,7 +85,7 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
                     $dirlink = $folder.$finalFileName;
                     
                     $success = 'Votre fichier a été uplaodé avec succés !';
-                    $showSuccess = true;
+                   
                 }
                 else {
                     // Permet d'assigner un link par defaut
