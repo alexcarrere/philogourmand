@@ -15,9 +15,6 @@ $userExist    = false;
 
 $allowRole = ['editor', 'admin']; // Liste des genres autorisés
 
-$folder = 'img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
-$maxSize = 1000000 * 5; // 5Mo
-
 
 // vérification des paramètres GET et appel des champs user correspondants
 if(isset($_GET['id']) AND !empty($_GET['id']) AND is_numeric($_GET['id'])) {

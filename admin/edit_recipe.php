@@ -13,7 +13,7 @@ $displayErr   = false;
 $formValid    = false;
 $recipeExist    = false;
 
-$folder = 'img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
+$folder = '../img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
 $maxSize = 1000000 * 5; // 5Mo
 
 
@@ -82,14 +82,14 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
 
                 if(move_uploaded_file($tmpFichier, $folder.$finalFileName)) { // move_uploaded_file()  retourne un booleen (true si le fichier a été envoyé et false si il y a une erreur)
                     // Ici je suis sur que mon image est au bon endroit
-                    $dirlink = $folder.$finalFileName;
+                    $dirlink = $finalFileName;
                     
                     $success = 'Votre fichier a été uplaodé avec succés !';
                    
                 }
                 else {
                     // Permet d'assigner un link par defaut
-                    $dirlink = "img/link-default.jpg";
+                    $dirlink = "link-default.jpg";
                 }
         } // if (in_array($mimeType, $mimTypeOK))
 
@@ -106,7 +106,7 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
 
 else {
     // Permet d'assigner l'link par defaut si l'recette n'en a aucun
-    $dirlink = "img/link-default.jpg";
+    $dirlink = "link-default.jpg";
 }
 
 

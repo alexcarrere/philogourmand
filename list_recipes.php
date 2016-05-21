@@ -15,7 +15,7 @@ if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si r
 	$resultatSearch = trim(strip_tags($_GET['search']));
 	//var_dump($resultatSearch);
 
-	$res = $pdo->prepare('SELECT firstname, lastname, title, content, link, date_publish FROM users INNER JOIN recipes ON users.id = recipes.id_user WHERE (title LIKE :maRecherche) OR (content LIKE :maRecherche) ORDER BY date_publish ASC');
+	$res = $pdo->prepare('SELECT nickname, title, content, link, date_publish FROM users RIGHT JOIN recipes ON users.id = recipes.id_user WHERE (title LIKE :maRecherche) OR (content LIKE :maRecherche) ORDER BY date_publish ASC');
 	$res->bindValue(':maRecherche', '%'.$resultatSearch.'%');
 	$res->execute();
 
@@ -34,7 +34,7 @@ if(!empty($_GET) && isset($_GET['search']) && !empty($_GET['search'])) { // Si r
 /*******************************   AFFICHER TOUTES LES RECETTES AVEC AUTEUR   ***********************/
 else { // sinon on liste toutes les recettes
 
-	$res = $pdo->prepare('SELECT firstname, lastname, title, content, link, date_publish FROM users INNER JOIN recipes ON users.id = recipes.id_user ORDER BY date_publish ASC');
+	$res = $pdo->prepare('SELECT nickname, title, content, link, date_publish FROM users RIGHT JOIN recipes ON users.id = recipes.id_user ORDER BY date_publish ASC');
 	$res->execute();
 
 	// Retourne toutes les entrées de la table "recipe" sous forme de array()
@@ -84,11 +84,16 @@ include_once 'inc/header.php';
 			<br>
 			<div class="row">
 				<div class="col-md-2">
-					<img src="<?=$recip['link'];?>" alt="image" style="width:150px; display:inline-block"> 
+					<img src="img/<?=$recip['link'];?>" alt="image" style="width:150px; display:inline-block"> 
 				</div>
 				<div class="col-md-10">
 					<p><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['content']);?></p>
-					<p><strong>Auteur : </strong><?=$recip['firstname'].' '.$recip['lastname'];?></p>
+
+					<?php if ($recip['nickname'] == NULL) : ?>
+						<p><strong>Auteur : </strong>PhiloGourmand</p>
+					<?php else : ?>
+						<p><strong>Auteur : </strong><?=$recip['nickname'];?></p>
+					<?php endif; ?>
 				<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recip['date_publish']));?></p>
 				</div>
 			</div>

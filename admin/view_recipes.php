@@ -39,7 +39,7 @@ include_once '../inc/header_admin.php';
               <td class="text-center"><?php echo $user['id']; ?></td>
               <td class="text-center"><?php echo $user['title']; ?></td>
               <td class="text-center"><?php echo $user['content']; ?></td>
-              <td class="text-center"><?php echo '<img src="'.$user['link'].'" alt="Photo recette" width="50">'?></td>
+              <td class="text-center"><?php echo '<img src="../img/'.$user['link'].'" alt="Photo recette" width="50">'?></td>
               <td class="text-center"><?php echo date('d/m/Y H:i:m', strtotime($user['date_publish'])); ?></td>
 
               <!-- Si l'utilisateur qui à posté la recette n'existe plus --> 
