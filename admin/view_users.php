@@ -24,6 +24,7 @@ include_once '../inc/header_admin.php';
 ?>
 
 <h2 class="text-center">Liste des Utilisateurs</h2>
+<hr>
 
 <div class="table-responsive">
     <table class="table table-striped table-bordered table-condensed">
