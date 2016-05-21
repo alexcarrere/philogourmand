@@ -55,7 +55,7 @@
         
           <div class="navbar-header"><!-- dbt div navbar header -->
 
-            <a id="logo" class="navbar-brand" href="#"><?php echo $title ?></a><br>
+            <a id="logo" class="navbar-brand" href="index.php"><?php echo $title ?></a><br>
             <p class="navbar-brand lead"><?php echo $adress ?>,&nbsp;<?php echo $zipcode; ?>&nbsp;<?php echo $city ?><br>
             <?php echo $phone ?></p>
           </div> <!-- fin div navbar header -->
