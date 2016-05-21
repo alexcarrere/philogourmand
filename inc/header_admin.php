@@ -39,14 +39,14 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'yes'){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand page-scroll" href="#page-top">Philogourmand</a>
+                    <a class="navbar-brand page-scroll">Philogourmand</a>
                 </div>
                 
                 <!-- Collect the nav links, forms, and other content for toggling -->
               	<div class="collapse navbar-collapse navbar-ex1-collapse navbar-right">
                     <ul class="nav navbar-nav"> 
                         <li>
-                            <a href="../index.php">Index</a>
+                            <a href="../index.php">Retour site</a>
                         </li>
                         <li>
                             <a href="administration.php">Administration</a>
