@@ -42,9 +42,14 @@ include_once '../inc/header_admin.php';
         <td><?php echo $user['date_reg']; ?></td>
         <td><?php echo $user['role']?></td>
         <td>
-          <a type="button" class="btn btn-primary" href="edit_user.php?id=<?php echo $user['id'];?>">Modifier</a>
-          <a type="button" class="btn btn-danger" href="delete_user.php?id=<?php echo $user['id'];?>">Supprimer</a>
-        
+            <a type="button" class="btn btn-primary" href="edit_user.php?id=<?php echo $user['id'];?>">Modifier</a>
+
+            <!-- On empèche l'utilisateur courant de pouvoir supprimer son compte -->
+            <?php if($_SESSION['user']['id'] == $user['id']) : ?>
+                <a type="button" class="btn btn-danger" href="#" disabled="disabled">Supprimer</a>
+            <?php else : ?>
+                <a type="button" class="btn btn-danger" href="delete_user.php?id=<?php echo $user['id'];?>">Supprimer</a>
+            <?php endif; ?>
           
         </td> 
       </tr>
