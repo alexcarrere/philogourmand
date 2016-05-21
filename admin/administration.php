@@ -9,17 +9,12 @@ if (empty($_SESSION) || !isset($_SESSION['user']['role'])){
 }
 
 if($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'editor'){
-	
-
-
-	
 
   // selection des informations du restaurant dans la table resto pour l'id  1
       $res = $pdo->prepare('SELECT * FROM resto WHERE id = :id');
       $res->bindValue(':id' ,1  , PDO::PARAM_INT);
         
       if($res->execute()){
-
 
       $restaurant = $res->fetch(PDO::FETCH_ASSOC);
       $idRestaurant = $restaurant['id'];
@@ -32,16 +27,13 @@ if($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'editor'
 
 
   
-	echo '<p>Bienvenue '.$_SESSION['user']['nickname'].' sur le site du restaurant '.$title.'</p>';
-	echo '<p>'.$adress.'</p>';
+	echo '<p>Bonjour <strong>'.$_SESSION['user']['nickname'].'</strong>, <br><br> Vous vous trouvez dans la parti administrative de votre restaurant <strong>'.$title.'</strong></p>';
+	echo '<p> Les coordonnées actuelles sont :<br><br>'.$adress.'</p>';
 	echo '<p>'.$zipcode.'&nbsp;'.$city.'</p>';
 	echo '<p><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;&nbsp;'.$phone.'</p>';
 	echo '<p>'.$email_restaurant.'</p>';
-
-		}
-
-
-
+	echo '<br><br><p>N\'oubliez pas de vous déconnecter en partant...</p>';
+	}
 }
 else {
 
