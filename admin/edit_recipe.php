@@ -224,11 +224,11 @@ include_once '../inc/header_admin.php';
 
                                 	<div class="form-group input-group">
                                       <span class="input-group-addon" id="basic-addon1">Titre</span>
-                                      <input type="text" class="form-control" name="title" placeholder="Nom de la recette" aria-describedby="basic-addon1">
+                                      <input type="text" class="form-control" name="title" value="<?= $editrecipe['title']; ?>" aria-describedby="basic-addon1">
                                     </div><br>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon" id="basic-addon1">Ingrédient</span>
-                                        <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Déscriptif complet de la recette pour le client"></textarea>
+                                        <textarea id="content" name="content" rows="15" class="form-control input-md" ><?= $editrecipe['content']; ?></textarea>
                                     </div><br>
      
                                     <div class="form-group">
