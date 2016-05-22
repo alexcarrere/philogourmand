@@ -39,7 +39,7 @@ else if(isset($_GET['id']) && !empty($_GET['id'])) { /*Si on veux voir une recet
 	}
 	else {
 
-		$res = $pdo->prepare('SELECT nickname, title, content, link, date_publish FROM users LEFT JOIN recipes ON users.id = recipes.id_user WHERE recipes.id = :idRecipe');
+		$res = $pdo->prepare('SELECT nickname, title, content, link, date_publish FROM users RIGHT JOIN recipes ON users.id = recipes.id_user WHERE recipes.id = :idRecipe');
 		$res->bindValue(':idRecipe', intval($idRecipe), PDO::PARAM_INT);
 		if($res->execute()) {
 
@@ -119,7 +119,11 @@ include_once 'inc/header.php';
 	        </div>
 	        <div class="panel-body">
             	<p class="lead"><?=$recette['content'];?></p>
-        		<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par <?=$recette['nickname'];?></p>
+            	<?php if ($recette['nickname'] == NULL) : ?>
+        			<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par PhiloGourmand</p>
+        		<?php else : ?>
+        			<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par <?=$recette['nickname'];?></p>
+        		<?php endif; ?>
         	</div>
 	    </div>
 
