@@ -45,6 +45,8 @@ else { // sinon on liste toutes les recettes
 
 include_once 'inc/header.php';
 ?>
+
+<h2 class="text-center">Nos recettes</h2>
 <br>
 <form role="search" method="GET">
 

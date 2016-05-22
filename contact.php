@@ -19,15 +19,18 @@ if(!empty($_POST)){ // vérifie que $_POST est définie et non vide :
 	}
 	// On commence nos vérifications :
 
-	if(strlen($post['lastname']) < 3 || strlen($post['lastname']) > 25){
-        $errors[] = 'Le nom doit comporter entre 3 et 25 caractères';
+	//if(strlen($post['lastname']) < 3 || strlen($post['lastname']) > 25){
+    if(!preg_match("#^[A-Z]+[a-zA-Z0-9À-ú'\s]{3,25}#", $post['lastname'])) {   
+        $errors[] = 'Le nom doit comporter entre 3 et 25 caractères et commencer par une majuscule';
     }
 
-	if(strlen($post['firstname']) < 3 || strlen($post['firstname']) > 25){
-        $errors[] = 'Le prénom doit comporter entre 3 et 25 caractères';
+	//if(strlen($post['firstname']) < 3 || strlen($post['firstname']) > 25){
+    if(!preg_match("#^[A-Z]+[a-zA-Z0-9À-ú'\s]{3,25}#", $post['firstname'])) {    
+        $errors[] = 'Le prénom doit comporter entre 3 et 25 caractères et commencer par une majuscule';
     }
 
-    if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){ // si la syntaxe n'est pas bonne
+    //if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){ // si la syntaxe n'est pas bonne
+    if(!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $post['email'])){
         $errors[] = 'L\'adresse email est invalide';
     }
 	
@@ -59,9 +62,9 @@ include_once 'inc/header.php';
 
 ?>
 
-		<h1 class="text-center">Formulaire</h1>
+		<h2 class="text-center">Formulaire</h2>
 		<br>
-		<!-- Message suite traitement formulaire -->
+		<!-- Message pour l'utilisateur suite traitement formulaire en cas d'erreur -->
 		<?php if($showError == true): ?>
             <p style="color:red">Veuillez corriger les erreurs suivantes :</p>
          		<ul style="color:red">
@@ -70,7 +73,7 @@ include_once 'inc/header.php';
                 <?php endforeach;?>
                 </ul>
         <?php endif; ?>
-
+        <!-- Message pour l'utilisateur suite traitement formulaire si tout est ok -->
         <?php if($success == true): ?>
             <p style="color:green">Ok, le formulaire est valide.</p>
         <?php endif; ?>
