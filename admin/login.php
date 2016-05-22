@@ -30,10 +30,16 @@ if(!empty($_POST)){//01
 		$error[] = 'vous devez saisir un mot de passe';
 	}*/
 
-	if(preg_match ( " \^[a-zA-Z0-9]{8,20}$\ " , $post['password'] )){
+	/*if(preg_match ( " \^[a-zA-Z0-9]{8,20}$\ " , $post['password'] )){
+
+		$error[] = 'vous devez saisir un mot de passe valide entre 8 et 20 caractéres';
+	}*/
+	if(empty($post['password'])){
+	/*if(preg_match ( " /^[a-zA-Z0-9]{8,20}$/ " , $post['password'] )){*/
 
 		$error[] = 'vous devez saisir un mot de passe valide entre 8 et 20 caractéres';
 	}
+
 
 			if(count($error) == 0){//02
 			$select = $pdo->prepare('SELECT * FROM users INNER JOIN authorization ON users.id = authorization.id_user WHERE email = :checkEmail');//
