@@ -37,36 +37,45 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUE
 		} 
 		else {
 
-			/*$mail = new PHPMailer;
+			//Récupération de l'email du resto
+			$res = $pdo->prepare('SELECT email FROM resto WHERE id = :id');
+			$res->bindValue(':id' ,  1 , PDO::PARAM_INT);
+			
+			if($res->execute()){
 
-			//$mail->SMTPDebug = 3;                               	// Enable verbose debug output
+				$resto = $res->fetch(PDO::FETCH_ASSOC);
 
-			$mail->isSMTP();                                      	// Set mailer to use SMTP
-			$mail->Host = '';  										// Specify main and backup SMTP servers
-			$mail->SMTPAuth = true;                               	// Enable SMTP authentication
-			$mail->Username = '';             						// SMTP username
-			$mail->Password = '';                   				// SMTP password
-			$mail->SMTPSecure = '';                            		// Enable TLS encryption, `ssl` also accepted
-			$mail->Port = 587;                                    	// TCP port to connect to
+				$mail = new PHPMailer;
 
-			$mail->setFrom($post['email'], $post['firstname'].' '.$post['lastname']);
-			$mail->addAddress('adress@email.com');   				// Add a recipient, Name is optional
-			$mail->isHTML(true);                                  	// Set email format to HTML
+				//$mail->SMTPDebug = 3;                               	// Enable verbose debug output
+				
+				$mail->isSMTP();                                      	// Set mailer to use SMTP
+				$mail->Host = 'smtp..com';  							// Specify main and backup SMTP servers
+				$mail->SMTPAuth = true;                               	// Enable SMTP authentication
+				$mail->Username = '';             						// SMTP username
+				$mail->Password = '';                   				// SMTP password
+				$mail->SMTPSecure = 'tls';                            	// Enable TLS encryption, `ssl` also accepted
+				$mail->Port = 587;                                    	// TCP port to connect to
 
-			$mail->Subject = 'Contact du site';
-			$mail->Body    = nl2br($post['formContent']);
-			$mail->AltBody = $post['content'];
+				$mail->setFrom($resto['email'], $_SESSION['user']['nickname']);
+				$mail->addAddress($post['email']);   				// Add a recipient, Name is optional
+				$mail->isHTML(true);                                  	// Set email format to HTML
 
-			if(!$mail->send()) {
-			    echo 'Message could not be sent.';
-			    echo 'Mailer Error: ' . $mail->ErrorInfo;
-			} else {
-				echo 'Votre message à bien été envoyé !';
-			}*/
+				$mail->Subject = 'Contact du site';
+				$mail->Body    = nl2br($post['content']);
+				$mail->AltBody = $post['content'];
 
-			echo 'Votre message à bien été envoyé !';
-			die;
+				if(!$mail->send()) {
+				    echo 'Message could not be sent.';
+				    echo 'Mailer Error: ' . $mail->ErrorInfo;
+				} else {
+					echo 'success';
+				}
 
+				//echo 'Votre message à bien été envoyé !';
+				die;
+
+			}
 		}
 
 	}

@@ -28,11 +28,25 @@ $(function(){
 					dataType: 'text',
 					success: function(data){
 						$('.alert').remove();
-						$('#formMessageContact').before('<div class="alert alert-success" role="alert">'+
-							'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-							data+
-							'</div>');
-						$('[data-form="input-form"]').val('');
+
+						if(data == 'success') {
+
+							$('#formMessageContact').before('<div class="alert alert-success" role="alert">'+
+								'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+									'Votre message à bien été envoyé !'+
+								'</div>');
+
+							$('[name="content"]').val('');
+
+						}
+						else {
+
+							$('#formMessageContact').before('<div class="alert alert-danger" role="alert">'+
+								'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+									data+
+								'</div>');
+
+						}
 					},
 				}); 
 			}
