@@ -21,27 +21,23 @@
     <div class="row"><!-- dbt div row 3-->
         <h2>Les recettes de la Philo</h2>
 
+       <?php                   
+$res = $pdo->prepare('SELECT * FROM recipes ORDER BY RAND() LIMIT 3');
+$res->execute();
+
+$recettes = $res->fetchAll(PDO::FETCH_ASSOC);
+
+foreach($recettes as $recipe){ 
+?>
         <div class="col-md-4">
-            <img class="img-responsive" alt="entree" src="img/entre.jpg">
+            <img class="img-responsive" alt="entree" src="img/<?php echo $recipe['link']; ?>">
             <br>    
-            <p><a  href="#" class="link_recipes">Lire la recette</a></p>
+            <p style="text-align:center;"><a  href="view_recipe.php" class="link_recipes">Lire la recette</a></p>
         </div>
-
-        <div class="col-md-4">
-            <img class="img-responsive" alt="plat" src="img/plat.jpg"> 
-            <br>
-            <p><a href="#" class="link_recipes">Lire la recette</a></p>
-        </div>
-
-        <div class="col-md-4">
-            <img class="img-responsive" alt="dessert" src="img/dessert.jpg">
-            <br>           
-            <p><a href="#" class="link_recipes">Lire la recette</a></p>
-        </div>
-    </div>
+<?php }
+?>    </div>
 
 </div><!-- fin div container 3 -->
-
 <?php
 require_once 'inc/footer.php';
 ?> 
