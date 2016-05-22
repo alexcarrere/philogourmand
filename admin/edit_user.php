@@ -120,122 +120,72 @@ include_once '../inc/header_admin.php';
 
 
                 <?php if($userExist == false): ?>
-                <div clas="col-md-12">   
-                <!-- message d'erreur si problème url -->
-                    <div class="alert alert-danger" role="alert">
-                        <i class="fa fa-times fa-2x" aria-hidden="true"></i> Vous devez choisir un utilisateur avant de le modifier
-                    </div>
-                    <a class="btn btn-default btn-md" href="view_users.php" role="button">Liste des membres</a>
-                </div>
-                <?php endif; ?>
-                
-                <?php if($errorUpdate == true): ?>
-                <div clas="col-md-12">   
-                <!-- message d'erreur si problème url -->
-                    <div class="alert alert-danger" role="alert">
-                        <i class="fa fa-times fa-2x" aria-hidden="true"></i> Problème lors de la mise à jour de votre profil ! <br /> <?php //echo print_r($res->errorInfo()); ?>
-                    </div>
-                    <a class="btn btn-default btn-md" href="index.php" role="button">Page d'accueil</a>
-                </div>
-                <?php endif; ?>
-
-
-                <?php if($displayErr): ?>
-                <!-- affichage du tableau d'erreur $error si le formulaire est mal renseigné -->
-                <div clas="col-md-12">
-                    <div class="alert alert-danger" role="alert">
-                        <i class="fa fa-times fa-2x" aria-hidden="true"></i> <?php echo implode('<br> <i class="fa fa-times fa-2x" aria-hidden="true"></i> ', $error); ?>
-                    </div>                    
-                </div>
-                <?php endif; ?>
-
-
-                <?php if($formValid): ?>
-                <!-- message de confirmation après une modification de news -->
-                <div clas="col-md-12">
-                    <h1>Modification de la utilisateur <strong><?php echo $edituser['nickname']; ?></strong> effectuée</h1>
-                    <div class="alert alert-success" role="alert">
-                        <i class="fa fa-check fa-2x" aria-hidden="true"></i> Votre utilisateur a bien été modifié.
-                    </div>
-                    <a class="btn btn-default btn-md" href="view_users.php" role="button">Liste des utilisateurs</a>
-                </div>
-                <?php endif; ?>
-
-
-                <?php if($userExist == true): ?>
-                <div class="row">
+                <div class="container">
                     <div class="col-md-12">
-                    <h1>Edition de l'utilisateur : <strong><?php echo $edituser['nickname']; ?></strong></h1>
+                    <h1 class="text-center">Edition de l'utilisateur : <strong><?php echo $edituser['nickname']; ?></strong></h1>
 
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-                            <fieldset>
-                                <legend>Merci de renseigner les champs obligatoires</legend>
+                        <form class="pure-form pure-form-aligned" method="POST" enctype="multipart/form-data">
+                            <div class="alert alert-info" role="alert"> Merci de remplir tout les champs correctement</div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">Pseudal</span>
+                                    <input type="text" class="form-control" name="nickname" value="<?php echo $edituser['nickname']; ?>" aria-describedby="basic-addon1">
+                                </div>
+                                <br>
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">Prenom</span>
+                                    <input type="text" class="form-control" name="firstname" value="<?php echo $edituser['firstname']; ?>" aria-describedby="basic-addon1">
+                                </div>
+                                <br>   
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1">Nom</span>
+                                    <input type="text" class="form-control" name="lastname" value="<?php echo $edituser['lastname']; ?>" aria-describedby="basic-addon1">
+                                </div>
+                                <br>
+                                <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">@</span>
+                                        <input type="email" class="form-control" name="email" value="<?php echo $edituser['email']; ?>" aria-describedby="basic-addon1">
+                                </div>
+                                <br>  
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                            <input type="radio" aria-label="radio_editor" value="editor" name="role" checked>
+                                            </span>
+                                            <input type="text" class="form-control" aria-label="role_editor" placeholder="Rôle : Editeur" disabled="disabled">
+                                            </div><!-- /input-group -->
+                                    </div><!-- /.col-lg-6 -->
 
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="nickname">Pseudal de l'utilisateur</label>  
-                                        <div class="col-md-10">
-                                            <input id="nickname" name="nickname" type="text" class="form-control input-md" required="true" value="<?php echo $edituser['nickname']; ?>">
-                                        </div>
-                                    </div><!--.form-group-->
-                                
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="firstname">Nom de l'utilisateur</label>  
-                                        <div class="col-md-10">
-                                            <input id="firstname" name="firstname" type="text" class="form-control input-md" required="true" value="<?php echo $edituser['firstname']; ?>">
-                                        </div>
-                                    </div><!--.form-group-->
+                                    <div class="col-lg-6">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                            <input type="radio" aria-label="radio_admin" value="admin" name="role">
+                                            </span>
+                                            <input type="text" class="form-control" aria-label="role_admin" placeholder="Rôle : Administrateur" disabled="disabled">
+                                        </div><!-- /input-group -->
+                                    </div><!-- /.col-lg-6 -->
+                                </div><!-- /.row -->
 
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="lastname">Prénom de l'utilisateur</label>  
-                                        <div class="col-md-10">
-                                            <input id="lastname" name="lastname" type="text" class="form-control input-md" required="true" value="<?php echo $edituser['lastname']; ?>">
-                                        </div>
-                                    </div><!--.form-group-->
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="email">Email *</label>  
-                                        <div class="col-md-10">
-                                            <input id="email" name="email" type="email" class="form-control input-md" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="true" value="<?php echo $edituser['email']; ?>">
-                                            <span class="help-block">Merci d'indiquer votre email</span>  
-                                        </div>
-                                    </div><!--.form-group-->
-
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label" for="role">Rôle</label>
-                                        <div class="col-md-4">
-                                            <div class="radio">
-                                                <label for="role-0">
-                                                    <input type="radio" name="role" id="role-0" value="editor"> Editeur
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label for="role-1">
-                                                    <input type="radio" name="role" id="role-1" value="admin"> Administrateur
-                                                </label>
-                                            </div>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="col-md-12 control-label" for="singlebutton"></label>
+                                    <div class="col-md-10">
+                                        <input type="hidden" name="id" value="<?php echo $edituser['id']; ?>">
+                                        <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Modifier</button> <a href="view_users.php" class="btn btn-default">Ne rien changer et retourner à la liste des utilisateurs</a>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-12 control-label" for="singlebutton"></label>
-                                        <div class="col-md-10">
-                                            <input type="hidden" name="id" value="<?php echo $edituser['id']; ?>">
-                                            <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-primary">Modifier</button> <a href="view_users.php" class="btn btn-default">Ne rien changer et retourner à la liste des utilisateurs</a>
-                                        </div>
-                                    </div>
-                            </fieldset>
+                                </div>
                         </form>
 
                     </div>
-                </div><!--row-->
+                </div><!--container -->
             <?php endif; ?>
 
             </div><!--.container-fluid-->
         </div><!--#page-firstname-wrapper-->
 
-    </div><!--#wrapper // start in sidebar.php -->
 <?php
 
 include_once '../inc/footer_admin.php';
+
+?>
 
 ?>
