@@ -29,8 +29,8 @@ $recettes = $res->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($recettes as $recipe){ 
 ?>
-        <div id="img_recette_index" class="col-md-4">
-            <img class="img-responsive" alt="entree" src="img/<?php echo $recipe['link']; ?>">
+        <div class="col-md-4">
+            <img class="img-responsive img_recette_index alt="entree" src="img/<?php echo $recipe['link']; ?>">
             <br>    
             <p style="text-align:center;"><a  href="view_recipe.php" class="link_recipes">Lire la recette</a></p>
         </div>
