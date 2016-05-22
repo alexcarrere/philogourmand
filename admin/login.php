@@ -1,5 +1,5 @@
 <?php
-$debutSession = session_start();//permet de demarrer la session
+session_start();//permet de demarrer la session
 if (isset($_SESSION['user']['role'])){
     header('Location: administration.php');
 }
