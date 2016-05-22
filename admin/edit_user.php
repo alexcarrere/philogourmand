@@ -33,7 +33,7 @@ if(isset($_GET['id']) AND !empty($_GET['id']) AND is_numeric($_GET['id'])) {
     }
     else {
 
-    	 die(var_dump($req->errorInfo()));
+         die(var_dump($req->errorInfo()));
     }
 }
 
@@ -66,8 +66,16 @@ if(!empty($_POST) && $userExist == true) {
     else {
 
         //var_dump($post);
-    	    /*update t1 inner join t2 on t1.c0 = t2.c0
+            /*update t1 inner join t2 on t1.c0 = t2.c0
 set t1.c1 = 10, t2.c1 = 10;*/
+
+        //Si un admin essaye de changer son profil, il ne peut pas modifier son propre role
+        if($_SESSION['user']['id'] == $idUser) {
+            $role = 'admin';
+        } else {
+            $role = $post['role'];
+        }
+        
         // insertion de la news dans la table "news"
         $upd = $pdo->prepare('UPDATE users INNER JOIN authorization ON users.id = authorization.id_user SET nickname = :titreUser, firstname = :firstnameuser, lastname = :lastnameuser, email = :emailuser, role = :roleuser WHERE users.id = :idUser');
 
@@ -79,7 +87,7 @@ set t1.c1 = 10, t2.c1 = 10;*/
         $upd->bindValue(':firstnameuser',   $post['firstname'],  PDO::PARAM_STR);
         $upd->bindValue(':lastnameuser',    $post['lastname'], PDO::PARAM_STR);
         $upd->bindValue(':emailuser',       $post['email']);
-        $upd->bindValue(':roleuser',        $post['role']);
+        $upd->bindValue(':roleuser',        $role);
         
     
         // Vue que la fonction "execute" retourne un booleen on peut si nécéssaire le mettre dans un if
@@ -89,23 +97,31 @@ set t1.c1 = 10, t2.c1 = 10;*/
             // Puisque le premier SELECT est avant l'UPDATE
             $reqDeux = $pdo->prepare('SELECT * FROM users INNER JOIN authorization ON users.id = authorization.id_user WHERE users.id = :idUser');
             $reqDeux->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+
             if($reqDeux->execute()) {
             // $edituser contient ma utilisateur extrait de la pdo
                 $edituser = $reqDeux->fetch(PDO::FETCH_ASSOC);
+
+                //Si l'utilisateur modifié est celui qui fait la modification
+                if($_SESSION['user']['id'] == $idUser) {
+                    $_SESSION['user'] = [
+                        'id'        => $idUser,
+                        'nickname'  => $edituser['nickname'],
+                        'firstname' => $edituser['firstname'],
+                        'lastname'  => $edituser['lastname'],
+                        'email'     => $edituser['email'],
+                        'role'     => $role
+                    ];
+                }
             }
             else {
 
-            	 die(var_dump($reqDeux->errorInfo()));
+                 die(var_dump($reqDeux->errorInfo()));
             }
         }
         else {
             $errorUpdate  = true; // Permettre d'afficher l'erreur
         }
-
-
-        
-
-
 
     }
 }

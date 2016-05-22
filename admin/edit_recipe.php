@@ -26,15 +26,17 @@ if(isset($_GET['id']) AND !empty($_GET['id']) AND is_numeric($_GET['id'])) {
     $req = $pdo->prepare('SELECT * FROM recipes WHERE id = :idRecipe');
     $req->bindParam(':idRecipe', $idRecipe, PDO::PARAM_INT);
     if($req->execute()) {
-    	// $editrecipe contient mon recette extrait de la pdo
-    	$editrecipe = $req->fetch(PDO::FETCH_ASSOC);
-    	if(!empty($editrecipe) && is_array($editrecipe)){ // Ici l'recette existe donc on fait le traitement nécessaire
-    		$recipeExist = true; // Mon recipe existe.. donc bon paramètre GET et requête SQL ok
+        // $editrecipe contient mon recette extrait de la pdo
+        $editrecipe = $req->fetch(PDO::FETCH_ASSOC);
+        if(!empty($editrecipe) && is_array($editrecipe)){ // Ici l'recette existe donc on fait le traitement nécessaire
+            $recipeExist = true; // Mon recipe existe.. donc bon paramètre GET et requête SQL ok
 
-    		// Si l'utilsateur existe, j'instancie la variable $idlink qui me permet de stcocker l'id recipe dans le nom du fichier
-    		$idlink = $recipeExist['id'];
-    	}
-	}
+            //nom du fichier existant
+            $dirlink = $editrecipe['link'];
+            // Si l'utilsateur existe, j'instancie la variable $idlink qui me permet de stcocker l'id recipe dans le nom du fichier
+            $idlink = $recipeExist['id'];
+        }
+    }
 }
 
 //var_dump($_FILES);
@@ -99,9 +101,7 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
 
 
     } // end if ($_FILES['picture']['error'] == UPLOAD_ERR_OK AND $_FILES['picture']['size'] <= $maxSize)
-    else {
-        $error[] = 'Merci de chosir un fichier image (uniquement au format jpg) à uploader et ne dépassant pas 5Mo !';
-    }
+
 } // end if (!empty($_FILES) AND isset($_FILES['picture'])
 
 else {
@@ -112,39 +112,39 @@ else {
 
 // Si le formulaire est soumis et que $recipeExist est vrai (donc qu'on a un recette)
 if(!empty($_POST) && $recipeExist == true) {
-	foreach($_POST as $key => $value) {
-		$post[$key] = trim(strip_tags($value));
-	}
+    foreach($_POST as $key => $value) {
+        $post[$key] = trim(strip_tags($value));
+    }
 
-	if(empty($post['title']) OR strlen($post['title']) < 2) {
-		$error[] = 'Votre prénom doit comporter au moins 2 caractères';
-	}
+    if(empty($post['title']) OR strlen($post['title']) < 2) {
+        $error[] = 'Votre prénom doit comporter au moins 2 caractères';
+    }
 
-	if(empty($post['content']) OR strlen($post['content']) < 2) {
-		$error[] = 'Votre prénom doit comporter au moins 2 caractères';
-	}
+    if(empty($post['content']) OR strlen($post['content']) < 2) {
+        $error[] = 'Votre prénom doit comporter au moins 2 caractères';
+    }
 
-	if(count($error) > 0) {
-		$displayErr = true;
-	}
-	else {
+    if(count($error) > 0) {
+        $displayErr = true;
+    }
+    else {
 
-		//var_dump($post);
+        //var_dump($post);
 
-		// insertion de la news dans la table "news"
-		$upd = $pdo->prepare('UPDATE recipes SET title = :titrerecipe, content = :contentrecipe, link = :linkrecipe WHERE id = :idRecipe');
+        // insertion de la news dans la table "news"
+        $upd = $pdo->prepare('UPDATE recipes SET title = :titrerecipe, content = :contentrecipe, link = :linkrecipe WHERE id = :idRecipe');
 
-		// On assigne les valeurs associées au champs de la table (au dessus) aux valeurs du formulaire
-		// On passe l'id de l'article pour ne mettre à jour que l'article en cours d'édition (clause WHERE).
+        // On assigne les valeurs associées au champs de la table (au dessus) aux valeurs du formulaire
+        // On passe l'id de l'article pour ne mettre à jour que l'article en cours d'édition (clause WHERE).
 
         $upd->bindValue(':idRecipe',        $idRecipe,  PDO::PARAM_STR);
         $upd->bindValue(':titrerecipe',     $post['title'],  PDO::PARAM_STR);
-		$upd->bindValue(':contentrecipe',   $post['content'], PDO::PARAM_STR);
-		$upd->bindValue(':linkrecipe',      $dirlink,         PDO::PARAM_STR);
-	
-		// Vue que la fonction "execute" retourne un booleen on peut si nécéssaire le mettre dans un if
-		if($upd->execute()) { // execute : retourne un booleen -> true si pas de problème, false si souci.
-			$formValid    = true;
+        $upd->bindValue(':contentrecipe',   $post['content'], PDO::PARAM_STR);
+        $upd->bindValue(':linkrecipe',      $dirlink,         PDO::PARAM_STR);
+    
+        // Vue que la fonction "execute" retourne un booleen on peut si nécéssaire le mettre dans un if
+        if($upd->execute()) { // execute : retourne un booleen -> true si pas de problème, false si souci.
+            $formValid    = true;
             // On refait le SELECT pour afficher les infos à jour dans le formulaire
             // Puisque le premier SELECT est avant l'UPDATE
             $req = $pdo->prepare('SELECT * FROM recipes WHERE id = :idRecipe');
@@ -153,19 +153,19 @@ if(!empty($_POST) && $recipeExist == true) {
             // $editrecipe contient ma recette extrait de la pdo
                 $editrecipe = $req->fetch(PDO::FETCH_ASSOC);
             }
-		}
-		else {
-			$errorUpdate  = true; // Permettre d'afficher l'erreur
-		}
+        }
+        else {
+            $errorUpdate  = true; // Permettre d'afficher l'erreur
+        }
 
-	}
+    }
 }
 include_once '../inc/header_admin.php';
 ?>
 
-	
+    
 
-	<div id="page-content-wrapper">
+    <div id="page-content-wrapper">
             <div class="container-fluid">
         
 
@@ -215,14 +215,14 @@ include_once '../inc/header_admin.php';
 
                 <?php if($recipeExist == true): ?>
                 <div class="row">
-					<div class="col-md-12">
+                    <div class="col-md-12">
                     <h1>Edition de la recette : <strong><?php echo $editrecipe['title']; ?></strong></h1>
 
                         <form class="form-horizontal" method="POST" enctype="multipart/form-data">
                             <fieldset>
                                 <legend>Merci de renseigner les champs obligatoires ;-) </legend>
 
-                                	<div class="form-group input-group">
+                                    <div class="form-group input-group">
                                       <span class="input-group-addon" id="basic-addon1">Titre</span>
                                       <input type="text" class="form-control" name="title" value="<?= $editrecipe['title']; ?>" aria-describedby="basic-addon1">
                                     </div><br>
@@ -249,7 +249,7 @@ include_once '../inc/header_admin.php';
                             </fieldset>
                         </form>
 
-                	</div>
+                    </div>
                 </div><!--row-->
             <?php endif; ?>
 
