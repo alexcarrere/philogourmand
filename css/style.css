@@ -80,6 +80,9 @@ main.container {
 .link_recipes{
 	font-family: 'Satisfy',cursive,Verdana,sans-serif;
 }
+#img_recette_index {
+	max-height: 300px;
+}
 
 #adminlogin {
 	clear: none;
