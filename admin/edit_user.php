@@ -135,7 +135,49 @@ include_once '../inc/header_admin.php';
         
 
 
-                <?php if($userExist == false): ?>
+                <?php if(!$userExist): ?>
+                <div clas="col-md-12">   
+                <!-- message d'erreur si problème url -->
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-times fa-2x" aria-hidden="true"></i> Vous devez choisir un utilisateur avant de le modifier
+                    </div>
+                    <a class="btn btn-default btn-md" href="view_users.php" role="button">Liste des membres</a>
+                </div>
+                <?php endif; ?>
+                
+                <?php if($errorUpdate): ?>
+                <div clas="col-md-12">   
+                <!-- message d'erreur si problème url -->
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-times fa-2x" aria-hidden="true"></i> Problème lors de la mise à jour de votre profil ! <br /> <?php //echo print_r($res->errorInfo()); ?>
+                    </div>
+                    <a class="btn btn-default btn-md" href="index.php" role="button">Page d'accueil</a>
+                </div>
+                <?php endif; ?>
+
+
+                <?php if($displayErr): ?>
+                <!-- affichage du tableau d'erreur $error si le formulaire est mal renseigné -->
+                <div clas="col-md-12">
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fa fa-times fa-2x" aria-hidden="true"></i> <?php echo implode('<br> <i class="fa fa-times fa-2x" aria-hidden="true"></i> ', $error); ?>
+                    </div>                    
+                </div>
+                <?php endif; ?>
+
+
+                <?php if($formValid): ?>
+                <!-- message de confirmation après une modification de news -->
+                <div clas="col-md-12">
+                    <h1>Modification de la utilisateur <strong><?php echo $edituser['nickname']; ?></strong> effectuée</h1>
+                    <div class="alert alert-success" role="alert">
+                        <i class="fa fa-check fa-2x" aria-hidden="true"></i> Votre utilisateur a bien été modifié.
+                    </div>
+                    <a class="btn btn-default btn-md" href="view_users.php" role="button">Liste des utilisateurs</a>
+                </div>
+                <?php endif; ?>
+
+                <?php if($userExist) : ?>
                 <div class="container">
                     <div class="col-md-12">
                     <h1 class="text-center">Edition de l'utilisateur : <strong><?php echo $edituser['nickname']; ?></strong></h1>
