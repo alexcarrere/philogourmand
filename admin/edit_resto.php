@@ -254,25 +254,30 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		</div>
 	</div>
 
-	<div class="form-group">
+	<div class="form-inline">
 			<label class="col-md-4 control-label" for="image">Image : </label>
 			<div class="col-md-4">
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
 
 			
-				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux" value="<?php //echo $picture; ?>"> -->
-
+				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux"  value="<?php //echo $picture ?>"> -->
 
 				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>"> 
-				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>">
-				<input type="button" id="fakeBrowser" value="choisir un fichier">
-				<br>
+				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>" class="form-control">
+
+				  <button type="button" id="fakeBrowser" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;choisir un fichier</button>
+
+				<!-- <input type="button" id="fakeBrowser" value="choisir un fichier" class="btn btn-success"> -->
 				
+			
 			</div>
 			
-</div>
-
+	</div>
+	<br>
 	<div class="form-group">
+
+		<label class="col-md-4 control-label" for="email"><br></label>
+	
 		<div class="col-md-4 col-md-offset-4">
 			<button type="submit" id="btnSubmit" class="btn btn-success">Modifier</button>
 		</div>
@@ -299,7 +304,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 	function modifNomFichier(){
 
 		
-		document.getElementById('demo').innerHTML = fileInput.value;
+		
 		textInput.value = fileInput.value;
 	}
 
