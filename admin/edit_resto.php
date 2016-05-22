@@ -58,26 +58,28 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		}
 		
 
-		if(strlen($post['title']) < 5 || strlen($post['title']) > 140){
+		if(!preg_match ( "#^[a-zA-Z0-9ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ_-]{5,140}$#" , $post['title'] )){
 			/*if(!preg_match ( " \^[a-zA-Z0-9]{5,140}$\ " , $post['title'] )){*/
 			$error[] = 'Le titre doit comporter entre 5 et 140 caractères';
 		}
 
-		if(strlen($post['adress']) < 3 || strlen($post['adress']) > 50){
+		/*if(strlen($post['adress']) < 3 || strlen($post['adress']) > 50){*/
+		if(!preg_match ( "#^[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ_-]{3,50}$#"  , $post['adress'] )){
 			$error[] = 'L \'adresse doit comporter entre 3 et 50 caractères';
 		}
 
-		if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){
+		if(!preg_match ( " /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ " , $post['email'] )){
 			$error[] = 'le contenu ne correspond pas à une adresse email';
 		}
 
-		if(empty($post['phone']) && strlen($post['phone']) == 10  && !filter_var($post['phone'], FILTER_VALIDATE_INT)){
+		if(!preg_match ( "#^[0-9]{10}$#" , $post['phone'] )){
+		/*if(empty($post['phone']) && strlen($post['phone']) == 10  && !filter_var($post['phone'], FILTER_VALIDATE_INT)){*/
 			$error[] = 'le numero de telephone n\'est pas valide';
 		}
-		if(strlen($post['city']) < 3 || strlen($post['city']) > 50){
+		if(!preg_match ( "#^[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ_-]{3,50}$#" , $post['city'] )){
 			$error[] = 'Le ville doit comporter entre 3 et 50 caractères';
 		}
-		if(strlen($post['zipcode']) != 5){
+		if(!preg_match ( "#^[0-9]{5}$#" , $post['zipcode'] )){
 		$error[] = 'Le code postal doit comporter 5 caractères';
 		}
 
