@@ -64,14 +64,14 @@
                                 <a href="edit_resto.php?id=1">Modifier les infos du site</a>
                             </li>
 
-                            <?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) : ?>
-                            <li>
-                                <a href="deconnexion.php">Déconnexion</a>
-                            </li>
-                            <?php endif; ?>
-
                         <?php endif; ?>
 
+                        <?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) : ?>
+                        <li>
+                            <a href="deconnexion.php">Déconnexion</a>
+                        </li>
+                        <?php endif; ?>
+                            
                         <!-- Si l'utilisateur est un editeur, on affiche seulement les liens en rapport avec les recettes -->
                         <?php if (!empty($_SESSION) && isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'editor') :?>
                             <li><a href="add_recipe.php">Ajouter une recette</a></li>
