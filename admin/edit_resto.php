@@ -64,7 +64,8 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		}
 
 		/*if(strlen($post['adress']) < 3 || strlen($post['adress']) > 50){*/
-		if(!preg_match ( "#^[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ_-]{3,50}$#"  , $post['adress'] )){
+		/*if(!preg_match ( "#^[a-zA-ZÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ_-]{3,50}$#"  , $post['adress'] )){*/
+		if(!preg_match ( "#^[a-zA-Z0-9À-ú'\s]{5,60}$#"  , $post['adress'] )){
 			$error[] = 'L \'adresse doit comporter entre 3 et 50 caractères';
 		}
 
