@@ -145,7 +145,7 @@ if($showErrors){
 
         <div class="input-group">
             <span class="input-group-addon" id="basic-addon1">Descriptif de la recette</span>
-            <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Descriptif complet de la recette pour le client" value="<?=$content;?>"></textarea>
+            <textarea id="content" name="content" rows="15" class="form-control input-md" placeholder="Descriptif complet de la recette pour le client"><?=$content;?></textarea>
         </div>
         <br>
 
