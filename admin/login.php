@@ -1,11 +1,12 @@
 <?php
 $debutSession = session_start();//permet de demarrer la session
-require_once '../inc/header_admin.php';
-require_once '../inc/connect.php';
-
 if (isset($_SESSION['user']['role'])){
     header('Location: administration.php');
 }
+require_once '../inc/header_admin.php';
+require_once '../inc/connect.php';
+
+
 
 $post =array();
 $error = array();
@@ -22,23 +23,19 @@ if(!empty($_POST)){//01
 
 // On vérifie que l'adresse email est au bon format
 	/*if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){*/
-	if(preg_match ( " /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ " , $post['email'] ) == false){
+	if(!preg_match ( " /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ " , $post['email'] )){
 		$error[] = 'L\'adresse email est invalide';
 	}	
-	/*if(empty($post['password'])){
+	
 
-		$error[] = 'vous devez saisir un mot de passe';
-	}*/
-
-	/*if(preg_match ( " \^[a-zA-Z0-9]{8,20}$\ " , $post['password'] )){
-
-		$error[] = 'vous devez saisir un mot de passe valide entre 8 et 20 caractéres';
-	}*/
-	if(empty($post['password'])){
-	/*if(preg_match ( " /^[a-zA-Z0-9]{8,20}$/ " , $post['password'] )){*/
+	if(!preg_match ( "#^[a-zA-Z0-9]{8,20}$#" , $post['password'] )){
 
 		$error[] = 'vous devez saisir un mot de passe valide entre 8 et 20 caractéres';
 	}
+	/*if(empty($post['password'])){
+	
+		$error[] = 'vous devez saisir un mot de passe valide entre 8 et 20 caractéres';
+	}*/
 
 
 			if(count($error) == 0){//02
