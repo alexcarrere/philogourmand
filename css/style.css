@@ -85,6 +85,14 @@ main.container {
 	height: 300px;
 }
 
+#contentRecipe {
+	margin-left: 0;
+}
+
+#contentRecipe > .panel{
+  	padding-left: 0;
+  	padding-right: 0;
+}
 #adminlogin {
 	clear: none;
 	margin: 0px;	

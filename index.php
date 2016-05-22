@@ -32,7 +32,7 @@ foreach($recettes as $recipe){
         <div class="col-md-4">
             <img class="img-responsive img_recette_index alt="entree" src="img/<?php echo $recipe['link']; ?>">
             <br>    
-            <p style="text-align:center;"><a  href="list_recipes.php?search=<?=$recipe['title'];?>" class="link_recipes">Lire la recette</a></p>
+            <p style="text-align:center;"><a  href="list_recipes.php?id=<?=$recipe['id'];?>" class="link_recipes">Lire la recette</a></p>
         </div>
 <?php }
 ?>    </div>
