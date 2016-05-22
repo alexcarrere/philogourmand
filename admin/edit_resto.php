@@ -262,7 +262,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 			
 				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux"  value="<?php //echo $picture ?>"> -->
 
-				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>"> 
+				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>" accept="image/*" onchange="previewImage(event)"> 
 				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>" class="form-control">
 
 				  <button type="button" id="fakeBrowser" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;choisir un fichier</button>
@@ -284,6 +284,11 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 	</div>
 
 </form>
+<p id="demo"></p>
+
+
+<!-- <input type="file" accept="image/*" onchange="previewImage(event)" name="picture"> -->
+<p id="output"></p> 
 
 <script>
 	var fileInput = document.getElementById("browse");
@@ -308,7 +313,17 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		textInput.value = fileInput.value;
 	}
 
-	
+	var previewImage = function(event) {
+	 	var fakeImage = URL.createObjectURL(event.target.files[0]); 
+
+	 	var fileName = document.getElementById('nomFichier');
+	 	fileName.value = fakeImage;
+
+	 	// Remplit la prévisualisation
+	    var output = document.getElementById('demo');
+   		output.innerHTML = '<img class="img-responsive" src="' + fakeImage +'" alt="photo_couverture" >';
+
+	};
 </script>
 
 <?php
