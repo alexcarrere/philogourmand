@@ -113,7 +113,7 @@ if (!empty($_POST)) {
 
    
 
-	    $resAuthorisation = $pdo->prepare('INSERT INTO authorization (role, id_user ) VALUES( :role, :id_last) ');
+	    $resAuthorisation = $pdo->prepare('INSERT INTO authorization (role, id_user) VALUES( :role, :id_last) ');
 
 	    $resAuthorisation->bindValue(':role', $post['role'], PDO::PARAM_STR);
 	    $resAuthorisation->bindValue(':id_last', $idRecupId, PDO::PARAM_INT );
@@ -127,14 +127,15 @@ if (!empty($_POST)) {
     }
 }
 
+include_once '../inc/header_admin.php';
+
 if($success == 'true' && $successAuthorisation == 'true'){ // On affiche la réussite si tout fonctionne
     echo '<div class="alert alert-success" role="alert"> L\'utilisateur est bien créer ! </div>';
 }
 
 if($showErrors){
     echo implode('<br>', $errors);
-    }
-include_once '../inc/header_admin.php';
+}
 ?>
 
 

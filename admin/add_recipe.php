@@ -46,8 +46,6 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
                     // Ici je suis sur que mon image est au bon endroit
                     $dirlink = $finalFileName;
                     
-                    $success = 'Votre fichier a été uplaodé avec succés !';
-                    $showSuccess = true;
                 }
                 else {
                     // Permet d'assigner un link par defaut
@@ -117,14 +115,15 @@ if (!empty($_POST)) {
     }
 }
 
+include_once '../inc/header_admin.php';
+
 if($success){ // On affiche la réussite si tout fonctionne
     echo '<div class="alert alert-success" role="alert"> La recette à bien été créer ! </div>';
 }
 
 if($showErrors){
     echo implode('<br>', $errors);
-    }
-include_once '../inc/header_admin.php';
+}
 ?>
 
 

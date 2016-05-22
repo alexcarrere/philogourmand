@@ -51,7 +51,13 @@ include_once '../inc/header_admin.php';
             <td class="text-center"><?php echo $user['lastname']; ?></td>
             <td class="text-center"><?php echo $user['email']; ?></td>
             <td class="text-center"><?php echo date('d/m/Y H:i:m', strtotime($user['date_reg'])); ?></td>
-            <td class="text-center"><?php echo $user['role']?></td>
+
+            <?php if($user['role'] == 'editor') : ?>
+                <td class="text-center">Editeur</td>
+            <?php elseif($user['role'] == 'admin') : ?>
+                <td class="text-center">Admin</td>
+            <?php endif; ?>
+
             <td class="text-center">
                 <a type="button" class="btn btn-primary" href="edit_user.php?id=<?php echo $user['id'];?>">Modifier</a>
 
