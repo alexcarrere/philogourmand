@@ -16,6 +16,7 @@ $success = false;
 
 $title = '';
 $content = '';
+$dirlink = "link-default.jpg";
 
 $folder = '../img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
 $maxSize = 1000000 * 5; // 5Mo
