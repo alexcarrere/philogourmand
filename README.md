@@ -28,6 +28,8 @@ Carine, Hugues, Thibaut, Alexandre, Brice
 
 * La base de données est directement installée au lancement du site si elle n'existe pas (un fichier .sql est fourni si besoin pour importer la base).
 
+* Installer Phpmailer
+
 * le compte admin par défaut est : 
 	* email : lorem@ipsum.fr
 	* mot de passe : password
