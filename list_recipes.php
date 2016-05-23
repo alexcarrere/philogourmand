@@ -137,6 +137,18 @@ include_once 'inc/header.php';
 
 	<h2>Nos recettes : </h2>
 	<br>
+
+	<?php if(isset($recipes) && empty($recipes)) : ?>
+
+		<div class="panel panel-danger">
+			<div class="panel-body bg-danger">
+				<p class="text-danger text-center">Il n'y a actuellement aucune recette</p>
+			</div>
+		</div>
+
+	<?php endif; ?>
+
+
 	<?php foreach($recipes as $recip) : ?> <!-- Dbt de ma boucle -->
 	<!-- $recip contient chaque entrée de ma table, les colonnes deviennent les clés du tableau -->
 		<div class="recipe panel panel-info">
