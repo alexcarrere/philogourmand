@@ -120,7 +120,7 @@ include_once 'inc/header.php';
 	        <div class="panel-body">
             	<p class="lead"><?=$recette['content'];?></p>
             	<?php if ($recette['nickname'] == NULL) : ?>
-        			<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par PhiloGourmand</p>
+        			<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par PhiloGourmet</p>
         		<?php else : ?>
         			<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par <?=$recette['nickname'];?></p>
         		<?php endif; ?>
@@ -152,7 +152,7 @@ include_once 'inc/header.php';
 					<p><?=preg_replace($resultatSearchRegex,$resultatSearchReplace,$recip['content']);?></p>
 
 					<?php if ($recip['nickname'] == NULL) : ?>
-						<p><strong>Auteur : </strong>PhiloGourmand</p>
+						<p><strong>Auteur : </strong>PhiloGourmet</p>
 					<?php else : ?>
 						<p><strong>Auteur : </strong><?=$recip['nickname'];?></p>
 					<?php endif; ?>
