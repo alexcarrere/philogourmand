@@ -9,10 +9,8 @@
   </div>
 
 
-  <div class="col-md-4 text-center"></div>
-
-  <div class="col-md-4">
-    <div id="legal"><p>Mentions Légales l © 2016 La Philo</p>
+  <div class="col-md-offset-4 col-md-4">
+    <div id="legal" class="text-right"><p>Mentions Légales l © 2016 La Philo</p>
       </div><!-- fin id legal-->
     </div><!-- fin col-md-4-->
   </div><!-- fin div row 4-->

@@ -1,10 +1,6 @@
-
-
 html, body {
-    height: 100%;
-    margin: 0; padding: 0;
+	
 }
-
 main {
     padding-top: 50px;
 }
@@ -67,8 +63,6 @@ main {
 
 body{
 	background-color: #fbad51;
-	display : table;
-    width: 100%;
 }
 
 h2 {
@@ -121,10 +115,3 @@ main.container {
 
 #legal {
 }
-
-footer {
-   position: absolute;
-   bottom: 0;
-  /* à titre d'exemple */
-}
-
