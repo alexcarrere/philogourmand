@@ -173,8 +173,8 @@ if(!empty($_POST)){
 				//$mail->SMTPSecure = '';// Enable TLS encryption, `ssl` also accepted//à décomenter
 				//$mail->Port = 587;// TCP port to connect to//à décommenter
 
-				//$mail->setFrom($post['email'], $post['firstname']);//à décommenter
-				//$mail->addAddress('', ''); //à décommenter    
+				//$mail->setFrom('nom.prenom@exemple.com', 'prénom');//à décommenter
+				//$mail->addAddress($post['email_password']); //à décommenter    
 				// Add a recipient
 				/*$mail->addAddress('ellen@example.com');*/               // Name is optional deuxieme adresse 
 				//$mail->addReplyTo('info@example.com', 'Information');//à décommenter
@@ -186,8 +186,14 @@ if(!empty($_POST)){
 				//$mail->isHTML(true);// Set email format to HTML//à décommenter
 
 				//$mail->Subject = 'modification de password';//à décommenter
-				/*$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';*/
+				/*$mail->Body    = '<p>Vous pouvez réinitialiser votre mot de passe en cliquant sur le lien suivant :
+				<br>
+				<a href="'.$linkChangePassword.'">Modifier mon mot de passe</a>
+				</p>
+				<br>
+				<code>'.$linkChangePassword.'</code>';
+
+				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';*///à décommenter
 
 				/*$mail->Body = nl2br($post['content']);
 				$mail->AltBody = $post['content'];*/
