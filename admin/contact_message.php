@@ -2,7 +2,7 @@
 session_start();
 require_once '../inc/connect.php';
 require_once '../inc/fonctions.php';
-//require_once '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 $post = []; //Variable qui contiendra les données de la variable $_POST
 $error = []; //Tableau qui contiendra les messages d'erreurs 
