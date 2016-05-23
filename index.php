@@ -5,14 +5,40 @@
 
  ?> 
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div id="background_1" class="jumbotron">
-    <div class="row"><!-- dbt div row -->
-        <div class="col-lg-offset-2 col-lg-8">
-            <img class="img-responsive" alt="photo_couverture" src="img/<?php echo $picture; ?>">
-        </div>  
-    </div> <!-- fin div row  -->
-</div> <!-- fin div jumbotron -->
+<div id="myCarousel"  class="carousel slide jumbotron" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner"  role="listbox">
+    <div class="item active" >
+      <img  src="img/<?php echo $picture[0]; ?>" alt="Chania">
+    </div>
+
+    <div class="item">
+      <img  src="img/<?php echo $picture[1]; ?>" alt="entree">
+    </div>
+
+    <div class="item">
+      <img  src="img/<?php echo $picture[2]; ?>" alt="plat">
+    </div>
+
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div> <!-- fin caroussel -->
 
 
 <div id="background_2" class="recipes">

@@ -155,7 +155,7 @@
 		//Ajout des droits de l'utilisateur par défault
 		$ins = $pdo->exec("INSERT INTO `resto` (
 			`id`, `link`, `adress`, `zipcode`, `city`, `email`, `phone`, `title`) VALUES (
-			1, 'default.jpg', '66 Rue Abbé de l\'Épée', '33130', 'Bordeaux', 'postmaster@philogourmand.fr', '0011223344', 'Philogourmand')"
+			1, 'entre.jpg,plat.jpg,dessert.jpg', '66 Rue Abbé de l\'Épée', '33130', 'Bordeaux', 'postmaster@philogourmand.fr', '0011223344', 'Philogourmand')"
 		);
 
 		// Si $req retourne false alors on affiche l'erreur

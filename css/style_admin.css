@@ -24,3 +24,7 @@ table > thead {
 table > thead > tr > th {
 	text-align: center;
 }
+
+#browse1, #browse2, #browse3  {
+	display: none;
+}

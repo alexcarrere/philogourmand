@@ -15,7 +15,7 @@ session_start();
       $city = $restaurant['city'];
       $phone = $restaurant['phone'];
       $email_restaurant = $restaurant['email'];
-      $picture = $restaurant['link'];
+      $picture = explode(',',$restaurant['link']);
 
 
       //unset($_GET['id']);

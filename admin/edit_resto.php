@@ -45,7 +45,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		$city = $restaurant['city'];
 		$phone = $restaurant['phone'];
 		$email_restaurant = $restaurant['email'];
-		$picture = $restaurant['link'];
+		$picture = explode(',',$restaurant['link']); //tableau contenant les images stockées en base de données
 		//unset($_GET['id']);
 		}
 	}
@@ -94,54 +94,54 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 			$city = $post['city'];
 			$phone = $post['phone'];
 			$email_restaurant = $post['email'];
-			$picture = $post['pictureDeux'];
+			$picture = array($post['pictureUn'],$post['pictureDeux'],$post['pictureTrois']);
 		}
 		else {//erreur else si pas d'erreur
 
 
-			if(!empty($_FILES) && isset($_FILES['pictureDeux'])){
-				
-				if(!empty($_FILES['pictureDeux']['tmp_name'])){//si le chemain vers l'image est créé suite à un chargement
-					$nomFichier = $_FILES['pictureDeux']['name'];
+			if(!empty($_FILES) && $_FILES['pictureUn']['error'] != 4 && $_FILES['pictureDeux']['error'] != 4 && $_FILES['pictureTrois']['error'] != 4){
+
+				foreach ($_FILES as $file) {
+
+					$nomFichier = $file['name'];
 					
 					$newFileName = explode('.', $nomFichier);
 					$fileExtension = end($newFileName); // Récupère la dernière entrée du tableau (créé avec explode) soit l'extension du fichier
 
 					        // nom du fichier avatar au format : user-id-timestamp.jpg
-					$finalFileName = 'restaurant-'.$post['idRestaurant'].'-'.time().'.'.$fileExtension;
+					$finalFileName = 'restaurant-'.$post['idRestaurant'].'-'.md5(uniqid()).'.'.$fileExtension;
 
-					
 					$picture = $finalFileName;
-					$tmpFichier = $_FILES['pictureDeux']['tmp_name'];
+					$tmpFichier = $file['tmp_name'];
 
 					/*"A cet endroit, essayez d'utiliser la fonction move_upload_file()
 					Pour placer le fichier dans le dossier image... un peu de concatenation :-)"*/
 
 					$newFichier = $folder.$finalFileName;
-					if(  $_FILES['pictureDeux']['size'] <= $maxSize){
+					if( $file['size'] <= $maxSize){
 
 						if(move_uploaded_file( $tmpFichier , $newFichier  )){
 
 							$success = "Fichier envoyé !!\o/";
+							$arrayFinalfilename[] = $finalFileName;
+
+
 							/*$picture = $finalFileName;*/
 							/*retourne un boolean true si le fichier a bien été déplacé/envoye
 							false si il y a une erreur*/
 
 						}
-
 						else {
-
 							$errorUpdate = 'Erreur lors de l\'envoi de fichier';
 						}
 
+					}
 				}	
 			}
-						else {//si l'image n'est pas modifier
+			else {//si l'image n'est pas modifier
 
-									$picture = $post['pictureDeux'];
-									$finalFileName = $picture;
-								}
-						}
+				$arrayFinalfilename = array($post['pictureUn'],$post['pictureDeux'],$post['pictureTrois']);
+			}
 			
 
 			$resUpdate = $pdo->prepare('UPDATE resto SET title = :title, adress = :adress, zipcode = :zipcode, city = :city, phone= :phone, email = :email, link = :link WHERE id= :idRestaurant' );
@@ -153,7 +153,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 			$resUpdate->bindValue(':city', $post['city'], PDO::PARAM_STR);
 			$resUpdate->bindValue(':phone', $post['phone'], PDO::PARAM_STR);
 			$resUpdate->bindValue(':email', $post['email'], PDO::PARAM_STR);
-			$resUpdate->bindValue(':link', $finalFileName, PDO::PARAM_STR);//$finalFileName
+			$resUpdate->bindValue(':link', implode(',',$arrayFinalfilename), PDO::PARAM_STR);//$finalFileName
 
 
 
@@ -170,19 +170,13 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 			$city = $post['city'];
 			$phone = $post['phone'];
 			$email_restaurant = $post['email'];
-			$picture = $finalFileName;
+			$picture = $arrayFinalfilename;
 			}
 
 		}//fin erreur else
 	}
 ?>
-<style>
-	#browse {
 
-		display: none;
-	}
-
-</style>
 <?php
 	if(isset($success)){
 		echo '<div class="alert alert-success">';
@@ -256,25 +250,75 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		</div>
 	</div>
 
-	<div class="form-inline">
-			<label class="col-md-4 control-label" for="image">Image : </label>
+	<br>
+
+	<div class="row">
+		<div class="form-inline">
+			<label class="col-md-4 control-label" for="image">Image 1: </label>
 			<div class="col-md-4">
 				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
 
 			
 				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux"  value="<?php //echo $picture ?>"> -->
 
-				<input id="browse" type="file" name="pictureDeux" value="<?php echo $picture ?>" accept="image/*" onchange="previewImage(event)"> 
-				<input type="text" id="nomFichier" readonly="true" name="pictureDeux" value="<?php echo $picture ?>" class="form-control">
+				<input id="browse1" type="file" name="pictureUn" value="<?php echo $picture[0] ?>" accept="image/*" onchange="previewImage(event)"> 
+				<input type="text" id="nomFichier1" readonly="true" name="pictureUn" value="<?php echo $picture[0] ?>" class="form-control">
 
-				  <button type="button" id="fakeBrowser" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;choisir un fichier</button>
+				  <button type="button" id="fakeBrowser1" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;choisir un fichier</button>
 
 				<!-- <input type="button" id="fakeBrowser" value="choisir un fichier" class="btn btn-success"> -->
 				
 			
 			</div>
-			
+		</div>
 	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="form-inline">
+			<label class="col-md-4 control-label" for="image">Image 2: </label>
+			<div class="col-md-4">
+				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+
+			
+				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux"  value="<?php //echo $picture ?>"> -->
+
+				<input id="browse2" type="file" name="pictureDeux" value="<?php echo $picture[1] ?>" accept="image/*" onchange="previewImage(event)"> 
+				<input type="text" id="nomFichier2" readonly="true" name="pictureDeux" value="<?php echo $picture[1] ?>" class="form-control">
+
+				  <button type="button" id="fakeBrowser2" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;choisir un fichier</button>
+
+				<!-- <input type="button" id="fakeBrowser" value="choisir un fichier" class="btn btn-success"> -->
+				
+			
+			</div>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="row">
+		<div class="form-inline">
+			<label class="col-md-4 control-label" for="image">Image 3: </label>
+			<div class="col-md-4">
+				<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxSize; ?>">
+
+			
+				<!-- <input type="file" class="filestyle" data-buttonName="btn-primary" name="pictureDeux"  value="<?php //echo $picture ?>"> -->
+
+				<input id="browse3" type="file" name="pictureTrois" value="<?php echo $picture[2] ?>" accept="image/*" onchange="previewImage(event)"> 
+				<input type="text" id="nomFichier3" readonly="true" name="pictureTrois" value="<?php echo $picture[2] ?>" class="form-control">
+
+				  <button type="button" id="fakeBrowser3" class="btn btn-primary"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;choisir un fichier</button>
+
+				<!-- <input type="button" id="fakeBrowser" value="choisir un fichier" class="btn btn-success"> -->
+				
+			
+			</div>
+		</div>
+	</div>
+
 	<br>
 	<div class="form-group">
 
@@ -293,29 +337,53 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 <p id="output"></p> 
 
 <script>
-	var fileInput = document.getElementById("browse");
-	var textInput = document.getElementById("nomFichier");
-	var fauxBouton =  document.getElementById("fakeBrowser");
+	var fileInput1 = document.getElementById("browse1");
+	var fileInput2 = document.getElementById("browse2");
+	var fileInput3 = document.getElementById("browse3");
+	var textInput1 = document.getElementById("nomFichier1");
+	var textInput2 = document.getElementById("nomFichier2");
+	var textInput3 = document.getElementById("nomFichier3");
+	var fauxBouton1 =  document.getElementById("fakeBrowser1");
+	var fauxBouton2 =  document.getElementById("fakeBrowser2");
+	var fauxBouton3 =  document.getElementById("fakeBrowser3");
 	
 	
-	fauxBouton.addEventListener("click", clicBrowser);
-	fileInput.addEventListener("change", modifNomFichier);
+	fauxBouton1.addEventListener("click", function(){clicBrowser(1)});
+	fauxBouton2.addEventListener("click", function(){clicBrowser(2)});
+	fauxBouton3.addEventListener("click", function(){clicBrowser(3)});
+	fileInput1.addEventListener("change", function(){modifNomFichier(1)});
+	fileInput2.addEventListener("change", function(){modifNomFichier(2)});
+	fileInput3.addEventListener("change", function(){modifNomFichier(3)});
 
 
 
-	function clicBrowser(){
-
-		fileInput.click();
+	function clicBrowser(num){
+		switch(num) {
+			case 1 : fileInput1.click();
+				break;
+			case 2 : fileInput2.click();
+				break;
+			case 3 : fileInput3.click();
+				break;
+			default: console.log('clicBrowser '+num)
+		}
+		
 	}
 
-	function modifNomFichier(){
-
+	function modifNomFichier(num){
+		switch(num) {
+			case 1 : textInput1.value = fileInput1.value;
+				break;
+			case 2 : textInput2.value = fileInput2.value;
+				break;
+			case 3 : textInput3.value = fileInput3.value;
+				break;
+			default: console.log('modifNomFichier '+num)
+		}
 		
-		
-		textInput.value = fileInput.value;
 	}
 
-	var previewImage = function(event) {
+/*	var previewImage = function(event) {
 	 	var fakeImage = URL.createObjectURL(event.target.files[0]); 
 
 	 	var fileName = document.getElementById('nomFichier');
@@ -325,7 +393,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 	    var output = document.getElementById('demo');
    		output.innerHTML = '<img class="img-responsive" src="' + fakeImage +'" alt="photo_couverture" >';
 
-	};
+	};*/
 </script>
 
 <?php
