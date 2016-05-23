@@ -66,16 +66,20 @@ include_once 'inc/header.php';
 		<br>
 		<!-- Message pour l'utilisateur suite traitement formulaire en cas d'erreur -->
 		<?php if($showError == true): ?>
-            <p style="color:red">Veuillez corriger les erreurs suivantes :</p>
-         		<ul style="color:red">
-        		<?php foreach($errors as $err): ?>
-                    <li><?=$err;?></li>
-                <?php endforeach;?>
-                </ul>
+            <div class="alert alert-danger" role="alert">
+	            <p style="color:red">Veuillez corriger les erreurs suivantes :</p>
+	         		<ul style="color:red">
+	        		<?php foreach($errors as $err): ?>
+	                    <li><?=$err;?></li>
+	                <?php endforeach;?>
+	                </ul>
+	        </div>
         <?php endif; ?>
         <!-- Message pour l'utilisateur suite traitement formulaire si tout est ok -->
         <?php if($success == true): ?>
-            <p style="color:green">Ok, le formulaire est valide.</p>
+            <div class="alert alert-success" role="alert">
+            	<p style="color:green">Ok, le formulaire est valide.</p>
+            </div>
         <?php endif; ?>
 
 		<form class="form-horizontal" method="post" action="">
@@ -104,7 +108,7 @@ include_once 'inc/header.php';
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="">Contenu</label>
 				<div class="col-md-4">
-					<textarea name="content" rows="10" cols="50" placeholder="Saisir un texte ici..." ></textarea>
+					<textarea class="form-control input-md" name="content" rows="10" cols="54" placeholder="Saisir un texte ici..." ></textarea>
 				</div>
 			</div>
 
