@@ -75,7 +75,7 @@ if (!empty($_POST)) {
 	foreach ($_POST as $key => $value) { // Nettoyage des données
 		$post[$key] = trim(strip_tags($value)); // récupération du _POST dans un tableau
 	}
-	//if(strlen($post['title']) < 2 || strlen($post['title']) > 50){ // on défini les propriétés de 'title'
+	//if(strlen($post['title']) < 2 || strlen($post['title']) > 50){ // on définit les propriétés de 'title'
     if(!preg_match("#^[A-Z]+[a-zA-Z0-9-\.:\!\?\&',\s]{5,140}#", $post['title'])){    
         $errors[] = 'Votre nom de recette doit comporter entre 5 et 140 caractères et commencer par une majuscule';
     }
@@ -84,7 +84,7 @@ if (!empty($_POST)) {
         $errors[] = 'La recette doit comporter au minimum 20 caractères'; 
 	}
 	else {
-	    $reqEmail = $pdo->prepare('SELECT title FROM recipes WHERE title = :title'); // Vérification au cas ou l'email est déjà dans la pdo
+	    $reqEmail = $pdo->prepare('SELECT title FROM recipes WHERE title = :title'); // Vérification au cas où l'email est déjà dans la pdo
         $reqEmail->bindValue(':title', $post['title']);
         $reqEmail->execute();
        
@@ -93,7 +93,7 @@ if (!empty($_POST)) {
         }
 	} 
 
-	if(count($errors) > 0){  // On compte les erreurs, si il y en as (supérieur a 0), on passera la variable $showErrors à true.
+	if(count($errors) > 0){  // On compte les erreurs, s'il y en a (supérieur a 0), on passera la variable $showErrors à true.
         $showErrors = true; // valeur booleen // permettra d'afficher nos erreurs s'il y en a
 
         $title = $post['title'];
