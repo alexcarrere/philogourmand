@@ -16,7 +16,7 @@ if (empty($_SESSION) || !isset($_SESSION['user']['role'])){
 include_once '../inc/header_admin.php';
 ?>
 <h2 class="text-center">Liste des recettes</h2>
-<hr>
+
 
 <div class="table-responsive">
   <table class="table table-striped table-bordered table-condensed">
@@ -50,7 +50,9 @@ include_once '../inc/header_admin.php';
               <?php endif; ?>
               <td class="text-center">
                 <a type="button" class="btn btn-primary" href="edit_recipe.php?id=<?php echo $user['id'];?>">Modifier</a>
-                <a type="button" class="btn btn-danger" href="delete_recipe.php?id=<?php echo $user['id'];?>">Supprimer</a>
+                <?php if ($_SESSION['user']['role'] == 'admin') : ?>
+                  <a type="button" class="btn btn-danger" href="delete_recipe.php?id=<?php echo $user['id'];?>">Supprimer</a>
+                <?php endif;?>
               </td> 
             </tr>
       <?php } ?>
