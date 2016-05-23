@@ -3,6 +3,7 @@
 session_start(); 
 // On se connecte à la base de données
 require_once '../inc/connect.php';
+//utilisation de la dépendence PHPMailer
 //require_once '../vendor/autoload.php';
 
 $error = [];
@@ -145,10 +146,61 @@ if(!empty($_POST)){
 			<?php if(isset($linkChangePassword)): // Si l'adresse email est ok et que le token est inséré ?>
 
 
+				<?php 
+
+				
+				/** envoi d'un mail **/
 
 
 
 
+
+
+
+				//$mail = new PHPMailer;//à décommenter
+
+				//$mail->SMTPDebug = 3;                               
+				// Enable verbose debug output
+
+				//$mail->isSMTP();// Set mailer to use SMTP//à décommenter
+				/*$mail->Host = 'smtp1.example.com;smtp2.example.com';*/  // Specify main and backup SMTP servers
+				//$mail->Host = '';//à décomenter
+				//$mail->SMTPAuth = true;// Enable SMTP authentication//à décomenter
+				/*$mail->Username = 'user@example.com'; */                // SMTP username
+				//$mail->Username = '';//à décommenter 
+				/*$mail->Password = 'secret'; */
+				//$mail->Password = '';// SMTP password//à décomenter
+				//$mail->SMTPSecure = '';// Enable TLS encryption, `ssl` also accepted//à décomenter
+				//$mail->Port = 587;// TCP port to connect to//à décommenter
+
+				//$mail->setFrom($post['email'], $post['firstname']);//à décommenter
+				//$mail->addAddress('', ''); //à décommenter    
+				// Add a recipient
+				/*$mail->addAddress('ellen@example.com');*/               // Name is optional deuxieme adresse 
+				//$mail->addReplyTo('info@example.com', 'Information');//à décommenter
+				/*$mail->addCC('cc@example.com');
+				$mail->addBCC('bcc@example.com');*/
+
+				/*$mail->addAttachment('/var/tmp/file.tar.gz');  */       // Add attachments
+				/*$mail->addAttachment('/tmp/image.jpg', 'new.jpg'); */   // Optional name
+				//$mail->isHTML(true);// Set email format to HTML//à décommenter
+
+				//$mail->Subject = 'modification de password';//à décommenter
+				/*$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+				$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';*/
+
+				/*$mail->Body = nl2br($post['content']);
+				$mail->AltBody = $post['content'];*/
+
+
+				/*if(!$mail->send()) {
+				echo 'Le message n\'a pu être envoyé.';
+				echo 'Mailer Error: ' . $mail->ErrorInfo;
+				} else {
+				echo 'Le message a été envoyé.';
+				}*///à décommenter
+
+?>
 				
 				<p>Vous pouvez réinitialiser votre mot de passe en cliquant sur le lien suivant :
 				<br>
