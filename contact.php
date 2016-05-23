@@ -33,6 +33,10 @@ if(!empty($_POST)){ // vérifie que $_POST est définie et non vide :
     if(!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $post['email'])){
         $errors[] = 'L\'adresse email est invalide';
     }
+
+    if(!preg_match("#^[a-zA-Z0-9-\.:\!\?\&',\s]{15,}#", $post['content'])){
+        $errors[] = 'Le message doit comporter au minimum 15 caractères'; 
+	}
 	
 	if(count($errors) > 0){ // On compte les erreurs, si elles sont supérieures à 0, on passe la variable $showErrors à true, afin de pouvoir les afficher
 		$showError = true; // permettra d'afficher nos erreurs s'il y en a
@@ -78,7 +82,7 @@ include_once 'inc/header.php';
         <!-- Message pour l'utilisateur suite traitement formulaire si tout est ok -->
         <?php if($success == true): ?>
             <div class="alert alert-success" role="alert">
-            	<p style="color:green">Ok, le formulaire est valide.</p>
+            	<p style="color:green">Ok, le formulaire a bien été envoyé.</p>
             </div>
         <?php endif; ?>
 
