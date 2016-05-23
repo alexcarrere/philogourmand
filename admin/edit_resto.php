@@ -59,7 +59,6 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 		
 
 		if(!preg_match ( "#^[a-zA-Z0-9À-ú'\s_-]{5,140}$#" , $post['title'] )){
-			/*if(!preg_match ( " \^[a-zA-Z0-9]{5,140}$\ " , $post['title'] )){*/
 			$error[] = 'Le titre doit comporter entre 5 et 140 caractères';
 		}
 
@@ -75,7 +74,7 @@ if(!empty($_GET['id']) && $_GET['id'] == 1){
 
 		if(!preg_match ( "#^[0-9]{10}$#" , $post['phone'] )){
 		/*if(empty($post['phone']) && strlen($post['phone']) == 10  && !filter_var($post['phone'], FILTER_VALIDATE_INT)){*/
-			$error[] = 'le numero de telephone n\'est pas valide';
+			$error[] = 'le numero de téléphone n\'est pas valide';
 		}
 		if(!preg_match ( "#^[a-zA-ZÀ-ú'\s_-]{3,50}$#" , $post['city'] )){
 			$error[] = 'Le ville doit comporter entre 3 et 50 caractères';
