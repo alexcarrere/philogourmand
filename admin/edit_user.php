@@ -183,14 +183,14 @@ include_once '../inc/header_admin.php';
                     <h1 class="text-center">Edition de l'utilisateur : <strong><?php echo $edituser['nickname']; ?></strong></h1>
 
                         <form class="pure-form pure-form-aligned" method="POST" enctype="multipart/form-data">
-                            <div class="alert alert-info" role="alert"> Merci de remplir tout les champs correctement</div>
+                            <div class="alert alert-info" role="alert"> Merci de remplir tous les champs correctement</div>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">Pseudal</span>
+                                    <span class="input-group-addon" id="basic-addon1">Pseudo</span>
                                     <input type="text" class="form-control" name="nickname" value="<?php echo $edituser['nickname']; ?>" aria-describedby="basic-addon1">
                                 </div>
                                 <br>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="basic-addon1">Prenom</span>
+                                    <span class="input-group-addon" id="basic-addon1">Prénom</span>
                                     <input type="text" class="form-control" name="firstname" value="<?php echo $edituser['firstname']; ?>" aria-describedby="basic-addon1">
                                 </div>
                                 <br>   
