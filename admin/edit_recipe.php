@@ -123,7 +123,7 @@ if(!empty($_POST) && $recipeExist == true) {
         $post[$key] = trim(strip_tags($value));
     }
 
-    if(!preg_match("#^[A-Z]+[a-zA-Z0-9-\.:\!\?\&',\s]{5,140}#", $post['title'])){    
+    if(!preg_match("#^[A-Z]+[a-zA-Z0-9-\.:\!\?\&',\s]{4,140}#", $post['title'])){    
         $error[] = 'Votre nom de recette doit comporter entre 5 et 140 caractères et commencer par une majuscule';
     }
     //if(strlen($post['content']) < 2 ){ // on défini les propriétés de 'content'
