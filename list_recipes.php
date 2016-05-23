@@ -118,7 +118,7 @@ include_once 'inc/header.php';
 	        	<h2 class="section-heading"><?=$recette['title'];?></h2>
 	        </div>
 	        <div class="panel-body">
-            	<p class="lead"><?=$recette['content'];?></p>
+            	<p class="lead"><?=nl2br($recette['content']);?></p>
             	<?php if ($recette['nickname'] == NULL) : ?>
         			<p class="text-right">Publié le <?=date('d/m/Y', strtotime($recette['date_publish']));?>, par PhiloGourmet</p>
         		<?php else : ?>
