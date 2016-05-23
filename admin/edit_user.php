@@ -46,18 +46,18 @@ if(!empty($_POST) && $userExist == true) {
         $post[$key] = trim(strip_tags($value));
     }
 
-    if(empty($post['nickname']) OR strlen($post['nickname']) < 2) {
-        $error[] = 'Votre prénom doit comporter au moins 2 caractères';
+    if(!preg_match( "#^[A-Z]+[a-zA-Z0-9À-ú]{1,}#" , $post['nickname'] )) {
+        $error[] = 'Votre pseudo doit comporter au moins 2 caractères';
     }
 
-    if(empty($post['firstname']) OR strlen($post['firstname']) < 2) {
+    if(!preg_match( "#^[A-Z]+[a-zA-Z0-9À-ú]{1,}#" , $post['firstname'] )) {
         $error[] = 'Votre prénom doit comporter au moins 2 caractères';
     }
-    if(empty($post['lastname']) OR strlen($post['lastname']) < 2) {
-        $error[] = 'Votre prénom doit comporter au moins 2 caractères';
+    if(!preg_match( "#^[A-Z]+[a-zA-Z0-9À-ú]{1,}#" , $post['lastname'] )) {
+        $error[] = 'Votre nom doit comporter au moins 2 caractères';
     }
-    if(!filter_var($post['email'], FILTER_VALIDATE_EMAIL)){ 
-        $errors[] = 'L\'adresse email est invalide';
+    if(!preg_match( " /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ " , $post['email'] )){ 
+        $error[] = 'L\'adresse email est invalide';
     }
 
     if(count($error) > 0) {
@@ -87,7 +87,7 @@ set t1.c1 = 10, t2.c1 = 10;*/
         $upd->bindValue(':firstnameuser',   $post['firstname'],  PDO::PARAM_STR);
         $upd->bindValue(':lastnameuser',    $post['lastname'], PDO::PARAM_STR);
         $upd->bindValue(':emailuser',       $post['email']);
-        $upd->bindValue(':roleuser',        $role);
+        $upd->bindValue(':roleuser',        $post['role']);
         
     
         // Vue que la fonction "execute" retourne un booleen on peut si nécéssaire le mettre dans un if
@@ -110,7 +110,7 @@ set t1.c1 = 10, t2.c1 = 10;*/
                         'firstname' => $edituser['firstname'],
                         'lastname'  => $edituser['lastname'],
                         'email'     => $edituser['email'],
-                        'role'     => $role
+                        'role'      => $edituser['role']
                     ];
                 }
             }
@@ -208,7 +208,7 @@ include_once '../inc/header_admin.php';
                                     <div class="col-lg-6">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                            <input type="radio" aria-label="radio_editor" value="editor" name="role" checked>
+                                            <input type="radio" aria-label="radio_editor" value="editor" name="role" <?php if($edituser['role'] == 'editor'){?>checked<?php }?>>
                                             </span>
                                             <input type="text" class="form-control" aria-label="role_editor" placeholder="Rôle : Editeur" disabled="disabled">
                                             </div><!-- /input-group -->
@@ -217,7 +217,7 @@ include_once '../inc/header_admin.php';
                                     <div class="col-lg-6">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                            <input type="radio" aria-label="radio_admin" value="admin" name="role">
+                                            <input type="radio" aria-label="radio_admin" value="admin" name="role" <?php if($edituser['role'] == 'admin'){?>checked<?php }?>>
                                             </span>
                                             <input type="text" class="form-control" aria-label="role_admin" placeholder="Rôle : Administrateur" disabled="disabled">
                                         </div><!-- /input-group -->
