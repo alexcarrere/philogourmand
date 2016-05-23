@@ -1,15 +1,15 @@
-html, body {
-	
-}
-main {
-    padding-top: 50px;
-}
 
-.jumbotron {
-    padding-bottom: 48px;
-    margin: 0; 
-    border-radius: 0 !important;
-}
+/********************* index CSS                     **********************/
+/********************* Header / Navbar   ->Ligne 10  ********************/
+/********************* Main              ->Ligne 58  ******************/
+/********************* Footer            ->ligne 118 ****************/
+
+
+/******************************************************************/
+/***********************   Navbar		***************************/
+/******************************************************************/
+
+
 #tmpborder {
 	background-color: #575745;
 }
@@ -51,6 +51,19 @@ main {
 
 #background_navbar {
 	background-color: #38a5a7;
+}
+
+/******************************************************************/
+/**********************   Main		*******************************/
+/******************************************************************/
+main {
+    padding-top: 50px;
+}
+
+.jumbotron {
+    padding-bottom: 48px;
+    margin: 0; 
+    border-radius: 0 !important;
 }
 
 #background_1 {
@@ -99,6 +112,23 @@ main.container {
   	padding-left: 0;
   	padding-right: 0;
 }
+
+/******************************************************************/
+/**********************   Footer		***************************/
+/******************************************************************/
+#footer {
+	background-color: #38a5a7;
+	padding: 1em;
+	border-radius: 0 0 5px 5px;
+}
+
+
+
+footer a{
+	color: #000;
+	text-decoration: none
+}
+
 #adminlogin {
 	clear: none;
 	margin: 0px;	
@@ -109,25 +139,12 @@ main.container {
 	margin: 0px;
 }
 
-#footer {
-	background-color: #38a5a7;
-	padding: 1em;
-	border-radius: 0 0 5px 5px;
-}
 
-#admin {
-}
 
-footer {
-	bottom:0;
-	position:absolute;
-}
 
-footer a{
-	color: #000;
-	text-decoration: none
 
-}
 
-#legal {
-}
+
+
+
+

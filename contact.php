@@ -86,7 +86,7 @@ include_once 'inc/header.php';
             </div>
         <?php endif; ?>
 
-		<form class="form-horizontal" method="post" action="">
+		<form class="form-horizontal well" method="post" action="">
 
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="lastname">Nom</label>  
