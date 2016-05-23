@@ -8,7 +8,7 @@ main {
 .jumbotron {
     padding-bottom: 48px;
     margin: 0; 
-    border-radius: none;
+    border-radius: 0 !important;
 }
 #tmpborder {
 	background-color: #575745;
@@ -54,15 +54,15 @@ main {
 }
 
 #background_1 {
-	background-color: #b8bc60;
+	background-color: #1D3A24;
 }
 
 #background_2 {
-	background-color: #f04b4c;
+	background-color: #FAFFAB;
 }
 
 body{
-	background-color: #fbad51;
+	background-color: #B5B4B5;
 }
 
 h2 {
@@ -82,6 +82,8 @@ main.container {
 
 .link_recipes{
 	font-family: 'Satisfy',cursive,Verdana,sans-serif;
+	color: #1D3A24;
+	text-decoration: none;
 }
 
 .img_recette_index {
@@ -105,13 +107,23 @@ main.container {
 	clear: none;
 	margin: 0px;
 }
-#footer {
-}
 
+#footer {
+	background-color: #38a5a7;
+}
 
 #admin {
 }
 
+footer {
+	bottom:0;
+	position:absolute;
+}
+
+footer a{
+	color: #000;
+	text-decoration: none
+}
 
 #legal {
 }
