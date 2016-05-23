@@ -22,12 +22,12 @@ require_once '../inc/header_admin.php';
 ?>
 
 <div class="alert alert-danger" role="alert">
-	<p> Voulez vous vraiment vous déconnecter ?</p>
+	<p> Voulez-vous vraiment vous déconnecter ?</p>
 </div>
 
 <div class="row">	
 	<div class="col-md-offset-4 col-md-4">
-		<a href="?logout=yes" class="btn btn-danger">Oui je veut partir !</a>
+		<a href="?logout=yes" class="btn btn-danger">Oui je veux partir !</a>
 		<a href="administration.php" class="btn btn-info">Naaannnn je veux rester !</a>
 	</div>
 </div>

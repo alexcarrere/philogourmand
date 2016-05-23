@@ -36,11 +36,12 @@
                             <a href="../index.php">Retour site</a>
                         </li>
 
+                        <li>
+                            <a href="administration.php">Administration</a>
+                        </li>
+
                         <!-- Si l'utilisateur est un admin, on affiche toutes les options possibles -->
                         <?php if (!empty($_SESSION) && isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'admin') :?>
-                            <li>
-                                <a href="administration.php">Administration</a>
-                            </li>
 
                             <li class="dropdown">
     							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Affichage des données<span class="caret"></span></a>
@@ -66,17 +67,18 @@
 
                         <?php endif; ?>
 
+                            
+                        <!-- Si l'utilisateur est un editeur, on affiche seulement les liens en rapport avec les recettes -->
+                        <?php if (!empty($_SESSION) && isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'editor') :?>
+                            <li><a href="add_recipe.php">Ajouter une recette</a></li>
+                            <li><a href="view_recipes.php">Afficher la liste des recettes</a></li>
+                        <?php endif;?>
+
                         <?php if(isset($_SESSION['user']) && !empty($_SESSION['user'])) : ?>
                         <li>
                             <a href="deconnexion.php">Déconnexion</a>
                         </li>
                         <?php endif; ?>
-                            
-                        <!-- Si l'utilisateur est un editeur, on affiche seulement les liens en rapport avec les recettes -->
-                        <?php if (!empty($_SESSION) && isset($_SESSION['user']['role']) && $_SESSION['user']['role'] == 'editor') :?>
-                            <li><a href="add_recipe.php">Ajouter une recette</a></li>
-                            <li><a href="contact_message.php">Afficher la liste des messages</a></li>
-                        <?php endif;?>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->

@@ -40,33 +40,33 @@ if(!empty($_FILES) && isset($_FILES['picture'])) {
             $fileExtension = end($newFileName); // Récupère la dernière entrée du tableau (créé avec explode) soit l'extension du fichier
 
             // nom du fichier link au format : recipe-id-timestamp.jpg
-            $finalFileName = 'recette-'.time().'.'.$fileExtension; // Le nom du fichier sera donc recipe-id-timestamp.jpg (time() retourne un timsestamp à la seconde)
+            $finalFileName = 'recette-'.time().'.'.$fileExtension; // Le nom du fichier sera donc recipe-id-timestamp.jpg (time() retourne un timestamp à la seconde)
 
 
                 if(move_uploaded_file($tmpFichier, $folder.$finalFileName)) { // move_uploaded_file()  retourne un booleen (true si le fichier a été envoyé et false si il y a une erreur)
-                    // Ici je suis sur que mon image est au bon endroit
+                    // Ici je suis sûr que mon image est au bon endroit
                     $dirlink = $finalFileName;
                     
                 }
                 else {
-                    // Permet d'assigner un link par defaut
+                    // Permet d'assigner un link par défaut
                     $dirlink = "link-default.jpg";
                 }
         } // if (in_array($mimeType, $mimTypeOK))
 
         else {
-            $error[] = 'Le type de fichier est interdit mime type incorrect !';
+            $error[] = 'Ce type de fichier est interdit, mime type incorrect !';
         } 
 
 
     } // end if ($_FILES['picture']['error'] == UPLOAD_ERR_OK AND $_FILES['picture']['size'] <= $maxSize)
     else {
-        $error[] = 'Merci de chosir un fichier image (uniquement au format jpg) à uploader et ne dépassant pas 5Mo !';
+        $error[] = 'Merci de choisir un fichier image (uniquement au format jpg) à uploader et ne dépassant pas 5Mo !';
     }
 } // end if (!empty($_FILES) AND isset($_FILES['picture'])
 
 else {
-    // Permet d'assigner l'link par defaut si l'recette n'en a aucun
+    // Permet d'assigner l link par défaut si la recette n'en a aucun
     $dirlink = "link-default.jpg";
 }
 
@@ -75,11 +75,13 @@ if (!empty($_POST)) {
 	foreach ($_POST as $key => $value) { // Nettoyage des données
 		$post[$key] = trim(strip_tags($value)); // récupération du _POST dans un tableau
 	}
-	if(strlen($post['title']) < 2 || strlen($post['title']) > 50){ // on défini les propriétés de 'title'
-        $errors[] = '<div class="alert alert-danger" role="alert">Votre nom de recette doit comporter entre 2 et 50 caractères</div>';
+	//if(strlen($post['title']) < 2 || strlen($post['title']) > 50){ // on défini les propriétés de 'title'
+    if(!preg_match("#^[A-Z]+[a-zA-Z0-9-\.:\!\?\&',\s]{5,140}#", $post['title'])){    
+        $errors[] = 'Votre nom de recette doit comporter entre 5 et 140 caractères et commencer par une majuscule';
     }
-    if(strlen($post['content']) < 2 ){ // on défini les propriétés de 'content'
-        $errors[] = '<div class="alert alert-danger" role="alert">La recette doit comporter au minimum 2 ingrédients</div>'; 
+    //if(strlen($post['content']) < 2 ){ // on défini les propriétés de 'content'
+    if(!preg_match("#^[a-zA-Z0-9-\.:\!\?\&',\s]{20,}#", $post['content'])){
+        $errors[] = 'La recette doit comporter au minimum 20 caractères'; 
 	}
 	else {
 	    $reqEmail = $pdo->prepare('SELECT title FROM recipes WHERE title = :title'); // Vérification au cas ou l'email est déjà dans la pdo
@@ -87,7 +89,7 @@ if (!empty($_POST)) {
         $reqEmail->execute();
        
         if($reqEmail->rowCount() != 0){ // Si l'email n'est pas dans la pdo alors, on peu crée l'utilisateur
-             $errors[] = '<div class="alert alert-danger" role="alert">La recette existe déjà !</div>';
+             $errors[] = 'La recette existe déjà !';
         }
 	} 
 
@@ -118,22 +120,33 @@ if (!empty($_POST)) {
 
 include_once '../inc/header_admin.php';
 
-if($success){ // On affiche la réussite si tout fonctionne
-    echo '<div class="alert alert-success" role="alert"> La recette à bien été créer ! </div>';
-}
-
-if($showErrors){
-    echo implode('<br>', $errors);
-}
 ?>
 
 
 <h1 class="text-center">Ajouter une recette</h1>
 <br>
 
+
 <div class="container">
 
-	<div class="alert alert-info" role="alert">Merci de remplir tout les champs correctement</div>	
+<?php 
+if($success){ // On affiche la réussite si tout fonctionne
+    echo '<div class="alert alert-success" role="alert"> La recette a bien été créée ! </div>';
+}
+?>
+
+<?php if($showErrors == true): ?>
+    <div class="alert alert-danger" role="alert">
+        <p style="color:red">Veuillez corriger les erreurs suivantes :</p>
+            <ul style="color:red">
+            <?php foreach($errors as $err): ?>
+                <li><?=$err;?></li>
+            <?php endforeach;?>
+            </ul>
+    </div>
+<?php endif; ?>
+
+	<div class="alert alert-info" role="alert">Merci de remplir tous les champs correctement</div>	
 
 	<form method="post" class="pure-form pure-form-aligned" enctype="multipart/form-data">
 

@@ -13,6 +13,9 @@ $displayErr   = false;
 $formValid    = false;
 $recipeExist    = false;
 
+$recipeTitle = '';
+$recipeContent = '';
+
 $folder = '../img/'; // création de la variable indiquant le chemin du répertoire destination pour les fichiers uploadés (important  : le slash à la fin de la chaine de caractère).
 $maxSize = 1000000 * 5; // 5Mo
 
@@ -34,7 +37,11 @@ if(isset($_GET['id']) AND !empty($_GET['id']) AND is_numeric($_GET['id'])) {
             //nom du fichier existant
             $dirlink = $editrecipe['link'];
             // Si l'utilsateur existe, j'instancie la variable $idlink qui me permet de stcocker l'id recipe dans le nom du fichier
-            $idlink = $recipeExist['id'];
+            $idlink = $editrecipe['id'];
+
+            $recipeTitle = $editrecipe['title'];
+            $recipeContent = $editrecipe['content'];
+
         }
     }
 }
@@ -116,16 +123,19 @@ if(!empty($_POST) && $recipeExist == true) {
         $post[$key] = trim(strip_tags($value));
     }
 
-    if(empty($post['title']) OR strlen($post['title']) < 2) {
-        $error[] = 'Votre prénom doit comporter au moins 2 caractères';
+    if(!preg_match("#^[A-Z]+[a-zA-Z0-9-\.:\!\?\&',\s]{5,140}#", $post['title'])){    
+        $error[] = 'Votre nom de recette doit comporter entre 5 et 140 caractères et commencer par une majuscule';
     }
-
-    if(empty($post['content']) OR strlen($post['content']) < 2) {
-        $error[] = 'Votre prénom doit comporter au moins 2 caractères';
+    //if(strlen($post['content']) < 2 ){ // on défini les propriétés de 'content'
+    if(!preg_match("#^[a-zA-Z0-9-\.:\!\?\&',\s]{20,}#", $post['content'])){
+        $error[] = 'La recette doit comporter au minimum 20 caractères'; 
     }
 
     if(count($error) > 0) {
         $displayErr = true;
+
+        $recipeTitle = $post['title'];
+        $recipeContent = $post['content'];
     }
     else {
 
@@ -176,7 +186,7 @@ include_once '../inc/header_admin.php';
                     <div class="alert alert-danger" role="alert">
                         <i class="fa fa-times fa-2x" aria-hidden="true"></i> Vous devez choisir un recette avant de le modifier
                     </div>
-                    <a class="btn btn-default btn-md" href="view_recipes.php" role="button">Liste des membres</a>
+                    <a class="btn btn-default btn-md" href="view_recipes.php" role="button">Liste des recettes</a>
                 </div>
                 <?php endif; ?>
                 
@@ -224,11 +234,11 @@ include_once '../inc/header_admin.php';
 
                                     <div class="form-group input-group">
                                       <span class="input-group-addon" id="basic-addon1">Titre</span>
-                                      <input type="text" class="form-control" name="title" value="<?= $editrecipe['title']; ?>" aria-describedby="basic-addon1">
+                                      <input type="text" class="form-control" name="title" value="<?=$recipeTitle; ?>" aria-describedby="basic-addon1">
                                     </div><br>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon" id="basic-addon1">Ingrédient</span>
-                                        <textarea id="content" name="content" rows="15" class="form-control input-md" ><?= $editrecipe['content']; ?></textarea>
+                                        <textarea id="content" name="content" rows="15" class="form-control input-md" ><?=$recipeContent; ?></textarea>
                                     </div><br>
      
                                     <div class="form-group">

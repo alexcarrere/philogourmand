@@ -128,14 +128,6 @@ if (!empty($_POST)) {
 }
 
 include_once '../inc/header_admin.php';
-
-if($success == 'true' && $successAuthorisation == 'true'){ // On affiche la réussite si tout fonctionne
-    echo '<div class="alert alert-success" role="alert"> L\'utilisateur est bien créer ! </div>';
-}
-
-if($showErrors){
-    echo implode('<br>', $errors);
-}
 ?>
 
 
@@ -143,6 +135,18 @@ if($showErrors){
 <br>
 
 <div class="container">
+
+		<?php
+
+		if($success == 'true' && $successAuthorisation == 'true'){ // On affiche la réussite si tout fonctionne
+		    echo '<div class="alert alert-success" role="alert"> L\'utilisateur est bien créer ! </div>';
+		}
+
+		if($showErrors){
+		    echo implode('<br>', $errors);
+		}
+
+		?>
 
 		<div class="alert alert-info" role="alert"> Merci de remplir tout les champs correctement</div>
 
