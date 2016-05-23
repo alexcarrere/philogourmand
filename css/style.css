@@ -67,7 +67,7 @@ body{
 
 h2 {
 	font-family: cursive;
-	font-size: 2em;
+	font-size: 2.5em;
 	text-align: center;
 }
 
@@ -81,6 +81,7 @@ main.container {
 }
 
 .link_recipes{
+	font-size: 1.5em;
 	font-family: 'Satisfy',cursive,Verdana,sans-serif;
 	color: #1D3A24;
 	text-decoration: none;
@@ -110,6 +111,8 @@ main.container {
 
 #footer {
 	background-color: #38a5a7;
+	padding: 1em;
+	border-radius: 0 0 5px 5px;
 }
 
 #admin {
@@ -123,6 +126,7 @@ footer {
 footer a{
 	color: #000;
 	text-decoration: none
+
 }
 
 #legal {
