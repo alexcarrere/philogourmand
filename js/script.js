@@ -5,7 +5,8 @@ $(function(){
 	var errorEmpty = 0; //Variable pour indiquer si il y a des champs vide dans le formulaire
 	var txtError = []; //Variable pour stocker les messages d'erreurs
 	var formValid = false; //Variable pour valider l'envoi du formulaire
-  	var pattern = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //pattern de validation pour les emails
+  	var patternEmail = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/; //pattern de validation pour les emails
+  	var patternContent = /^[a-zA-Z0-9-\.:\!\?\&',\s]{15,}/; //Pattern de validation du contenu
 
   	//Si le formulaire de contact est bien chargé sur la page
 	if($('form#formMessageContact').length == 1){
@@ -109,7 +110,7 @@ $(function(){
       		border_warning($('#email'));
       	}
       	//Vérification si l'adresse email est correctement formatée
-      	else if(!pattern.test($('#email').val())) {
+      	else if(!patternEmail.test($('#email').val())) {
       		error++;
       		border_error($('#email'));
       		txtError.push('Format de l\'email invalide');
@@ -119,6 +120,10 @@ $(function(){
       	if($('#content').val() == ''){
       		errorEmpty++;
       		border_warning($('#content'));
+      	} else if(!patternContent.test($('#content').val())) {
+      		error++;
+      		border_error($('#content'));
+      		txtError.push('Le contenu doit contenir au moins 15 caractères');
       	} 
 
       	//Si un des champs est vide

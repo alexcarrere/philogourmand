@@ -21,13 +21,13 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUE
 		$post = cleanArray($_POST);
 
 		//Vérification du format de l'email
-		if (!filter_var($post['email'], FILTER_VALIDATE_EMAIL))  {
+		if(!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $post['email'])){
 			$error[] = 'l\'adresse mail n\'est pas valide';
 		} 
 
 		//Vérification si le contenu n'est pas vide
-		if (empty($post['content'])) {
-			$error[] = 'Le contenu ne doit pas être vide';
+	    if(!preg_match("#^[a-zA-Z0-9-\.:\!\?\&',\s]{20,}#", $post['content'])){
+	        $error[] = 'La recette doit comporter au minimum 20 caractères'; 
 		}
 
 		//Si il y a une erreur 
