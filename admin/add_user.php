@@ -148,18 +148,18 @@ include_once '../inc/header_admin.php';
 
 		?>
 
-		<div class="alert alert-info" role="alert"> Merci de remplir tout les champs correctement</div>
+		<div class="alert alert-info" role="alert"> Merci de remplir tous les champs correctement</div>
 
 		<form method="post" class="pure-form pure-form-aligned">
 
 			<div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1">Pseudal</span>
+			  <span class="input-group-addon" id="basic-addon1">Pseudo</span>
 			  <input type="text" class="form-control" name="nickname" placeholder="Votre pseudo" aria-describedby="basic-addon1">
 			</div>
 			<br>
 
 			<div class="input-group">
-			  <span class="input-group-addon" id="basic-addon1">Prenom</span>
+			  <span class="input-group-addon" id="basic-addon1">Prénom</span>
 			  <input type="text" class="form-control" name="firstname" placeholder="Votre prénom" aria-describedby="basic-addon1">
 			</div>
 			<br>
